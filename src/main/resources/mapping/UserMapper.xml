@@ -3,8 +3,8 @@
 <mapper namespace="com.web.machineversion.dao.UserMapper" >
   <resultMap id="BaseResultMap" type="com.web.machineversion.model.entity.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="usernmae" property="usernmae" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
     <result column="rool" property="rool" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, usernmae, password, rool
+    id, user_name, pass_word, rool
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.web.machineversion.model.entity.UserExample" >
     select
@@ -100,9 +100,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.web.machineversion.model.entity.User" >
-    insert into user (id, usernmae, password, 
+    insert into user (id, user_name, pass_word, 
       rool)
-    values (#{id,jdbcType=INTEGER}, #{usernmae,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
       #{rool,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.User" >
@@ -111,11 +111,11 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="usernmae != null" >
-        usernmae,
+      <if test="userName != null" >
+        user_name,
       </if>
-      <if test="password != null" >
-        password,
+      <if test="passWord != null" >
+        pass_word,
       </if>
       <if test="rool != null" >
         rool,
@@ -125,11 +125,11 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="usernmae != null" >
-        #{usernmae,jdbcType=VARCHAR},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
+      <if test="passWord != null" >
+        #{passWord,jdbcType=VARCHAR},
       </if>
       <if test="rool != null" >
         #{rool,jdbcType=INTEGER},
@@ -148,11 +148,11 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.usernmae != null" >
-        usernmae = #{record.usernmae,jdbcType=VARCHAR},
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null" >
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.passWord != null" >
+        pass_word = #{record.passWord,jdbcType=VARCHAR},
       </if>
       <if test="record.rool != null" >
         rool = #{record.rool,jdbcType=INTEGER},
@@ -165,8 +165,8 @@
   <update id="updateByExample" parameterType="map" >
     update user
     set id = #{record.id,jdbcType=INTEGER},
-      usernmae = #{record.usernmae,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      pass_word = #{record.passWord,jdbcType=VARCHAR},
       rool = #{record.rool,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -175,11 +175,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.web.machineversion.model.entity.User" >
     update user
     <set >
-      <if test="usernmae != null" >
-        usernmae = #{usernmae,jdbcType=VARCHAR},
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
+      <if test="passWord != null" >
+        pass_word = #{passWord,jdbcType=VARCHAR},
       </if>
       <if test="rool != null" >
         rool = #{rool,jdbcType=INTEGER},
@@ -189,8 +189,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.User" >
     update user
-    set usernmae = #{usernmae,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+    set user_name = #{userName,jdbcType=VARCHAR},
+      pass_word = #{passWord,jdbcType=VARCHAR},
       rool = #{rool,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

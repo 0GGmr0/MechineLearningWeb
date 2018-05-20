@@ -1,4 +1,4 @@
 package com.web.machineversion.service;
 
-public class TopicService {
+public interface TopicService {
 }

@@ -2,13 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.web.machineversion.dao.NewsMapper" >
   <resultMap id="BaseResultMap" type="com.web.machineversion.model.entity.News" >
-    <id column="sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="id" property="id" jdbcType="INTEGER" />
+    <id column="news_id" property="newsId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="icon_class" property="iconClass" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.News" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,8 +74,28 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    sequence, id, title, content, status, createtime, updatetime
+    news_id, user_id, title, status, create_time, update_time, type, icon_class, image_url
   </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.web.machineversion.model.entity.NewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.web.machineversion.model.entity.NewsExample" >
     select
     <if test="distinct" >
@@ -86,15 +111,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from news
-    where sequence = #{sequence,jdbcType=INTEGER}
+    where news_id = #{newsId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from news
-    where sequence = #{sequence,jdbcType=INTEGER}
+    where news_id = #{newsId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.web.machineversion.model.entity.NewsExample" >
     delete from news
@@ -103,59 +130,79 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.web.machineversion.model.entity.News" >
-    insert into news (sequence, id, title, 
-      content, status, createtime, 
-      updatetime)
-    values (#{sequence,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{updatetime,jdbcType=TIMESTAMP})
+    insert into news (news_id, user_id, title, 
+      status, create_time, update_time, 
+      type, icon_class, image_url, 
+      content)
+    values (#{newsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{iconClass,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.News" >
     insert into news
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sequence != null" >
-        sequence,
+      <if test="newsId != null" >
+        news_id,
       </if>
-      <if test="id != null" >
-        id,
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="title != null" >
         title,
       </if>
-      <if test="content != null" >
-        content,
-      </if>
       <if test="status != null" >
         status,
       </if>
-      <if test="createtime != null" >
-        createtime,
+      <if test="createTime != null" >
+        create_time,
       </if>
-      <if test="updatetime != null" >
-        updatetime,
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="iconClass != null" >
+        icon_class,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="content != null" >
+        content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sequence != null" >
-        #{sequence,jdbcType=INTEGER},
+      <if test="newsId != null" >
+        #{newsId,jdbcType=INTEGER},
       </if>
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
-      </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatetime != null" >
-        #{updatetime,jdbcType=TIMESTAMP},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="iconClass != null" >
+        #{iconClass,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,41 +215,68 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update news
     <set >
-      <if test="record.sequence != null" >
-        sequence = #{record.sequence,jdbcType=INTEGER},
+      <if test="record.newsId != null" >
+        news_id = #{record.newsId,jdbcType=INTEGER},
       </if>
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=VARCHAR},
-      </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.createtime != null" >
-        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updatetime != null" >
-        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.iconClass != null" >
+        icon_class = #{record.iconClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageUrl != null" >
+        image_url = #{record.imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update news
+    set news_id = #{record.newsId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
+      icon_class = #{record.iconClass,jdbcType=VARCHAR},
+      image_url = #{record.imageUrl,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByExample" parameterType="map" >
     update news
-    set sequence = #{record.sequence,jdbcType=INTEGER},
-      id = #{record.id,jdbcType=INTEGER},
+    set news_id = #{record.newsId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
+      icon_class = #{record.iconClass,jdbcType=VARCHAR},
+      image_url = #{record.imageUrl,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,35 +284,59 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.web.machineversion.model.entity.News" >
     update news
     <set >
-      <if test="id != null" >
-        id = #{id,jdbcType=INTEGER},
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
-      </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null" >
-        createtime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatetime != null" >
-        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="iconClass != null" >
+        icon_class = #{iconClass,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where sequence = #{sequence,jdbcType=INTEGER}
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.web.machineversion.model.entity.News" >
+    update news
+    set user_id = #{userId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      icon_class = #{iconClass,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where news_id = #{newsId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.News" >
     update news
-    set id = #{id,jdbcType=INTEGER},
+    set user_id = #{userId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
-      createtime = #{createtime,jdbcType=TIMESTAMP},
-      updatetime = #{updatetime,jdbcType=TIMESTAMP}
-    where sequence = #{sequence,jdbcType=INTEGER}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      icon_class = #{iconClass,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR}
+    where news_id = #{newsId,jdbcType=INTEGER}
   </update>
 </mapper>

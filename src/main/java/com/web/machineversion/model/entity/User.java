@@ -3,9 +3,9 @@ package com.web.machineversion.model.entity;
 public class User {
     private Integer id;
 
-    private String usernmae;
+    private String userName;
 
-    private String password;
+    private String passWord;
 
     private Integer rool;
 
@@ -17,20 +17,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUsernmae() {
-        return usernmae;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsernmae(String usernmae) {
-        this.usernmae = usernmae == null ? null : usernmae.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setPassWord(String passWord) {
+        this.passWord = passWord == null ? null : passWord.trim();
     }
 
     public Integer getRool() {
