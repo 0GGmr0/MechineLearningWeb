@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class HelloController {
-    @RequestMapping(value = "say", method = RequestMethod.GET)
+    @RequestMapping(value = "hello", method = RequestMethod.GET)
     public String say(HttpServletRequest request) {
         request.setAttribute("say", "heelasdasdasdo");
         return "test";
