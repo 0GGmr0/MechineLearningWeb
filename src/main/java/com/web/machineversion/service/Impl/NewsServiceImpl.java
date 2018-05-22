@@ -58,15 +58,27 @@ public class NewsServiceImpl implements NewsService {
         //获取matter新闻
         newsResult.setMatterList(getMatterInfoList());
 
-        //获取实验室新闻labnews,即type是1
-
-
-
-        //获取学术新闻academic，即type是2
-
-        //获取其他新闻others，即type是3
-
         //获取所有的文章
+        List<NewsInfo> newsInfoList = getNewsInfoList();
+        //实验室新闻labnews,即type是1
+        List<NewsInfo> labNewsList = new ArrayList<>();
+        //学术新闻academic，即type是2
+        List<NewsInfo> academicList = new ArrayList<>();
+        //其他新闻others，即type是3
+        List<NewsInfo> othersList = new ArrayList<>();
+
+        for(NewsInfo news : newsInfoList) {
+            //新闻类型
+            String type = news.getNewsType();
+            switch (type) {
+                case "labnews": labNewsList.add(news);
+                case "academic": academicList.add(news);
+                case "others": othersList.add(news);
+            }
+        }
+        newsResult.setAcademicNewsList(academicList);
+        newsResult.setLabNewsList(labNewsList);
+        newsResult.setOhersList(othersList);
         newsResult.setArticles(getArticleInfoMap());
         return newsResult;
     }

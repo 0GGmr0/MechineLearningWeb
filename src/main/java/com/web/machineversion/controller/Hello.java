@@ -12,11 +12,8 @@ import java.util.Map;
 @RestController
 public class Hello {
     @RequestMapping(value = "hello", method = RequestMethod.GET)
-    public NewsResult say() {
-        NewsResult newsResult = new NewsResult();
-        Map<String, ArticleInfo> map = new HashMap<String, ArticleInfo>();
-        map.put("123", new ArticleInfo());
-        newsResult.setArticles(map);
-        return newsResult;
+    public String say() {
+
+        return "sd";
     }
 }
