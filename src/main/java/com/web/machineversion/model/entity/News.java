@@ -9,6 +9,8 @@ public class News {
 
     private String title;
 
+    private String content;
+
     private Integer status;
 
     private Date createTime;
@@ -21,7 +23,7 @@ public class News {
 
     private String imageUrl;
 
-    private String content;
+    private String overview;
 
     public Integer getNewsId() {
         return newsId;
@@ -45,6 +47,14 @@ public class News {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Integer getStatus() {
@@ -95,11 +105,11 @@ public class News {
         this.imageUrl = imageUrl == null ? null : imageUrl.trim();
     }
 
-    public String getContent() {
-        return content;
+    public String getOverview() {
+        return overview;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setOverview(String overview) {
+        this.overview = overview == null ? null : overview.trim();
     }
 }

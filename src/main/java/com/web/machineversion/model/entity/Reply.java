@@ -7,11 +7,11 @@ public class Reply {
 
     private Integer id;
 
+    private String content;
+
     private Date createTime;
 
     private Date updateTime;
-
-    private String content;
 
     public Integer getSequence() {
         return sequence;
@@ -29,6 +29,14 @@ public class Reply {
         this.id = id;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -43,13 +51,5 @@ public class Reply {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 }

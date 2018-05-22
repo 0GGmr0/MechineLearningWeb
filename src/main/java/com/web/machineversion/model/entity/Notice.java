@@ -7,11 +7,11 @@ public class Notice {
 
     private String title;
 
+    private String content;
+
     private Date createTime;
 
     private Date updateTime;
-
-    private String content;
 
     public Integer getId() {
         return id;
@@ -29,6 +29,14 @@ public class Notice {
         this.title = title == null ? null : title.trim();
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -43,13 +51,5 @@ public class Notice {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 }

@@ -9,11 +9,11 @@ public class Navigation {
 
     private String title;
 
+    private String content;
+
     private Date createTime;
 
     private Date updateTime;
-
-    private String content;
 
     public Integer getSequence() {
         return sequence;
@@ -39,6 +39,14 @@ public class Navigation {
         this.title = title == null ? null : title.trim();
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -53,13 +61,5 @@ public class Navigation {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 }

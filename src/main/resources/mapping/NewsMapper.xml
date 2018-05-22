@@ -5,6 +5,7 @@
     <id column="news_id" property="newsId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -13,7 +14,7 @@
     <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.News" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="overview" property="overview" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,10 +75,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    news_id, user_id, title, status, create_time, update_time, type, icon_class, image_url
+    news_id, user_id, title, content, status, create_time, update_time, type, icon_class, 
+    image_url
   </sql>
   <sql id="Blob_Column_List" >
-    content
+    overview
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.web.machineversion.model.entity.NewsExample" >
     select
@@ -131,13 +133,13 @@
   </delete>
   <insert id="insert" parameterType="com.web.machineversion.model.entity.News" >
     insert into news (news_id, user_id, title, 
-      status, create_time, update_time, 
-      type, icon_class, image_url, 
-      content)
+      content, status, create_time, 
+      update_time, type, icon_class, 
+      image_url, overview)
     values (#{newsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{type,jdbcType=INTEGER}, #{iconClass,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{iconClass,jdbcType=VARCHAR}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{overview,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.News" >
     insert into news
@@ -150,6 +152,9 @@
       </if>
       <if test="title != null" >
         title,
+      </if>
+      <if test="content != null" >
+        content,
       </if>
       <if test="status != null" >
         status,
@@ -169,8 +174,8 @@
       <if test="imageUrl != null" >
         image_url,
       </if>
-      <if test="content != null" >
-        content,
+      <if test="overview != null" >
+        overview,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -182,6 +187,9 @@
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -201,8 +209,8 @@
       <if test="imageUrl != null" >
         #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        #{content,jdbcType=LONGVARCHAR},
+      <if test="overview != null" >
+        #{overview,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -224,6 +232,9 @@
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
@@ -242,8 +253,8 @@
       <if test="record.imageUrl != null" >
         image_url = #{record.imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=LONGVARCHAR},
+      <if test="record.overview != null" >
+        overview = #{record.overview,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -255,13 +266,14 @@
     set news_id = #{record.newsId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       type = #{record.type,jdbcType=INTEGER},
       icon_class = #{record.iconClass,jdbcType=VARCHAR},
       image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=LONGVARCHAR}
+      overview = #{record.overview,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -271,6 +283,7 @@
     set news_id = #{record.newsId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -290,6 +303,9 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -308,8 +324,8 @@
       <if test="imageUrl != null" >
         image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=LONGVARCHAR},
+      <if test="overview != null" >
+        overview = #{overview,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where news_id = #{newsId,jdbcType=INTEGER}
@@ -318,19 +334,21 @@
     update news
     set user_id = #{userId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       type = #{type,jdbcType=INTEGER},
       icon_class = #{iconClass,jdbcType=VARCHAR},
       image_url = #{imageUrl,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
+      overview = #{overview,jdbcType=LONGVARCHAR}
     where news_id = #{newsId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.News" >
     update news
     set user_id = #{userId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
