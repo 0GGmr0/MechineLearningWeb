@@ -12,5 +12,5 @@ public class MatterInfo {
     @JsonProperty("type")
     private String matterType;
     @JsonProperty("newsId")
-    private Integer matterNewsId;
+    private String matterNewsId;
 }

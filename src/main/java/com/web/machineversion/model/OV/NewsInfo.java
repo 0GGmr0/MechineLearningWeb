@@ -10,7 +10,7 @@ public class NewsInfo {
     @JsonProperty("type")
     private String newsType;
     @JsonProperty("newsId")
-    private Integer newsId;
+    private String newsId;
     @JsonProperty("time")
     private String newsCreateTime;
     @JsonProperty("author")

@@ -2,10 +2,7 @@ package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.NewsMapper;
 import com.web.machineversion.dao.UserMapper;
-import com.web.machineversion.model.OV.ArticleInfo;
-import com.web.machineversion.model.OV.MatterInfo;
-import com.web.machineversion.model.OV.NewsInfo;
-import com.web.machineversion.model.OV.NewsResult;
+import com.web.machineversion.model.OV.*;
 import com.web.machineversion.model.entity.News;
 import com.web.machineversion.model.entity.NewsExample;
 import com.web.machineversion.model.entity.User;
@@ -17,6 +14,8 @@ import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.web.machineversion.model.ResultCode.SUCCESS;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -32,7 +31,7 @@ public class NewsServiceImpl implements NewsService {
      * 2是学术新闻
      * 3是其他
      */
-    private String newsType(News news) {
+    private String newsTypeNumToString(News news) {
         Integer typeInt = news.getType();
         if(typeInt == 1) return "labnews";
         else if(typeInt == 2) return "academic";
@@ -73,9 +72,9 @@ public class NewsServiceImpl implements NewsService {
             //新闻类型
             String type = news.getNewsType();
             switch (type) {
-                case "labnews": labNewsList.add(news);
-                case "academic": academicList.add(news);
-                case "others": othersList.add(news);
+                case "labnews": labNewsList.add(news); break;
+                case "academic": academicList.add(news); break;
+                case "others": othersList.add(news); break;
             }
         }
         newsResult.setAcademicNewsList(academicList);
@@ -100,9 +99,9 @@ public class NewsServiceImpl implements NewsService {
             for(News news : newsList) {
                 MatterInfo matterInfo = new MatterInfo();
                 matterInfo.setMatterIconClass(news.getIconClass());
-                matterInfo.setMatterNewsId(news.getNewsId());
+                matterInfo.setMatterNewsId(news.getNewsId().toString());
                 matterInfo.setMatterTitle(news.getTitle());
-                matterInfo.setMatterType(newsType(news));
+                matterInfo.setMatterType(newsTypeNumToString(news));
                 matterInfoList.add(matterInfo);
             }
             return matterInfoList;
@@ -131,7 +130,7 @@ public class NewsServiceImpl implements NewsService {
                 articleInfo.setNewsContent(news.getContent());
                 articleInfo.setNewsCreateTime(changeTimeFormat(news));
                 articleInfo.setNewsTitle(news.getTitle());
-                articleInfo.setNewsType(newsType(news));
+                articleInfo.setNewsType(newsTypeNumToString(news));
                 stringArticleInfoMap.put(news.getNewsId().toString(), articleInfo);
             }
             return stringArticleInfoMap;
@@ -145,9 +144,9 @@ public class NewsServiceImpl implements NewsService {
         //获取所有的新闻
         NewsExample newsExample = new NewsExample();
         newsExample.createCriteria()
-                .andTypeEqualTo(1);
+                .andNewsIdIsNotNull();
         //把通过Example获取得到matter新闻存到list里面
-        List<News> newsList = newsMapper.selectByExample(newsExample);
+        List<News> newsList = newsMapper.selectByExampleWithBLOBs(newsExample);
         List<NewsInfo> NewsInfoList = new ArrayList<>();
 
         //把news数据拼接成matterInfoList
@@ -156,10 +155,10 @@ public class NewsServiceImpl implements NewsService {
                 NewsInfo newsInfo = new NewsInfo();
                 newsInfo.setNewsAuthor(newsAuthor(news));
                 newsInfo.setNewsCreateTime(changeTimeFormat(news));
-                newsInfo.setNewsId(news.getNewsId());
+                newsInfo.setNewsId(news.getNewsId().toString());
                 newsInfo.setNewsImageUrl(news.getImageUrl());
                 newsInfo.setNewsTitle(news.getTitle());
-                newsInfo.setNewsType(newsType(news));
+                newsInfo.setNewsType(newsTypeNumToString(news));
                 newsInfo.setNewsOverview(news.getOverview());
                 NewsInfoList.add(newsInfo);
             }
@@ -167,5 +166,36 @@ public class NewsServiceImpl implements NewsService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Result getNewsType() {
+        Result<NewsTypeResult> result = new Result<>();
+        NewsTypeResult newsTypeResult = new NewsTypeResult();
+        List<NewsExplanation> newsExplanationList = new ArrayList<>();
+        for(int i = 1; i <= 3; i++) {
+            NewsExplanation newsExplanation = new NewsExplanation();
+            switch (i) {
+                case 1 :
+                    newsExplanation.setNewsChineseLabel("实验室动态");
+                    newsExplanation.setNewsValue("labnews");
+                    break;
+                case 2 :
+                    newsExplanation.setNewsChineseLabel("学界重要新闻");
+                    newsExplanation.setNewsValue("academic");
+                    break;
+                case 3 :
+                    newsExplanation.setNewsChineseLabel("其他新闻");
+                    newsExplanation.setNewsValue("others");
+                    break;
+            }
+            newsExplanationList.add(newsExplanation);
+        }
+        newsTypeResult.setNewsExplanationList(newsExplanationList);
+        newsTypeResult.setTypeNum(3);
+        result.setCode(SUCCESS);
+        result.setMessage(null);
+        result.setData(newsTypeResult);
+        return result;
     }
 }
