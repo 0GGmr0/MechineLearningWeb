@@ -22,11 +22,6 @@ public class NewsController {
         return newsService.getNews();
     }
 
-    @RequestMapping(value = "/av", method = RequestMethod.GET)
-    public String List() {
-        return "sd";
-    }
-
 }
 
 
