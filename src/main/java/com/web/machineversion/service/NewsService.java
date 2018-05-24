@@ -1,6 +1,6 @@
 package com.web.machineversion.service;
 
-import com.web.machineversion.model.JsonRequestBody.AddNewsQueryJson;
+import com.web.machineversion.model.JsonRequestBody.NewsQueryJson;
 import com.web.machineversion.model.OV.*;
 
 import java.util.List;
@@ -18,6 +18,8 @@ public interface NewsService {
     //获取新闻所有的种类
     Result getNewsType();
     //添加一条新的新闻
-    Result AddNewNews(Integer userId, AddNewsQueryJson addNewsQueryJson);
+    Result AddNewNews(Integer userId, NewsQueryJson newsQueryJson);
+    //修改一条新闻
+    Result ModifyNews(Integer userId, NewsQueryJson newsQueryJson);
 
 }

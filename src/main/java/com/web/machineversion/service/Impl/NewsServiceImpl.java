@@ -2,7 +2,7 @@ package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.NewsMapper;
 import com.web.machineversion.dao.UserMapper;
-import com.web.machineversion.model.JsonRequestBody.AddNewsQueryJson;
+import com.web.machineversion.model.JsonRequestBody.NewsQueryJson;
 import com.web.machineversion.model.OV.*;
 import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.entity.News;
@@ -10,6 +10,7 @@ import com.web.machineversion.model.entity.NewsExample;
 import com.web.machineversion.model.entity.User;
 import com.web.machineversion.model.entity.UserExample;
 import com.web.machineversion.service.NewsService;
+import com.web.machineversion.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,7 +23,8 @@ import static com.web.machineversion.model.ResultCode.SUCCESS;
 @Service
 public class NewsServiceImpl implements NewsService {
 
-    private static Integer newsId = 3;
+    @Resource
+    private UserService userService;
 
     @Resource
     private NewsMapper newsMapper;
@@ -56,7 +58,7 @@ public class NewsServiceImpl implements NewsService {
 
     //把Date类型的数据转换成String类型的
     private String changeTimeFormat(News news) {
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         return dateFormat.format(news.getUpdateTime());
     }
 
@@ -219,22 +221,20 @@ public class NewsServiceImpl implements NewsService {
 
     //添加一条新的新闻
     @Override
-    public Result AddNewNews(Integer userId, AddNewsQueryJson addNewsQueryJson) {
-        //新闻Id加1
-        newsId++;
+    public Result AddNewNews(Integer userId, NewsQueryJson newsQueryJson) {
+
         //添加新闻的标题
-        String title = addNewsQueryJson.getTitle();
+        String title = newsQueryJson.getTitle();
         //添加新闻的种类
-        Integer type = newsTypeStringToInteger(addNewsQueryJson.getType());
+        Integer type = newsTypeStringToInteger(newsQueryJson.getType());
         //添加新闻的内容
-        String content = addNewsQueryJson.getContent();
+        String content = newsQueryJson.getContent();
         //默认新闻都是非重要的
         Integer status = 2;
         //这个是殷子良要求的 天知道是啥意思
         String iconClass = "el-icon-document";
 
         News news = new News();
-        news.setNewsId(newsId);
         news.setUserId(userId);
         news.setTitle(title);
         news.setType(type);
@@ -249,13 +249,31 @@ public class NewsServiceImpl implements NewsService {
             return  ResultTool.error();
         }
     }
-
-
-    //书写一个新的新闻到数据库
-//    {
-//        "title":"热烈庆祝Actooors组织成立",
-//        "type":"labnews",
-//        "content":"<h1>很好</h1><p>以后继续努力</p>"
-//    }
+    @Override
+    public Result ModifyNews(Integer userId, NewsQueryJson newsQueryJson) {
+        if(userService.IsAbleToModifyNews(userId, newsQueryJson)) {
+            Integer newsId = newsQueryJson.getNews();
+            String newsTitle = newsQueryJson.getTitle();
+            String originNewsType = newsQueryJson.getType();
+            String newsContent = newsQueryJson.getContent();
+            News upDatePart = new News();
+            if (originNewsType != null)
+                upDatePart.setType(newsTypeStringToInteger(originNewsType));
+            if (newsId != null)
+                upDatePart.setNewsId(newsId);
+            if (newsTitle != null)
+                upDatePart.setTitle(newsTitle);
+            if (newsContent != null)
+                upDatePart.setContent(newsContent);
+//        NewsExample newsExample = new NewsExample();
+//        newsExample.createCriteria()
+//                .andNewsIdEqualTo(newsId);
+            int res = newsMapper.updateByPrimaryKeySelective(upDatePart);
+            if (res > 0) {
+                return ResultTool.success();
+            }
+        }
+        return  ResultTool.error();
+    }
 
 }
