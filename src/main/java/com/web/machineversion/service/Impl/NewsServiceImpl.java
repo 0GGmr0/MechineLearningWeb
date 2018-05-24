@@ -4,6 +4,7 @@ import com.web.machineversion.dao.NewsMapper;
 import com.web.machineversion.dao.UserMapper;
 import com.web.machineversion.model.JsonRequestBody.AddNewsQueryJson;
 import com.web.machineversion.model.OV.*;
+import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.entity.News;
 import com.web.machineversion.model.entity.NewsExample;
 import com.web.machineversion.model.entity.User;
@@ -227,7 +228,9 @@ public class NewsServiceImpl implements NewsService {
         Integer type = newsTypeStringToInteger(addNewsQueryJson.getType());
         //添加新闻的内容
         String content = addNewsQueryJson.getContent();
+        //默认新闻都是非重要的
         Integer status = 2;
+        //这个是殷子良要求的 天知道是啥意思
         String iconClass = "el-icon-document";
 
         News news = new News();

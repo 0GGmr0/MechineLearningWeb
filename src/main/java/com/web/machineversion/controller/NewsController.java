@@ -22,14 +22,16 @@ public class NewsController {
     public NewsResult getMatterList() { return newsService.getNews(); }
 
     //获取新闻所有的种类，英文名字和对应的中文解释
-    @RequestMapping(value = "/NewsType", method = RequestMethod.GET)
+    @RequestMapping(value = "/newsType", method = RequestMethod.GET)
     public Result getNewsType() { return newsService.getNewsType(); }
 
 
-    @RequestMapping(value = "/query/request", method = RequestMethod.POST)
-    public Result QueryRequestList(@RequestBody AddNewsQueryJson addNewsQueryJson,
-                                                      @RequestHeader(value = "Authorization") String token) {
-        Integer userId = JwtUtil.parseJwt(token);
+    @RequestMapping(value = "/addNews", method = RequestMethod.POST)
+    public Result QueryRequestList(@RequestBody AddNewsQueryJson addNewsQueryJson) {
+//        ,
+//        @RequestHeader(value = "Authorization") String token
+//        Integer userId = JwtUtil.parseJwt(token);
+        Integer userId = 16122131;
         return newsService.AddNewNews(userId, addNewsQueryJson);
     }
 

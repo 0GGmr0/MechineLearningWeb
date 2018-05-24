@@ -1,4 +1,6 @@
-package com.web.machineversion.model.OV;
+package com.web.machineversion.model;
+
+import com.web.machineversion.model.OV.Result;
 
 import static com.web.machineversion.model.ResultCode.FAILED;
 import static com.web.machineversion.model.ResultCode.SUCCESS;
