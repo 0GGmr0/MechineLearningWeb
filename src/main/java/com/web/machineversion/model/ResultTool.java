@@ -26,4 +26,12 @@ public class ResultTool {
         result.setData(null);
         return result;
     }
+
+    public static Result PermissionsError(){
+        Result result = new Result();
+        result.setCode(FAILED);
+        result.setData(null);
+        result.setMessage("对不起，您没有权限");
+        return result;
+    }
 }

@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public boolean IsAbleToModifyNews(Integer userId, NewsQueryJson newsQueryJson) {
+    public boolean IsAbleToEditNews(Integer userId, NewsQueryJson newsQueryJson) {
         Integer newsId = newsQueryJson.getNews();
         NewsExample newsExample = new NewsExample();
         newsExample.createCriteria()

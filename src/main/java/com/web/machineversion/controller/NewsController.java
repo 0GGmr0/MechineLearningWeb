@@ -28,7 +28,7 @@ public class NewsController {
     @RequestMapping(value = "/newsType", method = RequestMethod.GET)
     public Result getNewsType() { return newsService.getNewsType(); }
 
-
+    //添加一条新的新闻
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
     public Result QueryAddNews(@RequestBody NewsQueryJson newsQueryJson) {
 //        ,
@@ -38,11 +38,21 @@ public class NewsController {
         return newsService.AddNewNews(userId, newsQueryJson);
     }
 
+    //修改一条新闻
     @RequestMapping(value = "/modifyNews", method = RequestMethod.POST)
     public Result QueryModifyNews(@RequestBody NewsQueryJson newsQueryJson) {
         //@RequestHeader(value = "Authorization") String token
         Integer userId = 16122131;
         return newsService.ModifyNews(userId, newsQueryJson);
+
+    }
+
+    //删除一条新闻
+    @RequestMapping(value = "/deleteNews", method = RequestMethod.POST)
+    public Result QueryDeleteNews(@RequestBody NewsQueryJson newsQueryJson) {
+        //@RequestHeader(value = "Authorization") String token
+        Integer userId = 16121666;
+        return newsService.DeleteNews(userId, newsQueryJson);
 
     }
 }

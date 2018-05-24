@@ -251,7 +251,7 @@ public class NewsServiceImpl implements NewsService {
     }
     @Override
     public Result ModifyNews(Integer userId, NewsQueryJson newsQueryJson) {
-        if(userService.IsAbleToModifyNews(userId, newsQueryJson)) {
+        if(userService.IsAbleToEditNews(userId, newsQueryJson)) {
             Integer newsId = newsQueryJson.getNews();
             String newsTitle = newsQueryJson.getTitle();
             String originNewsType = newsQueryJson.getType();
@@ -274,6 +274,18 @@ public class NewsServiceImpl implements NewsService {
             }
         }
         return  ResultTool.error();
+    }
+
+    @Override
+    public Result DeleteNews(Integer userId, NewsQueryJson newsQueryJson) {
+        if(userService.IsAbleToEditNews(userId, newsQueryJson)) {
+            Integer newsId = newsQueryJson.getNews();
+            int res = newsMapper.deleteByPrimaryKey(newsId);
+            if (res > 0) {
+                return ResultTool.success();
+            }
+        }
+        return  ResultTool.PermissionsError();
     }
 
 }

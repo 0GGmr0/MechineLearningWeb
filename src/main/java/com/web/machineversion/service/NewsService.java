@@ -21,5 +21,7 @@ public interface NewsService {
     Result AddNewNews(Integer userId, NewsQueryJson newsQueryJson);
     //修改一条新闻
     Result ModifyNews(Integer userId, NewsQueryJson newsQueryJson);
+    //删除一条新闻，依据的是新闻Id
+    Result DeleteNews(Integer userId, NewsQueryJson newsQueryJson);
 
 }
