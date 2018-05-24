@@ -2,6 +2,7 @@ package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.NewsMapper;
 import com.web.machineversion.dao.UserMapper;
+import com.web.machineversion.model.JsonRequestBody.AddNewsQueryJson;
 import com.web.machineversion.model.OV.*;
 import com.web.machineversion.model.entity.News;
 import com.web.machineversion.model.entity.NewsExample;
@@ -20,6 +21,8 @@ import static com.web.machineversion.model.ResultCode.SUCCESS;
 @Service
 public class NewsServiceImpl implements NewsService {
 
+    private static Integer newsId = 3;
+
     @Resource
     private NewsMapper newsMapper;
 
@@ -31,12 +34,16 @@ public class NewsServiceImpl implements NewsService {
      * 2是学术新闻
      * 3是其他
      */
-    private String newsTypeNumToString(News news) {
+    private String newsTypeIntegerToString(News news) {
         Integer typeInt = news.getType();
-        if(typeInt == 1) return "labnews";
-        else if(typeInt == 2) return "academic";
-        else return "others";
+        switch (typeInt) {
+            case 1 : return "labnews";
+            case 2 : return "academic";
+            case 3 : return "others";
+        }
+        return null;
     }
+
     //通过userid找到作者
     private String newsAuthor(News news) {
         UserExample userExample = new UserExample();
@@ -101,7 +108,7 @@ public class NewsServiceImpl implements NewsService {
                 matterInfo.setMatterIconClass(news.getIconClass());
                 matterInfo.setMatterNewsId(news.getNewsId().toString());
                 matterInfo.setMatterTitle(news.getTitle());
-                matterInfo.setMatterType(newsTypeNumToString(news));
+                matterInfo.setMatterType(newsTypeIntegerToString(news));
                 matterInfoList.add(matterInfo);
             }
             return matterInfoList;
@@ -130,7 +137,7 @@ public class NewsServiceImpl implements NewsService {
                 articleInfo.setNewsContent(news.getContent());
                 articleInfo.setNewsCreateTime(changeTimeFormat(news));
                 articleInfo.setNewsTitle(news.getTitle());
-                articleInfo.setNewsType(newsTypeNumToString(news));
+                articleInfo.setNewsType(newsTypeIntegerToString(news));
                 stringArticleInfoMap.put(news.getNewsId().toString(), articleInfo);
             }
             return stringArticleInfoMap;
@@ -158,7 +165,7 @@ public class NewsServiceImpl implements NewsService {
                 newsInfo.setNewsId(news.getNewsId().toString());
                 newsInfo.setNewsImageUrl(news.getImageUrl());
                 newsInfo.setNewsTitle(news.getTitle());
-                newsInfo.setNewsType(newsTypeNumToString(news));
+                newsInfo.setNewsType(newsTypeIntegerToString(news));
                 newsInfo.setNewsOverview(news.getOverview());
                 NewsInfoList.add(newsInfo);
             }
@@ -198,4 +205,54 @@ public class NewsServiceImpl implements NewsService {
         result.setData(newsTypeResult);
         return result;
     }
+
+    //将新闻种类从String转换成对应数据库中的int类型
+    private Integer newsTypeStringToInteger(String typeString) {
+        switch (typeString){
+            case "labnews" : return 1;
+            case "academic" : return 2;
+            case "others" : return 3;
+        }
+        return null;
+    }
+
+    //添加一条新的新闻
+    @Override
+    public Result AddNewNews(Integer userId, AddNewsQueryJson addNewsQueryJson) {
+        //新闻Id加1
+        newsId++;
+        //添加新闻的标题
+        String title = addNewsQueryJson.getTitle();
+        //添加新闻的种类
+        Integer type = newsTypeStringToInteger(addNewsQueryJson.getType());
+        //添加新闻的内容
+        String content = addNewsQueryJson.getContent();
+        Integer status = 2;
+        String iconClass = "el-icon-document";
+
+        News news = new News();
+        news.setNewsId(newsId);
+        news.setUserId(userId);
+        news.setTitle(title);
+        news.setType(type);
+        news.setContent(content);
+        news.setStatus(status);
+        news.setIconClass(iconClass);
+
+        int res = newsMapper.insert(news);
+        if(res > 0) {
+            return  ResultTool.success();
+        } else {
+            return  ResultTool.error();
+        }
+    }
+
+
+    //书写一个新的新闻到数据库
+//    {
+//        "title":"热烈庆祝Actooors组织成立",
+//        "type":"labnews",
+//        "content":"<h1>很好</h1><p>以后继续努力</p>"
+//    }
+
 }
