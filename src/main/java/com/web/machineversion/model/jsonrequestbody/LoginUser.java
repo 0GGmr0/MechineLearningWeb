@@ -10,6 +10,18 @@ public class LoginUser extends User {
 
     @JsonIgnore
     @Override
+    public Integer getLoginTimes() { return super.getLoginTimes(); }
+
+    @JsonIgnore
+    @Override
+    public String getSchool() { return super.getSchool(); }
+
+    @JsonIgnore
+    @Override
+    public Integer getBackground() { return super.getBackground(); }
+
+    @JsonIgnore
+    @Override
     public String getUserName() { return super.getUserName(); }
 
     @JsonIgnore

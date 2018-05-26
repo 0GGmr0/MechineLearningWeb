@@ -1,5 +1,7 @@
 package com.web.machineversion.service;
 
+import com.web.machineversion.model.OV.Result;
+import com.web.machineversion.model.jsonrequestbody.LoginUser;
 import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
 
@@ -10,4 +12,6 @@ public interface UserService {
     boolean IsAdmin(Integer userId);
     //返回用户信息
     UserMessageResult getUserMessage(Integer userId);
+    //登录
+    Result login(LoginUser user);
 }
