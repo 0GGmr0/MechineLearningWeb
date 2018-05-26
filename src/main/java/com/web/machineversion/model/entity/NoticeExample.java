@@ -365,63 +365,133 @@ public class NoticeExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeIsNull() {
-            addCriterion("update_time is null");
+        public Criteria andTypeIsNull() {
+            addCriterion("type is null");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeIsNotNull() {
-            addCriterion("update_time is not null");
+        public Criteria andTypeIsNotNull() {
+            addCriterion("type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeEqualTo(Date value) {
-            addCriterion("update_time =", value, "updateTime");
+        public Criteria andTypeEqualTo(String value) {
+            addCriterion("type =", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotEqualTo(Date value) {
-            addCriterion("update_time <>", value, "updateTime");
+        public Criteria andTypeNotEqualTo(String value) {
+            addCriterion("type <>", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeGreaterThan(Date value) {
-            addCriterion("update_time >", value, "updateTime");
+        public Criteria andTypeGreaterThan(String value) {
+            addCriterion("type >", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("update_time >=", value, "updateTime");
+        public Criteria andTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("type >=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeLessThan(Date value) {
-            addCriterion("update_time <", value, "updateTime");
+        public Criteria andTypeLessThan(String value) {
+            addCriterion("type <", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("update_time <=", value, "updateTime");
+        public Criteria andTypeLessThanOrEqualTo(String value) {
+            addCriterion("type <=", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeIn(List<Date> values) {
-            addCriterion("update_time in", values, "updateTime");
+        public Criteria andTypeLike(String value) {
+            addCriterion("type like", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotIn(List<Date> values) {
-            addCriterion("update_time not in", values, "updateTime");
+        public Criteria andTypeNotLike(String value) {
+            addCriterion("type not like", value, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeBetween(Date value1, Date value2) {
-            addCriterion("update_time between", value1, value2, "updateTime");
+        public Criteria andTypeIn(List<String> values) {
+            addCriterion("type in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("update_time not between", value1, value2, "updateTime");
+        public Criteria andTypeNotIn(List<String> values) {
+            addCriterion("type not in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeBetween(String value1, String value2) {
+            addCriterion("type between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotBetween(String value1, String value2) {
+            addCriterion("type not between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeIsNull() {
+            addCriterion("event_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeIsNotNull() {
+            addCriterion("event_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeEqualTo(Date value) {
+            addCriterion("event_time =", value, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeNotEqualTo(Date value) {
+            addCriterion("event_time <>", value, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeGreaterThan(Date value) {
+            addCriterion("event_time >", value, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("event_time >=", value, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeLessThan(Date value) {
+            addCriterion("event_time <", value, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeLessThanOrEqualTo(Date value) {
+            addCriterion("event_time <=", value, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeIn(List<Date> values) {
+            addCriterion("event_time in", values, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeNotIn(List<Date> values) {
+            addCriterion("event_time not in", values, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeBetween(Date value1, Date value2) {
+            addCriterion("event_time between", value1, value2, "eventTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEventTimeNotBetween(Date value1, Date value2) {
+            addCriterion("event_time not between", value1, value2, "eventTime");
             return (Criteria) this;
         }
     }
