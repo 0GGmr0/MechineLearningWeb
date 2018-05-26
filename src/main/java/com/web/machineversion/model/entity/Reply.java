@@ -3,9 +3,9 @@ package com.web.machineversion.model.entity;
 import java.util.Date;
 
 public class Reply {
-    private Integer sequence;
+    private Integer replyId;
 
-    private Integer id;
+    private Integer userId;
 
     private String content;
 
@@ -13,20 +13,20 @@ public class Reply {
 
     private Date updateTime;
 
-    public Integer getSequence() {
-        return sequence;
+    public Integer getReplyId() {
+        return replyId;
     }
 
-    public void setSequence(Integer sequence) {
-        this.sequence = sequence;
+    public void setReplyId(Integer replyId) {
+        this.replyId = replyId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getContent() {

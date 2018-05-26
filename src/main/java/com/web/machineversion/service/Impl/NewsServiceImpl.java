@@ -51,14 +51,14 @@ public class NewsServiceImpl implements NewsService {
     private String newsAuthor(News news) {
         UserExample userExample = new UserExample();
         userExample.createCriteria()
-                .andIdEqualTo(news.getUserId());
+                .andUserIdEqualTo(news.getUserId());
         List<User> userList =  userMapper.selectByExample(userExample);
         return userList.get(0).getUserName();
     }
 
     //把Date类型的数据转换成String类型的
     private String changeTimeFormat(News news) {
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(news.getUpdateTime());
     }
 

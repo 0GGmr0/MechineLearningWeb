@@ -86,5 +86,11 @@
             enableDeleteByExample="true"
             enableSelectByExample="true"
             selectByExampleQueryId="true"/>
+        <table tableName="topic_msg" domainObjectName="TopicMsg"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
     </context>
 </generatorConfiguration>

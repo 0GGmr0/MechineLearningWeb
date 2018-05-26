@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 
 @RestController
-@RequestMapping(value = "/api/news")
+@RequestMapping(value = "/news")
 public class NewsController {
 
     @Resource
