@@ -2,7 +2,7 @@ package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.NewsMapper;
 import com.web.machineversion.dao.UserMapper;
-import com.web.machineversion.model.JsonRequestBody.NewsQueryJson;
+import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.*;
 import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.entity.News;
@@ -47,6 +47,14 @@ public class NewsServiceImpl implements NewsService {
         return null;
     }
 
+    private Integer newsTypeStringToInter(String newsType) {
+        if(newsType.equals("labnews")) return 1;
+        if(newsType.equals("academic")) return 2;
+        if(newsType.equals("others")) return 3;
+        return -1;
+    }
+
+
     //通过userid找到作者
     private String newsAuthor(News news) {
         UserExample userExample = new UserExample();
@@ -62,40 +70,9 @@ public class NewsServiceImpl implements NewsService {
         return dateFormat.format(news.getUpdateTime());
     }
 
-    @Override
-    public NewsResult getNews() {
-        NewsResult newsResult = new NewsResult();
-
-        //获取matter新闻
-        newsResult.setMatterList(getMatterInfoList());
-
-        //获取所有的文章
-        List<NewsInfo> newsInfoList = getNewsInfoList();
-        //实验室新闻labnews,即type是1
-        List<NewsInfo> labNewsList = new ArrayList<>();
-        //学术新闻academic，即type是2
-        List<NewsInfo> academicList = new ArrayList<>();
-        //其他新闻others，即type是3
-        List<NewsInfo> othersList = new ArrayList<>();
-
-        for(NewsInfo news : newsInfoList) {
-            //新闻类型
-            String type = news.getNewsType();
-            switch (type) {
-                case "labnews": labNewsList.add(news); break;
-                case "academic": academicList.add(news); break;
-                case "others": othersList.add(news); break;
-            }
-        }
-        newsResult.setAcademicNewsList(academicList);
-        newsResult.setLabNewsList(labNewsList);
-        newsResult.setOhersList(othersList);
-        newsResult.setArticles(getArticleInfoMap());
-        return newsResult;
-    }
 
     @Override
-    public List<MatterInfo> getMatterInfoList() {
+    public Result getMatterInfoList() {
         //获取status是1也就是matter级别的新闻
         NewsExample newsExample = new NewsExample();
         newsExample.createCriteria()
@@ -103,7 +80,6 @@ public class NewsServiceImpl implements NewsService {
         //把通过Example获取得到matter新闻存到list里面
         List<News> newsList = newsMapper.selectByExample(newsExample);
         List<MatterInfo> matterInfoList = new ArrayList<>();
-
         //把news数据拼接成matterInfoList
         if(newsList != null) {
             for(News news : newsList) {
@@ -114,68 +90,62 @@ public class NewsServiceImpl implements NewsService {
                 matterInfo.setMatterType(newsTypeIntegerToString(news));
                 matterInfoList.add(matterInfo);
             }
-            return matterInfoList;
+            return ResultTool.success(matterInfoList);
         } else {
-            return null;
+            return ResultTool.error();
         }
     }
 
     @Override
-    public Map<String, ArticleInfo> getArticleInfoMap() {
+    public Result getArticleInfo(Integer newsId) {
 
         //获取type是1也就是实验室新闻labnews
         NewsExample newsExample = new NewsExample();
         //获取到全部新闻
         newsExample.createCriteria()
-                .andNewsIdIsNotNull();
+                .andNewsIdEqualTo(newsId);
         //把通过Example获取得到matter新闻存到list里面
         List<News> newsList = newsMapper.selectByExampleWithBLOBs(newsExample);
-        Map<String, ArticleInfo> stringArticleInfoMap = new HashMap<>();
-
+        if(newsList.isEmpty())
+            return ResultTool.error("请求数据有误");
+        News news = newsList.get(0);
         //把news数据拼接成stringArticleInfoMap
-        if(newsList != null) {
-            for(News news : newsList) {
-                ArticleInfo articleInfo = new ArticleInfo();
-                articleInfo.setEnwsAuthor(newsAuthor(news));
-                articleInfo.setNewsContent(news.getContent());
-                articleInfo.setNewsCreateTime(changeTimeFormat(news));
-                articleInfo.setNewsTitle(news.getTitle());
-                articleInfo.setNewsType(newsTypeIntegerToString(news));
-                stringArticleInfoMap.put(news.getNewsId().toString(), articleInfo);
-            }
-            return stringArticleInfoMap;
-        } else {
-            return null;
-        }
+        ArticleInfo articleInfo = new ArticleInfo();
+        articleInfo.setEnwsAuthor(newsAuthor(news));
+        articleInfo.setNewsContent(news.getContent());
+        articleInfo.setNewsCreateTime(changeTimeFormat(news));
+        articleInfo.setNewsTitle(news.getTitle());
+        articleInfo.setNewsType(newsTypeIntegerToString(news));
+        return ResultTool.success(articleInfo);
     }
 
     @Override
-    public List<NewsInfo> getNewsInfoList() {
-        //获取所有的新闻
+    public Result getNewsInfoList(String newsType) {
+        //获取指定种类的新闻
+//        String newsType = newsQueryJson.getType();
         NewsExample newsExample = new NewsExample();
         newsExample.createCriteria()
-                .andNewsIdIsNotNull();
+                .andTypeEqualTo(newsTypeStringToInter(newsType));
         //把通过Example获取得到matter新闻存到list里面
         List<News> newsList = newsMapper.selectByExampleWithBLOBs(newsExample);
-        List<NewsInfo> NewsInfoList = new ArrayList<>();
+        List<NewsInfo> newsInfoList = new ArrayList<>();
 
         //把news数据拼接成matterInfoList
-        if(newsList != null) {
-            for(News news : newsList) {
-                NewsInfo newsInfo = new NewsInfo();
-                newsInfo.setNewsAuthor(newsAuthor(news));
-                newsInfo.setNewsCreateTime(changeTimeFormat(news));
-                newsInfo.setNewsId(news.getNewsId().toString());
-                newsInfo.setNewsImageUrl(news.getImageUrl());
-                newsInfo.setNewsTitle(news.getTitle());
-                newsInfo.setNewsType(newsTypeIntegerToString(news));
-                newsInfo.setNewsOverview(news.getOverview());
-                NewsInfoList.add(newsInfo);
-            }
-            return NewsInfoList;
-        } else {
-            return null;
+        if(newsList.isEmpty()) {
+            return ResultTool.error("请求格式有误");
         }
+        for(News news : newsList) {
+            NewsInfo newsInfo = new NewsInfo();
+            newsInfo.setNewsAuthor(newsAuthor(news));
+            newsInfo.setNewsCreateTime(changeTimeFormat(news));
+            newsInfo.setNewsId(news.getNewsId().toString());
+            newsInfo.setNewsImageUrl(news.getImageUrl());
+            newsInfo.setNewsTitle(news.getTitle());
+            newsInfo.setNewsType(newsTypeIntegerToString(news));
+            newsInfo.setNewsOverview(news.getOverview());
+            newsInfoList.add(newsInfo);
+        }
+        return ResultTool.success(newsInfoList);
     }
 
     @Override
@@ -252,7 +222,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public Result ModifyNews(Integer userId, NewsQueryJson newsQueryJson) {
         if(userService.IsAbleToEditNews(userId, newsQueryJson)) {
-            Integer newsId = newsQueryJson.getNews();
+            Integer newsId = newsQueryJson.getNewsId();
             String newsTitle = newsQueryJson.getTitle();
             String originNewsType = newsQueryJson.getType();
             String newsContent = newsQueryJson.getContent();
@@ -279,7 +249,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public Result DeleteNews(Integer userId, NewsQueryJson newsQueryJson) {
         if(userService.IsAbleToEditNews(userId, newsQueryJson)) {
-            Integer newsId = newsQueryJson.getNews();
+            Integer newsId = newsQueryJson.getNewsId();
             int res = newsMapper.deleteByPrimaryKey(newsId);
             if (res > 0) {
                 return ResultTool.success();

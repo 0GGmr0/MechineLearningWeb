@@ -2,7 +2,7 @@ package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.NewsMapper;
 import com.web.machineversion.dao.UserMapper;
-import com.web.machineversion.model.JsonRequestBody.NewsQueryJson;
+import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
 import com.web.machineversion.model.entity.News;
 import com.web.machineversion.model.entity.NewsExample;
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean IsAbleToEditNews(Integer userId, NewsQueryJson newsQueryJson) {
-        Integer newsId = newsQueryJson.getNews();
+        Integer newsId = newsQueryJson.getNewsId();
         NewsExample newsExample = new NewsExample();
         newsExample.createCriteria()
                 .andNewsIdEqualTo(newsId);

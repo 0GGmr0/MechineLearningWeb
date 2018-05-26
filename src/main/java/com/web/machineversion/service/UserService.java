@@ -1,6 +1,6 @@
 package com.web.machineversion.service;
 
-import com.web.machineversion.model.JsonRequestBody.NewsQueryJson;
+import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
 
 public interface UserService {

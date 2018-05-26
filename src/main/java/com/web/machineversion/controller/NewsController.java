@@ -1,7 +1,6 @@
 package com.web.machineversion.controller;
 
-import com.web.machineversion.model.JsonRequestBody.NewsQueryJson;
-import com.web.machineversion.model.OV.NewsResult;
+import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.Result;
 import com.web.machineversion.service.NewsService;
 import com.web.machineversion.service.UserService;
@@ -12,6 +11,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping(value = "/news")
+@CrossOrigin("localhost")
 public class NewsController {
 
     @Resource
@@ -20,9 +20,21 @@ public class NewsController {
     @Resource
     private UserService userService;
 
-    //获取新闻
-    @RequestMapping(value = "/availableNews", method = RequestMethod.GET)
-    public NewsResult getMatterList() { return newsService.getNews(); }
+    //获取重要新闻
+    @RequestMapping(value = "/matterNews", method = RequestMethod.GET)
+    public Result getMatterList() { return newsService.getMatterInfoList(); }
+
+    //获取指定种类的新闻
+    @RequestMapping(value = "/assignationNews", method = RequestMethod.GET)
+    public Result getNews(@RequestHeader(value = "type") String newsType) {
+        return newsService.getNewsInfoList(newsType);
+    }
+
+    //获取指定新闻Id的新闻
+    @RequestMapping(value = "/assignationArticle", method = RequestMethod.GET)
+    public Result getArticle(@RequestHeader(value = "newsId") Integer newsId) {
+        return newsService.getArticleInfo(newsId);
+    }
 
     //获取新闻所有的种类，英文名字和对应的中文解释
     @RequestMapping(value = "/newsType", method = RequestMethod.GET)

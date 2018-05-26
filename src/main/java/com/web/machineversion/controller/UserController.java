@@ -1,6 +1,6 @@
 package com.web.machineversion.controller;
 
-import com.web.machineversion.model.JsonRequestBody.UserQueryJson;
+import com.web.machineversion.model.jsonrequestbody.UserQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
 import com.web.machineversion.service.UserService;
 import org.springframework.web.bind.annotation.RequestBody;

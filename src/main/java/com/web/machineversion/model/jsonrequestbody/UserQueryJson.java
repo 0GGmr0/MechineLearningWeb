@@ -1,5 +1,4 @@
-package com.web.machineversion.model.JsonRequestBody;
-
+package com.web.machineversion.model.jsonrequestbody;
 import lombok.Data;
 
 @Data

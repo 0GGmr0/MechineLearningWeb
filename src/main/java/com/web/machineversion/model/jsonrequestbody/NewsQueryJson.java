@@ -1,6 +1,5 @@
-package com.web.machineversion.model.JsonRequestBody;
+package com.web.machineversion.model.jsonrequestbody;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 //{
@@ -12,7 +11,7 @@ import lombok.Data;
 @Data
 public class NewsQueryJson {
 //    @JSONField(name = "news")
-    private Integer news;
+    private Integer newsId;
 
     private String title;
     private String type;
