@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         userExample.createCriteria()
                 .andUserIdEqualTo(userId);
         User user = userMapper.selectByExample(userExample).get(0);
-        return user.getRool().equals(3);
+        return user.getRool().equals(4);
     }
 
     @Override
