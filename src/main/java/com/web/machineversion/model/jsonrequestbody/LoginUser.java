@@ -7,48 +7,69 @@ import com.web.machineversion.model.entity.User;
 import java.util.Date;
 
 public class LoginUser extends User {
+    @JsonIgnore
+    @Override
+    public String getUserName() {
+        return super.getUserName();
+    }
 
     @JsonIgnore
     @Override
-    public Integer getLoginTimes() { return super.getLoginTimes(); }
+    public Integer getRool() {
+        return super.getRool();
+    }
 
     @JsonIgnore
     @Override
-    public String getSchool() { return super.getSchool(); }
+    public String getPhone() {
+        return super.getPhone();
+    }
 
     @JsonIgnore
     @Override
-    public Integer getBackground() { return super.getBackground(); }
+    public String getAvatar() {
+        return super.getAvatar();
+    }
 
     @JsonIgnore
     @Override
-    public String getUserName() { return super.getUserName(); }
+    public String getDepartment() {
+        return super.getDepartment();
+    }
 
     @JsonIgnore
     @Override
-    public Integer getRool() { return super.getRool(); }
+    public Date getRegisterTime() {
+        return super.getRegisterTime();
+    }
 
     @JsonIgnore
     @Override
-    public String getPhone() { return super.getPhone(); }
+    public Date getLastLoginTime() {
+        return super.getLastLoginTime();
+    }
 
     @JsonIgnore
     @Override
-    public String getAvatar() { return super.getAvatar(); }
+    public Integer getLoginTimes() {
+        return super.getLoginTimes();
+    }
 
     @JsonIgnore
     @Override
-    public String getDepartment() { return super.getDepartment(); }
+    public String getSchool() {
+        return super.getSchool();
+    }
 
     @JsonIgnore
     @Override
-    public Date getRegisterTime() { return super.getRegisterTime(); }
+    public Integer getBackground() {
+        return super.getBackground();
+    }
 
     @JsonIgnore
     @Override
-    public Date getLastLoginTime() { return super.getLastLoginTime(); }
-
-    @JsonIgnore
-    @Override
-    public String getIntroduction() { return super.getIntroduction(); }
+    public String getIntroduction() {
+        return super.getIntroduction();
+    }
 }

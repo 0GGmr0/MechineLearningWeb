@@ -1,40 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.web.machineversion.dao.NewsMapper">
-  <resultMap id="BaseResultMap" type="com.web.machineversion.model.entity.News">
-    <id column="news_id" jdbcType="INTEGER" property="newsId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="icon_class" jdbcType="VARCHAR" property="iconClass" />
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.machineversion.dao.NewsMapper" >
+  <resultMap id="BaseResultMap" type="com.web.machineversion.model.entity.News" >
+    <id column="news_id" property="newsId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="icon_class" property="iconClass" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.News">
-    <result column="overview" jdbcType="LONGVARCHAR" property="overview" />
+  <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.News" extends="BaseResultMap" >
+    <result column="overview" property="overview" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -45,25 +45,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -74,16 +74,16 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     news_id, user_id, title, content, status, create_time, update_time, type, icon_class, 
     image_url
   </sql>
-  <sql id="Blob_Column_List">
+  <sql id="Blob_Column_List" >
     overview
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.web.machineversion.model.entity.NewsExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.web.machineversion.model.entity.NewsExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
@@ -91,29 +91,29 @@
     ,
     <include refid="Blob_Column_List" />
     from news
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.web.machineversion.model.entity.NewsExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.web.machineversion.model.entity.NewsExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
     from news
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     ,
@@ -121,17 +121,17 @@
     from news
     where news_id = #{newsId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from news
     where news_id = #{newsId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.web.machineversion.model.entity.NewsExample">
+  <delete id="deleteByExample" parameterType="com.web.machineversion.model.entity.NewsExample" >
     delete from news
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.web.machineversion.model.entity.News">
+  <insert id="insert" parameterType="com.web.machineversion.model.entity.News" >
     insert into news (news_id, user_id, title, 
       content, status, create_time, 
       update_time, type, icon_class, 
@@ -141,127 +141,127 @@
       #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{iconClass,jdbcType=VARCHAR}, 
       #{imageUrl,jdbcType=VARCHAR}, #{overview,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.News">
+  <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.News" >
     insert into news
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="newsId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
         news_id,
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         user_id,
       </if>
-      <if test="title != null">
+      <if test="title != null" >
         title,
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         content,
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status,
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         update_time,
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type,
       </if>
-      <if test="iconClass != null">
+      <if test="iconClass != null" >
         icon_class,
       </if>
-      <if test="imageUrl != null">
+      <if test="imageUrl != null" >
         image_url,
       </if>
-      <if test="overview != null">
+      <if test="overview != null" >
         overview,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="newsId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="newsId != null" >
         #{newsId,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="title != null">
+      <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         #{type,jdbcType=INTEGER},
       </if>
-      <if test="iconClass != null">
+      <if test="iconClass != null" >
         #{iconClass,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null">
+      <if test="imageUrl != null" >
         #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="overview != null">
+      <if test="overview != null" >
         #{overview,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.web.machineversion.model.entity.NewsExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.web.machineversion.model.entity.NewsExample" resultType="java.lang.Integer" >
     select count(*) from news
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update news
-    <set>
-      <if test="record.newsId != null">
+    <set >
+      <if test="record.newsId != null" >
         news_id = #{record.newsId,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
+      <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.title != null">
+      <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null">
+      <if test="record.content != null" >
         content = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null">
+      <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.createTime != null">
+      <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updateTime != null">
+      <if test="record.updateTime != null" >
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.type != null">
+      <if test="record.type != null" >
         type = #{record.type,jdbcType=INTEGER},
       </if>
-      <if test="record.iconClass != null">
+      <if test="record.iconClass != null" >
         icon_class = #{record.iconClass,jdbcType=VARCHAR},
       </if>
-      <if test="record.imageUrl != null">
+      <if test="record.imageUrl != null" >
         image_url = #{record.imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.overview != null">
+      <if test="record.overview != null" >
         overview = #{record.overview,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
     update news
     set news_id = #{record.newsId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
@@ -274,11 +274,11 @@
       icon_class = #{record.iconClass,jdbcType=VARCHAR},
       image_url = #{record.imageUrl,jdbcType=VARCHAR},
       overview = #{record.overview,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update news
     set news_id = #{record.newsId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
@@ -290,47 +290,47 @@
       type = #{record.type,jdbcType=INTEGER},
       icon_class = #{record.iconClass,jdbcType=VARCHAR},
       image_url = #{record.imageUrl,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.web.machineversion.model.entity.News">
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.machineversion.model.entity.News" >
     update news
-    <set>
-      <if test="userId != null">
+    <set >
+      <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="title != null">
+      <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="iconClass != null">
+      <if test="iconClass != null" >
         icon_class = #{iconClass,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null">
+      <if test="imageUrl != null" >
         image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
-      <if test="overview != null">
+      <if test="overview != null" >
         overview = #{overview,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where news_id = #{newsId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.web.machineversion.model.entity.News">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.web.machineversion.model.entity.News" >
     update news
     set user_id = #{userId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
@@ -344,7 +344,7 @@
       overview = #{overview,jdbcType=LONGVARCHAR}
     where news_id = #{newsId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.News">
+  <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.News" >
     update news
     set user_id = #{userId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
@@ -355,309 +355,6 @@
       type = #{type,jdbcType=INTEGER},
       icon_class = #{iconClass,jdbcType=VARCHAR},
       image_url = #{imageUrl,jdbcType=VARCHAR}
-    where news_id = #{newsId,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.web.machineversion.model.entity.News">
-    <id column="news_id" jdbcType="INTEGER" property="newsId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="type" jdbcType="INTEGER" property="type" />
-    <result column="icon_class" jdbcType="VARCHAR" property="iconClass" />
-    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
-    <result column="overview" jdbcType="VARCHAR" property="overview" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    news_id, user_id, title, content, status, create_time, update_time, type, icon_class, 
-    image_url, overview
-  </sql>
-  <select id="selectByExample" parameterType="com.web.machineversion.model.entity.NewsExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from news
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from news
-    where news_id = #{newsId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from news
-    where news_id = #{newsId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.web.machineversion.model.entity.NewsExample">
-    delete from news
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.web.machineversion.model.entity.News">
-    insert into news (news_id, user_id, title, 
-      content, status, create_time, 
-      update_time, type, icon_class, 
-      image_url, overview)
-    values (#{newsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{iconClass,jdbcType=VARCHAR}, 
-      #{imageUrl,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.News">
-    insert into news
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="newsId != null">
-        news_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="iconClass != null">
-        icon_class,
-      </if>
-      <if test="imageUrl != null">
-        image_url,
-      </if>
-      <if test="overview != null">
-        overview,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="newsId != null">
-        #{newsId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="iconClass != null">
-        #{iconClass,jdbcType=VARCHAR},
-      </if>
-      <if test="imageUrl != null">
-        #{imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="overview != null">
-        #{overview,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.web.machineversion.model.entity.NewsExample" resultType="java.lang.Integer">
-    select count(*) from news
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update news
-    <set>
-      <if test="record.newsId != null">
-        news_id = #{record.newsId,jdbcType=INTEGER},
-      </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
-      <if test="record.title != null">
-        title = #{record.title,jdbcType=VARCHAR},
-      </if>
-      <if test="record.content != null">
-        content = #{record.content,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.type != null">
-        type = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.iconClass != null">
-        icon_class = #{record.iconClass,jdbcType=VARCHAR},
-      </if>
-      <if test="record.imageUrl != null">
-        image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="record.overview != null">
-        overview = #{record.overview,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update news
-    set news_id = #{record.newsId,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      type = #{record.type,jdbcType=INTEGER},
-      icon_class = #{record.iconClass,jdbcType=VARCHAR},
-      image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      overview = #{record.overview,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.web.machineversion.model.entity.News">
-    update news
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="iconClass != null">
-        icon_class = #{iconClass,jdbcType=VARCHAR},
-      </if>
-      <if test="imageUrl != null">
-        image_url = #{imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="overview != null">
-        overview = #{overview,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where news_id = #{newsId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.News">
-    update news
-    set user_id = #{userId,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=INTEGER},
-      icon_class = #{iconClass,jdbcType=VARCHAR},
-      image_url = #{imageUrl,jdbcType=VARCHAR},
-      overview = #{overview,jdbcType=VARCHAR}
     where news_id = #{newsId,jdbcType=INTEGER}
   </update>
 </mapper>

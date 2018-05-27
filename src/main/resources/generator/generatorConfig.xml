@@ -34,56 +34,36 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <!--<table tableName="day_task" domainObjectName="DayTask"-->
-               <!--enableCountByExample="true"-->
-               <!--enableUpdateByExample="true"-->
-               <!--enableDeleteByExample="true"-->
-               <!--enableSelectByExample="true"-->
-               <!--selectByExampleQueryId="true"-->
-        <!--&gt;-->
-            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
-        <!--</table>-->
-
-        <!--<table tableName="navigation" domainObjectName="Navigation"-->
-            <!--enableCountByExample="true"-->
-            <!--enableUpdateByExample="true"-->
-            <!--enableDeleteByExample="true"-->
-            <!--enableSelectByExample="true"-->
-            <!--selectByExampleQueryId="true"-->
-        <!--&gt;-->
-            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
-        <!--</table>-->
-        <!--<table tableName="news" domainObjectName="News"-->
-            <!--enableCountByExample="true"-->
-            <!--enableUpdateByExample="true"-->
-            <!--enableDeleteByExample="true"-->
-            <!--enableSelectByExample="true"-->
-            <!--selectByExampleQueryId="true"-->
-        <!--&gt;-->
+        <table tableName="day_task" domainObjectName="DayTask"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"
+        >
             <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
-        <!--</table>-->
+        </table>
 
-        <!--<table tableName="notice" domainObjectName="Notice"-->
-            <!--enableCountByExample="true"-->
-            <!--enableUpdateByExample="true"-->
-            <!--enableDeleteByExample="true"-->
-            <!--enableSelectByExample="true"-->
-            <!--selectByExampleQueryId="true"-->
-        <!--&gt;-->
-            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
-        <!--</table>-->
+        <table tableName="navigation" domainObjectName="Navigation"
+            enableCountByExample="true"
+            enableUpdateByExample="true"
+            enableDeleteByExample="true"
+            enableSelectByExample="true"
+            selectByExampleQueryId="true"
+        >
+            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        </table>
+        <table tableName="news" domainObjectName="News"
+            enableCountByExample="true"
+            enableUpdateByExample="true"
+            enableDeleteByExample="true"
+            enableSelectByExample="true"
+            selectByExampleQueryId="true"
+        >
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </table>
 
-        <!--<table tableName="reply" domainObjectName="Reply"-->
-            <!--enableCountByExample="true"-->
-            <!--enableUpdateByExample="true"-->
-            <!--enableDeleteByExample="true"-->
-            <!--enableSelectByExample="true"-->
-            <!--selectByExampleQueryId="true"-->
-        <!--&gt;-->
-            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
-        <!--</table>-->
-
-        <table tableName="topic" domainObjectName="Topic"
+        <table tableName="notice" domainObjectName="Notice"
             enableCountByExample="true"
             enableUpdateByExample="true"
             enableDeleteByExample="true"
@@ -93,18 +73,38 @@
             <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
         </table>
 
-        <!--<table tableName="user" domainObjectName="User"-->
-            <!--enableCountByExample="true"-->
-            <!--enableUpdateByExample="true"-->
-            <!--enableDeleteByExample="true"-->
-            <!--enableSelectByExample="true"-->
-            <!--selectByExampleQueryId="true"/>-->
+        <table tableName="reply" domainObjectName="Reply"
+            enableCountByExample="true"
+            enableUpdateByExample="true"
+            enableDeleteByExample="true"
+            enableSelectByExample="true"
+            selectByExampleQueryId="true"
+        >
+            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        </table>
 
-        <!--<table tableName="topic_msg" domainObjectName="TopicMsg"-->
-               <!--enableCountByExample="true"-->
-               <!--enableUpdateByExample="true"-->
-               <!--enableDeleteByExample="true"-->
-               <!--enableSelectByExample="true"-->
-               <!--selectByExampleQueryId="true"/>-->
+        <table tableName="topic" domainObjectName="Topic"
+            enableCountByExample="true"
+            enableUpdateByExample="true"
+            enableDeleteByExample="true"
+            enableSelectByExample="true"
+            selectByExampleQueryId="true"
+        >
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </table>
+
+        <table tableName="user" domainObjectName="User"
+            enableCountByExample="true"
+            enableUpdateByExample="true"
+            enableDeleteByExample="true"
+            enableSelectByExample="true"
+            selectByExampleQueryId="true"/>
+
+        <table tableName="topic_msg" domainObjectName="TopicMsg"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
     </context>
 </generatorConfiguration>

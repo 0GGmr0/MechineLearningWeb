@@ -14,9 +14,9 @@ public class LoginController {
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public Result login(@RequestBody LoginUser loginUser) {
-        return userService.login(loginUser);
-    }
+//    @RequestMapping(value = "", method = RequestMethod.POST)
+//    public Result login(@RequestBody LoginUser loginUser) {
+//        return userService.login(loginUser);
+//    }
 
 }

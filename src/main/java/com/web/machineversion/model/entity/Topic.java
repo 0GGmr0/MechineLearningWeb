@@ -9,6 +9,8 @@ public class Topic {
 
     private String title;
 
+    private String content;
+
     private String theme;
 
     private Date createTime;
@@ -18,8 +20,6 @@ public class Topic {
     private Integer topicCommentNum;
 
     private Integer topicLikeNum;
-
-    private String content;
 
     public Integer getTopicId() {
         return topicId;
@@ -43,6 +43,14 @@ public class Topic {
 
     public void setTitle(String title) {
         this.title = title == null ? null : title.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public String getTheme() {
@@ -83,13 +91,5 @@ public class Topic {
 
     public void setTopicLikeNum(Integer topicLikeNum) {
         this.topicLikeNum = topicLikeNum;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 }
