@@ -2,8 +2,9 @@ package com.web.machineversion.dao;
 
 import com.web.machineversion.model.entity.TopicMsg;
 import com.web.machineversion.model.entity.TopicMsgExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TopicMsgMapper {
     int countByExample(TopicMsgExample example);

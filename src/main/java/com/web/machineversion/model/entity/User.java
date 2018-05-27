@@ -21,6 +21,12 @@ public class User {
 
     private Date lastLoginTime;
 
+    private Integer loginTimes;
+
+    private String school;
+
+    private Integer background;
+
     private String introduction;
 
     public Integer getUserId() {
@@ -93,6 +99,30 @@ public class User {
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public Integer getLoginTimes() {
+        return loginTimes;
+    }
+
+    public void setLoginTimes(Integer loginTimes) {
+        this.loginTimes = loginTimes;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school == null ? null : school.trim();
+    }
+
+    public Integer getBackground() {
+        return background;
+    }
+
+    public void setBackground(Integer background) {
+        this.background = background;
     }
 
     public String getIntroduction() {

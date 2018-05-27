@@ -7,15 +7,13 @@ public class Notice {
 
     private String title;
 
-    private String content;
-
     private Date createTime;
-
-    private String author;
 
     private String type;
 
     private Date eventTime;
+
+    private String content;
 
     public Integer getId() {
         return id;
@@ -33,14 +31,6 @@ public class Notice {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -49,28 +39,27 @@ public class Notice {
         this.createTime = createTime;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = type == null ? null : type.trim();
     }
 
     public Date getEventTime() {
         return eventTime;
     }
 
-    public void setEventTime(Date time) {
-        this.eventTime = time;
+    public void setEventTime(Date eventTime) {
+        this.eventTime = eventTime;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 }

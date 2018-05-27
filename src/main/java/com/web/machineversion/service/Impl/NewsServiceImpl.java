@@ -2,13 +2,13 @@ package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.NewsMapper;
 import com.web.machineversion.dao.UserMapper;
-import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
-import com.web.machineversion.model.OV.*;
-import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.entity.News;
 import com.web.machineversion.model.entity.NewsExample;
 import com.web.machineversion.model.entity.User;
 import com.web.machineversion.model.entity.UserExample;
+import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
+import com.web.machineversion.model.OV.*;
+import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.service.NewsService;
 import com.web.machineversion.service.UserService;
 import org.springframework.stereotype.Service;
@@ -92,7 +92,7 @@ public class NewsServiceImpl implements NewsService {
             }
             return ResultTool.success(matterInfoList);
         } else {
-            return ResultTool.error();
+            return ResultTool.error("没有重要新闻");
         }
     }
 
@@ -173,10 +173,7 @@ public class NewsServiceImpl implements NewsService {
         }
         newsTypeResult.setNewsExplanationList(newsExplanationList);
         newsTypeResult.setTypeNum(3);
-        result.setCode(SUCCESS);
-        result.setMessage(null);
-        result.setData(newsTypeResult);
-        return result;
+        return ResultTool.success(newsTypeResult);
     }
 
     //将新闻种类从String转换成对应数据库中的int类型
@@ -216,7 +213,7 @@ public class NewsServiceImpl implements NewsService {
         if(res > 0) {
             return  ResultTool.success();
         } else {
-            return  ResultTool.error();
+            return  ResultTool.error("写入新闻失败");
         }
     }
     @Override
@@ -243,7 +240,7 @@ public class NewsServiceImpl implements NewsService {
                 return ResultTool.success();
             }
         }
-        return  ResultTool.error();
+        return  ResultTool.error("您没有权限修改新闻");
     }
 
     @Override

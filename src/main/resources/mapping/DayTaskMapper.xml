@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.web.machineversion.dao.NavigationMapper" >
-  <resultMap id="BaseResultMap" type="com.web.machineversion.model.entity.Navigation" >
-    <id column="sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
+<mapper namespace="com.web.machineversion.dao.DayTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.web.machineversion.model.entity.DayTask" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.Navigation" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.DayTask" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -70,12 +68,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    sequence, id, title, create_time, update_time
+    user_id, time, create_time
   </sql>
   <sql id="Blob_Column_List" >
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.web.machineversion.model.entity.NavigationExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.web.machineversion.model.entity.DayTaskExample" >
     select
     <if test="distinct" >
       distinct
@@ -84,7 +82,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from navigation
+    from day_task
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,14 +90,14 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.web.machineversion.model.entity.NavigationExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.web.machineversion.model.entity.DayTaskExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from navigation
+    from day_task
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -112,93 +110,73 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from navigation
-    where sequence = #{sequence,jdbcType=INTEGER}
+    from day_task
+    where user_id = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from navigation
-    where sequence = #{sequence,jdbcType=INTEGER}
+    delete from day_task
+    where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.web.machineversion.model.entity.NavigationExample" >
-    delete from navigation
+  <delete id="deleteByExample" parameterType="com.web.machineversion.model.entity.DayTaskExample" >
+    delete from day_task
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.web.machineversion.model.entity.Navigation" >
-    insert into navigation (sequence, id, title, 
-      create_time, update_time, content
-      )
-    values (#{sequence,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
-      )
+  <insert id="insert" parameterType="com.web.machineversion.model.entity.DayTask" >
+    insert into day_task (user_id, time, create_time, 
+      content)
+    values (#{userId,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.Navigation" >
-    insert into navigation
+  <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.DayTask" >
+    insert into day_task
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sequence != null" >
-        sequence,
+      <if test="userId != null" >
+        user_id,
       </if>
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="title != null" >
-        title,
+      <if test="time != null" >
+        time,
       </if>
       <if test="createTime != null" >
         create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
       </if>
       <if test="content != null" >
         content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sequence != null" >
-        #{sequence,jdbcType=INTEGER},
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.web.machineversion.model.entity.NavigationExample" resultType="java.lang.Integer" >
-    select count(*) from navigation
+  <select id="countByExample" parameterType="com.web.machineversion.model.entity.DayTaskExample" resultType="java.lang.Integer" >
+    select count(*) from day_task
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update navigation
+    update day_task
     <set >
-      <if test="record.sequence != null" >
-        sequence = #{record.sequence,jdbcType=INTEGER},
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateTime != null" >
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -209,64 +187,50 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update navigation
-    set sequence = #{record.sequence,jdbcType=INTEGER},
-      id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
+    update day_task
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update navigation
-    set sequence = #{record.sequence,jdbcType=INTEGER},
-      id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    update day_task
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.web.machineversion.model.entity.Navigation" >
-    update navigation
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.machineversion.model.entity.DayTask" >
+    update day_task
     <set >
-      <if test="id != null" >
-        id = #{id,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where sequence = #{sequence,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.web.machineversion.model.entity.Navigation" >
-    update navigation
-    set id = #{id,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.web.machineversion.model.entity.DayTask" >
+    update day_task
+    set time = #{time,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=LONGVARCHAR}
-    where sequence = #{sequence,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.Navigation" >
-    update navigation
-    set id = #{id,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where sequence = #{sequence,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.DayTask" >
+    update day_task
+    set time = #{time,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

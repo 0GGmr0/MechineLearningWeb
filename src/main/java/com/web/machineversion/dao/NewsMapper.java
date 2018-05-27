@@ -2,8 +2,9 @@ package com.web.machineversion.dao;
 
 import com.web.machineversion.model.entity.News;
 import com.web.machineversion.model.entity.NewsExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface NewsMapper {
     int countByExample(NewsExample example);

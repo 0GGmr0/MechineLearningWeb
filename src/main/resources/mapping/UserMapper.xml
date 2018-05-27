@@ -11,6 +11,9 @@
     <result column="department" property="department" jdbcType="VARCHAR" />
     <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="login_times" property="loginTimes" jdbcType="INTEGER" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="background" property="background" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.User" extends="BaseResultMap" >
     <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
@@ -74,7 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, user_name, pass_word, rool, phone, avatar, department, register_time, last_login_time
+    user_id, user_name, pass_word, rool, phone, avatar, department, register_time, last_login_time, 
+    login_times, school, background
   </sql>
   <sql id="Blob_Column_List" >
     introduction
@@ -133,10 +137,12 @@
     insert into user (user_id, user_name, pass_word, 
       rool, phone, avatar, 
       department, register_time, last_login_time, 
+      login_times, school, background, 
       introduction)
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, 
       #{rool,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
       #{department,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{loginTimes,jdbcType=INTEGER}, #{school,jdbcType=VARCHAR}, #{background,jdbcType=INTEGER}, 
       #{introduction,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.User" >
@@ -169,6 +175,15 @@
       <if test="lastLoginTime != null" >
         last_login_time,
       </if>
+      <if test="loginTimes != null" >
+        login_times,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="background != null" >
+        background,
+      </if>
       <if test="introduction != null" >
         introduction,
       </if>
@@ -200,6 +215,15 @@
       </if>
       <if test="lastLoginTime != null" >
         #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTimes != null" >
+        #{loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="background != null" >
+        #{background,jdbcType=INTEGER},
       </if>
       <if test="introduction != null" >
         #{introduction,jdbcType=LONGVARCHAR},
@@ -242,6 +266,15 @@
       <if test="record.lastLoginTime != null" >
         last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.loginTimes != null" >
+        login_times = #{record.loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.background != null" >
+        background = #{record.background,jdbcType=INTEGER},
+      </if>
       <if test="record.introduction != null" >
         introduction = #{record.introduction,jdbcType=LONGVARCHAR},
       </if>
@@ -261,6 +294,9 @@
       department = #{record.department,jdbcType=VARCHAR},
       register_time = #{record.registerTime,jdbcType=TIMESTAMP},
       last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      login_times = #{record.loginTimes,jdbcType=INTEGER},
+      school = #{record.school,jdbcType=VARCHAR},
+      background = #{record.background,jdbcType=INTEGER},
       introduction = #{record.introduction,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -276,7 +312,10 @@
       avatar = #{record.avatar,jdbcType=VARCHAR},
       department = #{record.department,jdbcType=VARCHAR},
       register_time = #{record.registerTime,jdbcType=TIMESTAMP},
-      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP}
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      login_times = #{record.loginTimes,jdbcType=INTEGER},
+      school = #{record.school,jdbcType=VARCHAR},
+      background = #{record.background,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -308,6 +347,15 @@
       <if test="lastLoginTime != null" >
         last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="loginTimes != null" >
+        login_times = #{loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="background != null" >
+        background = #{background,jdbcType=INTEGER},
+      </if>
       <if test="introduction != null" >
         introduction = #{introduction,jdbcType=LONGVARCHAR},
       </if>
@@ -324,6 +372,9 @@
       department = #{department,jdbcType=VARCHAR},
       register_time = #{registerTime,jdbcType=TIMESTAMP},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      login_times = #{loginTimes,jdbcType=INTEGER},
+      school = #{school,jdbcType=VARCHAR},
+      background = #{background,jdbcType=INTEGER},
       introduction = #{introduction,jdbcType=LONGVARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -336,7 +387,10 @@
       avatar = #{avatar,jdbcType=VARCHAR},
       department = #{department,jdbcType=VARCHAR},
       register_time = #{registerTime,jdbcType=TIMESTAMP},
-      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      login_times = #{loginTimes,jdbcType=INTEGER},
+      school = #{school,jdbcType=VARCHAR},
+      background = #{background,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -12,7 +12,6 @@ import lombok.Data;
 public class NewsQueryJson {
 //    @JSONField(name = "news")
     private Integer newsId;
-
     private String title;
     private String type;
     private String content;
