@@ -16,7 +16,7 @@ public class NoticeInfo {
     @JSONField(name="author")
     private String NoticeAuthor;
     @JSONField(name="time")
-    private Date NoticeTime;
+    private String NoticeTime;
     @JSONField(name="publishTime")
-    private Date publishTime;
+    private String publishTime;
 }
