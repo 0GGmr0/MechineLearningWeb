@@ -16,15 +16,21 @@ public interface ReplyMapper {
 
     int insertSelective(Reply record);
 
+    List<Reply> selectByExampleWithBLOBs(ReplyExample example);
+
     List<Reply> selectByExample(ReplyExample example);
 
     Reply selectByPrimaryKey(Integer replyId);
 
     int updateByExampleSelective(@Param("record") Reply record, @Param("example") ReplyExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Reply record, @Param("example") ReplyExample example);
+
     int updateByExample(@Param("record") Reply record, @Param("example") ReplyExample example);
 
     int updateByPrimaryKeySelective(Reply record);
+
+    int updateByPrimaryKeyWithBLOBs(Reply record);
 
     int updateByPrimaryKey(Reply record);
 }

@@ -41,7 +41,7 @@
                <!--enableSelectByExample="true"-->
                <!--selectByExampleQueryId="true"-->
         <!--&gt;-->
-            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
         <!--</table>-->
 
         <!--<table tableName="navigation" domainObjectName="Navigation"-->
@@ -51,17 +51,17 @@
             <!--enableSelectByExample="true"-->
             <!--selectByExampleQueryId="true"-->
         <!--&gt;-->
+            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
+        <!--</table>-->
+        <!--<table tableName="news" domainObjectName="News"-->
+            <!--enableCountByExample="true"-->
+            <!--enableUpdateByExample="true"-->
+            <!--enableDeleteByExample="true"-->
+            <!--enableSelectByExample="true"-->
+            <!--selectByExampleQueryId="true"-->
+        <!--&gt;-->
             <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
         <!--</table>-->
-        <table tableName="news" domainObjectName="News"
-            enableCountByExample="true"
-            enableUpdateByExample="true"
-            enableDeleteByExample="true"
-            enableSelectByExample="true"
-            selectByExampleQueryId="true"
-        >
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
-        </table>
 
         <!--<table tableName="notice" domainObjectName="Notice"-->
             <!--enableCountByExample="true"-->
@@ -70,7 +70,7 @@
             <!--enableSelectByExample="true"-->
             <!--selectByExampleQueryId="true"-->
         <!--&gt;-->
-            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
         <!--</table>-->
 
         <!--<table tableName="reply" domainObjectName="Reply"-->
@@ -80,18 +80,18 @@
             <!--enableSelectByExample="true"-->
             <!--selectByExampleQueryId="true"-->
         <!--&gt;-->
-            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
         <!--</table>-->
 
-        <!--<table tableName="topic" domainObjectName="Topic"-->
-            <!--enableCountByExample="true"-->
-            <!--enableUpdateByExample="true"-->
-            <!--enableDeleteByExample="true"-->
-            <!--enableSelectByExample="true"-->
-            <!--selectByExampleQueryId="true"-->
-        <!--&gt;-->
+        <table tableName="topic" domainObjectName="Topic"
+            enableCountByExample="true"
+            enableUpdateByExample="true"
+            enableDeleteByExample="true"
+            enableSelectByExample="true"
+            selectByExampleQueryId="true"
+        >
             <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
-        <!--</table>-->
+        </table>
 
         <!--<table tableName="user" domainObjectName="User"-->
             <!--enableCountByExample="true"-->

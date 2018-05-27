@@ -16,15 +16,21 @@ public interface DayTaskMapper {
 
     int insertSelective(DayTask record);
 
+    List<DayTask> selectByExampleWithBLOBs(DayTaskExample example);
+
     List<DayTask> selectByExample(DayTaskExample example);
 
     DayTask selectByPrimaryKey(Integer userId);
 
     int updateByExampleSelective(@Param("record") DayTask record, @Param("example") DayTaskExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") DayTask record, @Param("example") DayTaskExample example);
+
     int updateByExample(@Param("record") DayTask record, @Param("example") DayTaskExample example);
 
     int updateByPrimaryKeySelective(DayTask record);
+
+    int updateByPrimaryKeyWithBLOBs(DayTask record);
 
     int updateByPrimaryKey(DayTask record);
 }

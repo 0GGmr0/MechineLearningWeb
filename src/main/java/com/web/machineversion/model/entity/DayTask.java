@@ -7,9 +7,9 @@ public class DayTask {
 
     private String time;
 
-    private String content;
-
     private Date createTime;
+
+    private String content;
 
     public Integer getUserId() {
         return userId;
@@ -27,19 +27,19 @@ public class DayTask {
         this.time = time == null ? null : time.trim();
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }
