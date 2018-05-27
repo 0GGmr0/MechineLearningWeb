@@ -11,7 +11,11 @@ public class Notice {
 
     private Date createTime;
 
-    private Date updateTime;
+    private String author;
+
+    private String type;
+
+    private Date eventTime;
 
     public Integer getId() {
         return id;
@@ -45,11 +49,28 @@ public class Notice {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setAuthor(String author) {
+        this.author = author;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Date getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Date time) {
+        this.eventTime = time;
+    }
+
 }
