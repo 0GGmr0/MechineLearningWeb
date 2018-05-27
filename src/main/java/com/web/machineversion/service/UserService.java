@@ -4,6 +4,7 @@ import com.web.machineversion.model.OV.Result;
 import com.web.machineversion.model.jsonrequestbody.LoginUser;
 import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
+import com.web.machineversion.model.jsonrequestbody.UserQueryJson;
 
 public interface UserService {
     //判断是否有资格编辑新闻
@@ -14,4 +15,6 @@ public interface UserService {
     UserMessageResult getUserMessage(Integer userId);
     //登录
     Result login(LoginUser user);
+    //判断UserQueryJson是否包含userId，如果包含返回true，不包含返回false
+    boolean IsQueryJsonNotContainUserId(UserQueryJson userQueryJson);
 }

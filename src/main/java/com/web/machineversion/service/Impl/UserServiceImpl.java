@@ -12,6 +12,7 @@ import com.web.machineversion.model.entity.UserExample;
 import com.web.machineversion.model.jsonrequestbody.LoginUser;
 import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
+import com.web.machineversion.model.jsonrequestbody.UserQueryJson;
 import com.web.machineversion.service.UserService;
 import com.web.machineversion.tools.JwtUtil;
 import org.springframework.stereotype.Service;
@@ -114,6 +115,11 @@ public class UserServiceImpl implements UserService {
         }
         //如果压根没有这个用户 说明此人没有在平台上注册
         return ResultTool.error("您不是本平台用户");
+    }
+
+    @Override
+    public boolean IsQueryJsonNotContainUserId(UserQueryJson userQueryJson) {
+        return userQueryJson.getUid().toString().equals("");
     }
 
 }

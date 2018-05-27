@@ -4,6 +4,7 @@ import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.Result;
 import com.web.machineversion.service.NewsService;
 import com.web.machineversion.service.UserService;
+import com.web.machineversion.tools.JwtUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -42,28 +43,27 @@ public class NewsController {
 
     //添加一条新的新闻
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
-    public Result QueryAddNews(@RequestBody NewsQueryJson newsQueryJson) {
-//        ,
-//        @RequestHeader(value = "Authorization") String token
-//        Integer userId = JwtUtil.parseJwt(token);
-        Integer userId = 16122131;
+    public Result QueryAddNews(@RequestHeader(value = "Authorization") String token,
+                               @RequestBody NewsQueryJson newsQueryJson) {
+
+        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return newsService.AddNewNews(userId, newsQueryJson);
     }
 
     //修改一条新闻
     @RequestMapping(value = "/modifyNews", method = RequestMethod.POST)
-    public Result QueryModifyNews(@RequestBody NewsQueryJson newsQueryJson) {
-        //@RequestHeader(value = "Authorization") String token
-        Integer userId = 16122131;
+    public Result QueryModifyNews(@RequestHeader(value = "Authorization") String token,
+                                  @RequestBody NewsQueryJson newsQueryJson) {
+        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return newsService.ModifyNews(userId, newsQueryJson);
 
     }
 
     //删除一条新闻
     @RequestMapping(value = "/deleteNews", method = RequestMethod.POST)
-    public Result QueryDeleteNews(@RequestBody NewsQueryJson newsQueryJson) {
-        //@RequestHeader(value = "Authorization") String token
-        Integer userId = 16121666;
+    public Result QueryDeleteNews(@RequestHeader(value = "Authorization") String token,
+                                  @RequestBody NewsQueryJson newsQueryJson) {
+        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return newsService.DeleteNews(userId, newsQueryJson);
 
     }
