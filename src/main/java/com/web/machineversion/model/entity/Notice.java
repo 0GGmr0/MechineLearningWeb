@@ -3,9 +3,11 @@ package com.web.machineversion.model.entity;
 import java.util.Date;
 
 public class Notice {
-    private Integer id;
+    private Integer noticeId;
 
-    private String title;
+    private Integer userId;
+
+    private String content;
 
     private Date createTime;
 
@@ -13,22 +15,30 @@ public class Notice {
 
     private Date eventTime;
 
-    private String content;
+    private String title;
 
-    public Integer getId() {
-        return id;
+    public Integer getNoticeId() {
+        return noticeId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNoticeId(Integer noticeId) {
+        this.noticeId = noticeId;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Date getCreateTime() {
@@ -55,11 +65,11 @@ public class Notice {
         this.eventTime = eventTime;
     }
 
-    public String getContent() {
-        return content;
+    public String getTitle() {
+        return title;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 }

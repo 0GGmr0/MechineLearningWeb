@@ -1,17 +1,16 @@
 package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.NewsMapper;
+import com.web.machineversion.dao.NoticeMapper;
 import com.web.machineversion.dao.UserMapper;
 import com.web.machineversion.model.OV.LoginResultInfo;
 import com.web.machineversion.model.OV.Result;
 import com.web.machineversion.model.ResultTool;
-import com.web.machineversion.model.entity.News;
-import com.web.machineversion.model.entity.NewsExample;
-import com.web.machineversion.model.entity.User;
-import com.web.machineversion.model.entity.UserExample;
+import com.web.machineversion.model.entity.*;
 import com.web.machineversion.model.jsonrequestbody.LoginUser;
 import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
+import com.web.machineversion.model.jsonrequestbody.NoticeQueryJson;
 import com.web.machineversion.model.jsonrequestbody.UserQueryJson;
 import com.web.machineversion.service.UserService;
 import com.web.machineversion.tools.JwtUtil;
@@ -30,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private NoticeMapper noticeMapper;
 
     //把Date类型的数据转换成String类型的2018.05.09　20:04:23
     private String changeRegisterTimeFormat(User user) {
@@ -117,9 +119,23 @@ public class UserServiceImpl implements UserService {
         return ResultTool.error("您不是本平台用户");
     }
 
+//    @Override
+//    public boolean IsQueryJsonNotContainUserId(UserQueryJson userQueryJson) {
+//        return userQueryJson.getUid().toString().equals("");
+//    }
+
     @Override
-    public boolean IsQueryJsonNotContainUserId(UserQueryJson userQueryJson) {
-        return userQueryJson.getUid().toString().equals("");
+    public boolean IsAbleToDeleteNotice(Integer userId, NoticeQueryJson noticeQueryJson) {
+        String noticeTitle = noticeQueryJson.getTitle();
+        NoticeExample noticeExample = new NoticeExample();
+        noticeExample.createCriteria()
+                .andTitleEqualTo(noticeTitle);
+        Notice notice = noticeMapper.selectByExample(noticeExample).get(0);
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andUserIdEqualTo(notice.getUserId());
+        User user = userMapper.selectByExample(userExample).get(0);
+        return user.getUserId().equals(userId) || IsAdmin(userId);
     }
 
 }

@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping(value = "/login")
-@CrossOrigin("localhost")
+@CrossOrigin
 public class LoginController {
     @Resource
     private UserService userService;

@@ -10,16 +10,16 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping(value = "/user")
-@CrossOrigin("localhost")
+@CrossOrigin
 public class UserController {
     @Resource
     private UserService userService;
 
-    @RequestMapping(value = "/userMessage", method = RequestMethod.POST)
+    @RequestMapping(value = "/userMessage", method = RequestMethod.GET)
     public UserMessageResult QueryUserMessage(@RequestHeader(value = "Authorization") String token,
-                                              @RequestBody UserQueryJson userQueryJson) {
-        if(userService.IsQueryJsonNotContainUserId(userQueryJson))
+                                              @RequestParam(value = "uid") Integer userId) {
+        if(userId == null)
             return userService.getUserMessage(Integer.parseInt(JwtUtil.parseJwt(token)));
-        return userService.getUserMessage(userQueryJson.getUid());
+        return userService.getUserMessage(userId);
     }
 }
