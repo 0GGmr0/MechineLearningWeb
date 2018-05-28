@@ -1,6 +1,7 @@
 package com.web.machineversion.model.OV;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.web.machineversion.model.entity.TopicMsg;
 import lombok.Data;
 
 import java.util.Date;
@@ -35,10 +36,4 @@ public class TopicInfo {
     @JSONField(name="commented")
     private Boolean topicCommented;
 
-
-    public void getCreateTime(Date createTime) {
-    }
-
-    public void getTopicAuthor(TopicAuthor topicAuthor) {
-    }
 }

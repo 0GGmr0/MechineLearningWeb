@@ -13,6 +13,8 @@ public class Reply {
 
     private String content;
 
+    private Integer topicId;
+
     public Integer getReplyId() {
         return replyId;
     }
@@ -51,5 +53,13 @@ public class Reply {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public void setTopicId(Integer topicId) {
+        this.topicId = topicId;
+    }
+
+    public Integer getTopicId() {
+        return topicId;
     }
 }

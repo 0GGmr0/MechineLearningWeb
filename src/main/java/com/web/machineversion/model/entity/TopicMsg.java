@@ -50,4 +50,13 @@ public class TopicMsg {
     public void setCommented(Integer commented) {
         this.commented = commented;
     }
+
+    public void getCommented(Object commented) {
+    }
+
+    public void getLiked(Object liked) {
+    }
+
+    public void setCommented(boolean b) {
+    }
 }
