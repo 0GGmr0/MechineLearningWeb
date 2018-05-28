@@ -18,18 +18,18 @@ public class NoticeController {
     //添加一条新的公告
     @RequestMapping(value = "/addNotice", method = RequestMethod.POST)
     public Result QueryAddNews(@RequestHeader(value = "Authorization") String token,
-                               @RequestParam(value = "uid") NoticeQueryJson noticeQueryJson) {
+                               @RequestBody NoticeQueryJson noticeQueryJson) {
 
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return noticeService.AddNotice(userId, noticeQueryJson);
     }
+
     //手动删除一条公告
     @RequestMapping(value = "/deleteNotice", method = RequestMethod.POST)
     public Result QueryDeleteNotice(@RequestHeader(value = "Authorization") String token,
                                     @RequestBody NoticeQueryJson noticeQueryJson) {
-        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
+       Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return noticeService.deleteByTitle(userId, noticeQueryJson);
-
     }
 
     //获取所有有效公告

@@ -11,7 +11,6 @@ import com.web.machineversion.model.jsonrequestbody.LoginUser;
 import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
 import com.web.machineversion.model.jsonrequestbody.NoticeQueryJson;
-import com.web.machineversion.model.jsonrequestbody.UserQueryJson;
 import com.web.machineversion.service.UserService;
 import com.web.machineversion.tools.JwtUtil;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -130,10 +130,12 @@ public class UserServiceImpl implements UserService {
         NoticeExample noticeExample = new NoticeExample();
         noticeExample.createCriteria()
                 .andTitleEqualTo(noticeTitle);
-        Notice notice = noticeMapper.selectByExample(noticeExample).get(0);
+        List<Notice> noticeList = noticeMapper.selectByExample(noticeExample);
+        if(noticeList.isEmpty())
+            return false;
         UserExample userExample = new UserExample();
         userExample.createCriteria()
-                .andUserIdEqualTo(notice.getUserId());
+                .andUserIdEqualTo(noticeList.get(0).getUserId());
         User user = userMapper.selectByExample(userExample).get(0);
         return user.getUserId().equals(userId) || IsAdmin(userId);
     }

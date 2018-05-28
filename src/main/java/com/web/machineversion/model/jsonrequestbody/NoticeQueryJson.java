@@ -9,5 +9,5 @@ public class NoticeQueryJson {
     private String type;
     private String title;
     private String content;
-    private Date time;
+    private String time;
 }
