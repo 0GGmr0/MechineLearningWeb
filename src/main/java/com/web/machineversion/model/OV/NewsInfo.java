@@ -14,7 +14,7 @@ public class NewsInfo {
     @JsonProperty("time")
     private String newsCreateTime;
     @JsonProperty("author")
-    private String newsAuthor;
+    private AuthorInfo newsAuthorInfo;
     @JsonProperty("imgurl")
     private String newsImageUrl;
     @JsonProperty("overview")
