@@ -16,11 +16,4 @@ public class MemberResult<T> {
     private List<Member> teacherList;
     @JsonProperty("member")
     private List<Member> memberList;
-
-
-    public void getMemberList(List<Member> memberInfoList) {
-    }
-
-    public void getTeacherList(List<Member> teacherInfoList) {
-    }
 }

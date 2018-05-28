@@ -18,7 +18,7 @@ public class MemberController {
     @Resource
     MemberService memberService;
 
-    //获取重要新闻
+    //获取所有实验室成员信息
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public Result getAllMember() { return memberService.getAllMember(); }
 }

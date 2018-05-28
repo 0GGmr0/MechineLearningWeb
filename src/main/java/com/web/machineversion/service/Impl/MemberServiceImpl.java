@@ -44,7 +44,7 @@ public class MemberServiceImpl implements MemberService {
                 Member member = new Member();
                 member.setName(user.getUserName());
                 member.setHeadshoturl(user.getAvatar());
-                member.getContaction(user.getPhone());
+                member.setContaction(user.getPhone());
                 String[] position = new String[2];
                 position[0] = new String(backgroundTypeIntegerToString(user));
                 position[1] = new String(user.getSchool());
@@ -70,11 +70,11 @@ public class MemberServiceImpl implements MemberService {
                 Member member = new Member();
                 member.setName(user.getUserName());
                 member.setHeadshoturl(user.getAvatar());
-                member.getContaction(user.getPhone());
+                member.setContaction(user.getPhone());
                 String[] position = new String[2];
                 position[0] = new String(backgroundTypeIntegerToString(user));
                 position[1] = new String(user.getSchool());
-                member.getPosition(position);
+                member.setPosition(position);
                 memberInfoList.add(member);
             }
             return memberInfoList;
@@ -88,9 +88,9 @@ public class MemberServiceImpl implements MemberService {
         //获取所有的成员信息（包括老师成员的信息和学生成员的信息）
         MemberResult memberResult = new MemberResult();
         //获取学生成员的信息
-        memberResult.getMemberList(getMemberInfoList());
+        memberResult.setMemberList(getMemberInfoList());
         //获取老师成员的信息
-        memberResult.getTeacherList(getTeacherInfoList());
+        memberResult.setTeacherList(getTeacherInfoList());
         //若获取信息成功，返回success
         if(memberResult != null)
             return ResultTool.success(memberResult);
