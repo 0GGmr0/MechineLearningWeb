@@ -106,5 +106,13 @@
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"/>
+
+        <table tableName="reply_msg" domainObjectName="ReplyMsg"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+
     </context>
 </generatorConfiguration>

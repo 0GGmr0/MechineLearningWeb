@@ -11,6 +11,10 @@ public class Reply {
 
     private Date updateTime;
 
+    private Integer topicId;
+
+    private Integer replyLikeNum;
+
     private String content;
 
     public Integer getReplyId() {
@@ -43,6 +47,22 @@ public class Reply {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(Integer topicId) {
+        this.topicId = topicId;
+    }
+
+    public Integer getReplyLikeNum() {
+        return replyLikeNum;
+    }
+
+    public void setReplyLikeNum(Integer replyLikeNum) {
+        this.replyLikeNum = replyLikeNum;
     }
 
     public String getContent() {

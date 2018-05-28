@@ -18,8 +18,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.web.machineversion.model.ResultCode.SUCCESS;
-
 @Service
 public class NewsServiceImpl implements NewsService {
 
