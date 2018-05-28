@@ -13,5 +13,5 @@ public class DayTaskInfo {
     private String time;
     //日程内容
     @JsonProperty("content")
-    private Text content;
+    private String content;
 }
