@@ -19,7 +19,7 @@ public interface TopicService {
     Result addTopic(TopicQueryJson topicQueryJason, Integer userId);
 
     //为某个话题点赞
-    Result setTopicLiked(Integer topicId, Integer userId);
+    Result setTopicLiked(CommentLikedQueryJson commentLikedQueryJson, Integer userId);
 
     //为某个评论点赞
     Result setCommentLiked(CommentLikedQueryJson commentLIkeQueryJason, Integer userId);

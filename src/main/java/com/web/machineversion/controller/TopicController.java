@@ -44,12 +44,12 @@ public class TopicController {
         return topicService.addTopic(topicQueryJson, userId);
     }
 
-    //给话题点
+    //给话题点赞
     @RequestMapping(value = "/setTopicLiked", method = RequestMethod.POST)
-    public Result serTopicLiked(@RequestHeader(value = "topicId") Integer topicId,
+    public Result serTopicLiked(@RequestBody CommentLikedQueryJson commentLikedQueryJson,
                                 @RequestHeader(value = "Authorization") String token){
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
-        return topicService.setTopicLiked(topicId, userId);
+        return topicService.setTopicLiked(commentLikedQueryJson, userId);
     }
 
     //给话题的某个评论（回复）点赞

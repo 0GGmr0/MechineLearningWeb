@@ -261,21 +261,41 @@ public class TopicServiceImpl implements TopicService {
 
     //为某个话题点赞
     @Override
-    public Result setTopicLiked(Integer topicId, Integer userId){
+    public Result setTopicLiked(CommentLikedQueryJson commentLikedQueryJson, Integer userId){
         //查找topicMsg表中与用户Id和话题Id相对应的记录的liked数据元素内容
-        TopicMsgExample topicMsgExample = null;
-        topicMsgExample.createCriteria().andReplyUserIdEqualTo(userId).andTopicIdEqualTo(topicId);
+        Integer topicId = commentLikedQueryJson.getTopicId();
+        TopicExample topicExample = new TopicExample();
+        topicExample.createCriteria()
+                .andTopicIdEqualTo(topicId);
+        List<Topic> topicList = topicMapper.selectByExample(topicExample);
+        if(topicList.isEmpty())
+            return ResultTool.error("topicId错误");
+        Topic topic = topicList.get(0);
+
+        TopicMsgExample topicMsgExample = new TopicMsgExample();
+        topicMsgExample.createCriteria().
+                andReplyUserIdEqualTo(userId).
+                andTopicIdEqualTo(topicId);
         List<TopicMsg> topicMsgList = topicMsgMapper.selectByExample(topicMsgExample);
         Integer liked = topicMsgList.get(0).getLiked();
         //liked:回复者是否给话题点赞 1点赞 2没有 默认是2
-        if(liked == 1) liked = 2;
-        else liked = 1;
+
+        if(liked == 1) {
+            liked = 2;
+            topic.setTopicLikeNum(topic.getTopicLikeNum() - 1);
+        } else {
+            liked = 1;
+            topic.setTopicLikeNum(topic.getTopicLikeNum() + 1);
+        }
         //将修改后的记录更新
         TopicMsg topicMsg = topicMsgList.get(0);
         topicMsg.setLiked(liked);
+        //更新喜欢数
+
         int res = topicMsgMapper.updateByPrimaryKeySelective(topicMsg);
-        if(res > 0) return ResultTool.success();
-        else return ResultTool.error();
+        int res1 = topicMapper.updateByPrimaryKeySelective(topic);
+        if(res > 0 && res1 > 0) return ResultTool.success();
+        else return ResultTool.error("修改出错");
     }
 
     //为某个评论点赞
