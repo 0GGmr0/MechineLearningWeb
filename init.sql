@@ -64,23 +64,27 @@ create table news
   charset = utf8;
 
 -- auto-generated definition
+-- auto-generated definition
 create table notice
 (
-  id          int                                 null
-  comment '发布者id，对应user',
-  title       varchar(128)                        null
-  comment '通知标题',
-  content     longtext                            null
+  notice_id   int auto_increment
+  comment '发布者id，对应user'
+    primary key,
+  user_id     int                                 null,
+  content     text                                null
   comment '通知内容',
   create_time timestamp default CURRENT_TIMESTAMP not null
   comment '创建时间',
   type        varchar(16)                         null
   comment '公告种类meeting,outing,competition',
   event_time  timestamp default CURRENT_TIMESTAMP null
-  comment '每个事件的开始时间'
+  comment '每个事件的开始时间',
+  title       text                                null
+  comment '通知标题'
 )
   comment '通知，出现按照时间顺序'
   charset = utf8;
+
 
 -- auto-generated definition
 create table reply
