@@ -12,7 +12,7 @@ public class TopicInfo {
     private AuthorInfo topicAuthor;
 
     @JsonProperty("time")
-    private Date createTime;
+    private String createTime;
 
     @JsonProperty("theme")
     private String topicTheme;

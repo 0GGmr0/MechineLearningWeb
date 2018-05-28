@@ -3,6 +3,7 @@ package com.web.machineversion.service.Impl;
 import com.web.machineversion.dao.*;
 import com.web.machineversion.model.OV.AuthorInfo;
 import com.web.machineversion.model.OV.Result;
+import com.web.machineversion.model.OV.TopicDetailInfo;
 import com.web.machineversion.model.OV.TopicInfo;
 import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.entity.*;
@@ -13,7 +14,10 @@ import com.web.machineversion.service.TopicService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -98,11 +102,13 @@ public class TopicServiceImpl implements TopicService {
 
     //获取当前话题的作者头像
     private String getAuthorAvatar(Integer userId){
-        UserExample userExample = null;
-        userExample.createCriteria().andUserIdEqualTo(userId);
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andUserIdEqualTo(userId);
         List<User> userList = userMapper.selectByExample(userExample);
-        String avatar = userList.get(0).getAvatar();
-        return avatar;
+        if(userList.isEmpty())
+            return null;
+        return userList.get(0).getAvatar();
     }
 
     //获取当前回复的作者头像
@@ -164,7 +170,7 @@ public class TopicServiceImpl implements TopicService {
         for(Topic topic : topicList){
             TopicInfo topicInfo = new TopicInfo();
             topicInfo.setTopicAuthor(getAuthor(topic.getUserId()));
-            topicInfo.setCreateTime(topic.getCreateTime());
+            topicInfo.setCreateTime(changeTimeFormat(topic.getCreateTime()));
             topicInfo.setTopicTheme(topic.getTheme());
             topicInfo.setTopicTitle(topic.getTitle());
             topicInfo.setTopicId(String.valueOf(topic.getTopicId()));
@@ -177,25 +183,31 @@ public class TopicServiceImpl implements TopicService {
         return ResultTool.success(topicInfoList);
     }
 
+    //把Date类型的数据转换成String类型的
+    private String changeTimeFormat(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(date);
+    }
+
     //获取某篇话题的详细内容,需要传入访问话题的Id
     @Override
     public Result getTopicDetail(Integer topicId){
-//        TopicExample topicExample = new TopicExample();
-//        //把通过Example获取到的所有话题信息存到List中
-//        topicExample.createCriteria().andTopicIdEqualTo(topicId);
-//        List<Topic> topicList = topicMapper.selectByExampleWithBLOBs(topicExample);
-//        Topic topic = topicList.get(0);
-//        if(topic != null){
-//            TopicDetailInfo topicDetailInfo = new TopicDetailInfo();
-//            topicDetailInfo.setTopicTitle(topic.getTitle());
-//            topicDetailInfo.setTopicType(topic.getTheme());
-//            topicDetailInfo.setTopicAuthor(getAuthor(topic.getUserId()));
-//            topicDetailInfo.setAuthorAvatar(getAuthorAvatar(topic.getUserId()));
-//            topicDetailInfo.setDatetime(topic.getCreateTime());
-//            topicDetailInfo.setContent(topic.getContent());
-//            return ResultTool.success(topicDetailInfo);
-//        }
-        return ResultTool.error();
+        TopicExample topicExample = new TopicExample();
+        //把通过Example获取到的所有话题信息存到List中
+        topicExample.createCriteria()
+                .andTopicIdEqualTo(topicId);
+        List<Topic> topicList = topicMapper.selectByExample(topicExample);
+        if(topicList.isEmpty())
+            return ResultTool.error("给予的topicId有误");
+        Topic topic = topicList.get(0);
+        TopicDetailInfo topicDetailInfo = new TopicDetailInfo();
+        topicDetailInfo.setTopicTitle(topic.getTitle());
+        topicDetailInfo.setTopicType(topic.getTheme());
+        topicDetailInfo.setTopicAuthor(getAuthor(topic.getUserId()));
+        topicDetailInfo.setAuthorAvatar(getAuthorAvatar(topic.getUserId()));
+        topicDetailInfo.setDateTime(changeTimeFormat(topic.getCreateTime()));
+        topicDetailInfo.setContent(topic.getContent());
+        return ResultTool.success(topicDetailInfo);
     }
 
     //获取某篇话题的comment详情

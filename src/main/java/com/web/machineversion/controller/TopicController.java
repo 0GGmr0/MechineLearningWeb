@@ -26,7 +26,7 @@ public class TopicController {
 
     //获取某篇话题的详细内容
     @RequestMapping(value = "/topicDetail", method = RequestMethod.GET)
-    public Result getTopicDetail(@RequestHeader(value = "topicId") Integer topicId){
+    public Result getTopicDetail(@RequestParam(value = "topicId") Integer topicId){
         return topicService.getTopicDetail(topicId);
     }
 
