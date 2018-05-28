@@ -9,7 +9,9 @@ public class Notice {
 
     private Date createTime;
 
-    private Date updateTime;
+    private String type;
+
+    private Date eventTime;
 
     private String content;
 
@@ -37,12 +39,20 @@ public class Notice {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public String getType() {
+        return type;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
+    public Date getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Date eventTime) {
+        this.eventTime = eventTime;
     }
 
     public String getContent() {

@@ -10,7 +10,7 @@ public interface TopicMapper {
 
     int deleteByExample(TopicExample example);
 
-    int deleteByPrimaryKey(Integer sequence);
+    int deleteByPrimaryKey(Integer topicId);
 
     int insert(Topic record);
 
@@ -20,7 +20,7 @@ public interface TopicMapper {
 
     List<Topic> selectByExample(TopicExample example);
 
-    Topic selectByPrimaryKey(Integer sequence);
+    Topic selectByPrimaryKey(Integer topicId);
 
     int updateByExampleSelective(@Param("record") Topic record, @Param("example") TopicExample example);
 
