@@ -13,7 +13,7 @@ public interface TopicService {
     Result getTopicDetail(Integer topicId);
 
     //获取某篇话题的comment详情
-    Result getCommentDetail(Integer topicId, Integer userId);
+    Result getCommentDetail(Integer topicId);
 
     //发布话题
     Result addTopic(TopicQueryJson topicQueryJason, Integer userId);

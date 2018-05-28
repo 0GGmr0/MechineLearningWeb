@@ -1,10 +1,7 @@
 package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.*;
-import com.web.machineversion.model.OV.AuthorInfo;
-import com.web.machineversion.model.OV.Result;
-import com.web.machineversion.model.OV.TopicDetailInfo;
-import com.web.machineversion.model.OV.TopicInfo;
+import com.web.machineversion.model.OV.*;
 import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.entity.*;
 import com.web.machineversion.model.jsonrequestbody.CommentLikedQueryJson;
@@ -212,29 +209,28 @@ public class TopicServiceImpl implements TopicService {
 
     //获取某篇话题的comment详情
     @Override
-    public Result getCommentDetail(Integer topicId, Integer userId){
-//        ReplyExample replyExample = null;
-//        //通过Example获取到的所有评论存到List中
-//        replyExample.createCriteria().andTopicIdEqualTo(topicId);
-//        List<Reply> replyList = replyMapper.selectByExampleWithBLOBs(replyExample);
-//        List<CommentInfo> commentInfoList = new ArrayList<>();
-//
-//        if(replyList == null) return ResultTool.error();
-//        if(replyList != null){
-//            for(Reply reply : replyList){
-//                CommentInfo commentInfo = new CommentInfo();
-//                commentInfo.setCommentId(reply.getReplyId());
-//                commentInfo.setAuthorAvatar(getAuthorAvatar(reply.getUserId()));
-//                commentInfo.setCommentAuthor(getAuthor(reply.getUserId()));
-//                commentInfo.setContent(reply.getContent());
-//                commentInfo.setTime(reply.getCreateTime());
-//                commentInfo.setLike(reply.getReplyLikeNum());
-//                commentInfo.setLiked(isReplyLiked(reply, userId));
-//                commentInfoList.add(commentInfo);
-//            }
-//            return ResultTool.success(commentInfoList);
-//        }
-        return ResultTool.error();
+    public Result getCommentDetail(Integer topicId){
+        ReplyExample replyExample = new ReplyExample();
+        //通过Example获取到的所有评论存到List中
+        replyExample.createCriteria()
+                .andTopicIdEqualTo(topicId);
+        List<Reply> replyList = replyMapper.selectByExampleWithBLOBs(replyExample);
+        List<CommentInfo> commentInfoList = new ArrayList<>();
+
+        if(replyList.isEmpty())
+            return ResultTool.error("id错误或此Id没有评论");
+        for(Reply reply : replyList){
+            CommentInfo commentInfo = new CommentInfo();
+            commentInfo.setCommentId(reply.getReplyId());
+            commentInfo.setAuthorAvatar(getAuthorAvatar(reply.getUserId()));
+            commentInfo.setCommentAuthor(getAuthor(reply.getUserId()));
+            commentInfo.setContent(reply.getContent());
+            commentInfo.setTime(changeTimeFormat(reply.getCreateTime()));
+            commentInfo.setLike(reply.getReplyLikeNum());
+            commentInfo.setLiked(isReplyLiked(reply, reply.getUserId()));
+            commentInfoList.add(commentInfo);
+        }
+        return ResultTool.success(commentInfoList);
     }
 
     //发布话题

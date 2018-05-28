@@ -26,16 +26,14 @@ public class TopicController {
 
     //获取某篇话题的详细内容
     @RequestMapping(value = "/topicDetail", method = RequestMethod.GET)
-    public Result getTopicDetail(@RequestParam(value = "topicId") Integer topicId){
+    public Result getTopicDetail(@RequestParam(value = "topicId") Integer topicId) {
         return topicService.getTopicDetail(topicId);
     }
 
     //获取某篇话题的comment详情
     @RequestMapping(value = "/commentDetail", method = RequestMethod.GET)
-    public Result getCommentDetail(@RequestHeader(value = "topicId") Integer topicId,
-                                   @RequestHeader(value = "Authorization") String token){
-        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
-        return topicService.getCommentDetail(topicId, userId);
+    public Result getCommentDetail(@RequestParam(value = "topicId") Integer topicId) {
+        return topicService.getCommentDetail(topicId);
     }
 
     //发布话题
