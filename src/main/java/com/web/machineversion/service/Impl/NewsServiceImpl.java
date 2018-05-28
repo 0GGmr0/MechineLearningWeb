@@ -109,7 +109,10 @@ public class NewsServiceImpl implements NewsService {
         News news = newsList.get(0);
         //把news数据拼接成stringArticleInfoMap
         ArticleInfo articleInfo = new ArticleInfo();
-        articleInfo.setEnwsAuthor(newsAuthor(news));
+        AuthorInfo authorInfo = new AuthorInfo();
+        authorInfo.setAuthorName(newsAuthor(news));
+        authorInfo.setAuthorUid(news.getUserId());
+        articleInfo.setEnwsAuthor(authorInfo);
         articleInfo.setNewsContent(news.getContent());
         articleInfo.setNewsCreateTime(changeTimeFormat(news));
         articleInfo.setNewsTitle(news.getTitle());
