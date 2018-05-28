@@ -272,30 +272,45 @@ public class TopicServiceImpl implements TopicService {
             return ResultTool.error("topicId错误");
         Topic topic = topicList.get(0);
 
+        //判断有topicmasg有没有这个信息表，有就直接改，没有就创建一个新的
         TopicMsgExample topicMsgExample = new TopicMsgExample();
         topicMsgExample.createCriteria().
                 andReplyUserIdEqualTo(userId).
                 andTopicIdEqualTo(topicId);
         List<TopicMsg> topicMsgList = topicMsgMapper.selectByExample(topicMsgExample);
-        Integer liked = topicMsgList.get(0).getLiked();
-        //liked:回复者是否给话题点赞 1点赞 2没有 默认是2
 
-        if(liked == 1) {
-            liked = 2;
-            topic.setTopicLikeNum(topic.getTopicLikeNum() - 1);
-        } else {
-            liked = 1;
+        if(topicMsgList.isEmpty()) {
+            TopicMsg newTopicMsg = new TopicMsg();
+            newTopicMsg.setLiked(1);
+            newTopicMsg.setCommented(2);
+            newTopicMsg.setTopicId(topicId);
+            newTopicMsg.setReplyUserId(userId);
             topic.setTopicLikeNum(topic.getTopicLikeNum() + 1);
-        }
-        //将修改后的记录更新
-        TopicMsg topicMsg = topicMsgList.get(0);
-        topicMsg.setLiked(liked);
-        //更新喜欢数
+            int res = topicMsgMapper.insert(newTopicMsg);
+            int res1 = topicMapper.updateByPrimaryKeySelective(topic);
+            if(res > 0 && res1 > 0) return ResultTool.success();
+            else return ResultTool.error("修改出错");
+        } else {
+            Integer liked = topicMsgList.get(0).getLiked();
+            //liked:回复者是否给话题点赞 1点赞 2没有 默认是2
 
-        int res = topicMsgMapper.updateByPrimaryKeySelective(topicMsg);
-        int res1 = topicMapper.updateByPrimaryKeySelective(topic);
-        if(res > 0 && res1 > 0) return ResultTool.success();
-        else return ResultTool.error("修改出错");
+            if (liked == 1) {
+                liked = 2;
+                topic.setTopicLikeNum(topic.getTopicLikeNum() - 1);
+            } else {
+                liked = 1;
+                topic.setTopicLikeNum(topic.getTopicLikeNum() + 1);
+            }
+            //将修改后的记录更新
+            TopicMsg topicMsg = topicMsgList.get(0);
+            topicMsg.setLiked(liked);
+            //更新喜欢数
+
+            int res = topicMsgMapper.updateByPrimaryKeySelective(topicMsg);
+            int res1 = topicMapper.updateByPrimaryKeySelective(topic);
+            if (res > 0 && res1 > 0) return ResultTool.success();
+            else return ResultTool.error("修改出错");
+        }
     }
 
     //为某个评论点赞
