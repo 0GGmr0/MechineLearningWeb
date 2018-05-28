@@ -2,7 +2,6 @@ package com.web.machineversion.model.jsonrequestbody;
 
 import lombok.Data;
 
-import java.util.Date;
 
 @Data
 public class NoticeQueryJson {

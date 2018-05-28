@@ -251,12 +251,11 @@ public class TopicServiceImpl implements TopicService {
         topic.setContent(content);
         topic.setTopicCommentNum(0);
         topic.setTopicLikeNum(0);
-
         int res = topicMapper.insert(topic);
         if(res > 0){
             return ResultTool.success();
         }
-        else return ResultTool.error();
+        else return ResultTool.error("数据格式有误,添加失败");
 
     }
 
