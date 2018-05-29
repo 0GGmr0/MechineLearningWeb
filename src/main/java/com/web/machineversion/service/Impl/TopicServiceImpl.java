@@ -87,14 +87,14 @@ public class TopicServiceImpl implements TopicService {
      * liked：回复者是否给话题点赞 1点赞 2没有点赞
      */
     private boolean isReplyLiked(Reply reply, Integer userId){
-//        ReplyMsg replyMsg = new ReplyMsg();
-//        ReplyMsgExample replyMsgExample = null;
-//        //获取的是当前登录用户对于当前话题的topicmsg信息
-//        replyMsgExample.createCriteria().andReplyUserIdEqualTo(userId).andTopicIdEqualTo(reply.getReplyId());
-//        List<ReplyMsg> replyMsgList = replyMsgMapper.selectByExample(replyMsgExample);
-//        if(replyMsgList != null) return true;
-//        else return false;
-        return false;
+        ReplyMsgExample replyMsgExample = new ReplyMsgExample();
+        //获取的是当前登录用户对于当前话题的topicmsg信息
+        replyMsgExample.createCriteria()
+                .andLikeUserIdEqualTo(userId)
+                .andReplyIdEqualTo(reply.getReplyId());
+        List<ReplyMsg> replyMsgList = replyMsgMapper.selectByExample(replyMsgExample);
+        if(replyMsgList.isEmpty()) return false;
+        return replyMsgList.get(0).getLikeed().equals(1);
     }
 
     //获取当前话题的作者头像
@@ -112,41 +112,39 @@ public class TopicServiceImpl implements TopicService {
 
     //修改Topic表中的Commentnum列
     private Boolean addTopicCommentNum(Integer topicId){
-//        TopicExample topicExample = null;
-//        topicExample.createCriteria().andTopicIdEqualTo(topicId);
-//        List<Topic> topicList = topicMapper.selectByExampleWithBLOBs(topicExample);
-//        Topic updatePart = topicList.get(0);
-//        Integer commentNum = updatePart.getTopicCommentNum()+1;
-//        updatePart.setTopicCommentNum(commentNum);
-//
-//        int res = topicMapper.updateByPrimaryKeyWithBLOBs(updatePart);
-//        if(res > 0) return true;
-//        else return false;
-        return null;
+        TopicExample topicExample = new TopicExample();
+        topicExample.createCriteria()
+                .andTopicIdEqualTo(topicId);
+        List<Topic> topicList = topicMapper.selectByExample(topicExample);
+        Topic updatePart = topicList.get(0);
+        Integer commentNum = updatePart.getTopicCommentNum()+1;
+        updatePart.setTopicCommentNum(commentNum);
+        int res = topicMapper.updateByPrimaryKeySelective(updatePart);
+        return res > 0;
     }
 
     //添加topicMsg表中Comment信息
-    private boolean addTopicMsgComment(Integer topicId, Integer userId) {
-        TopicMsgExample topicMsgExample = null;
-        topicMsgExample.createCriteria().andTopicIdEqualTo(topicId).andReplyUserIdEqualTo(userId);
+    private Boolean addTopicMsgComment(Integer topicId, Integer userId) {
+        TopicMsgExample topicMsgExample = new TopicMsgExample();
+        topicMsgExample.createCriteria()
+                .andTopicIdEqualTo(topicId)
+                .andReplyUserIdEqualTo(userId);
         List<TopicMsg> topicMsgList = topicMsgMapper.selectByExample(topicMsgExample);
 
-        if(topicMsgList != null){
-            TopicMsg updatePart = topicMsgList.get(0);
-            updatePart.setCommented(1);
-            int res = topicMsgMapper.updateByPrimaryKey(updatePart);
-            if(res > 0) return true;
-            else return false;
-        }
-        else{
+        if(topicMsgList.isEmpty()){
             TopicMsg topicMsg = new TopicMsg();
             topicMsg.setTopicId(topicId);
             topicMsg.setReplyUserId(userId);
             topicMsg.setCommented(1);
             topicMsg.setLiked(2);
             int res = topicMsgMapper.insert(topicMsg);
-            if(res > 0) return true;
-            else return false;
+            return res > 0;
+        }
+        else{
+            TopicMsg updatePart = topicMsgList.get(0);
+            updatePart.setCommented(1);
+            int res = topicMsgMapper.updateByPrimaryKey(updatePart);
+            return res > 0;
         }
     }
 
@@ -386,6 +384,8 @@ public class TopicServiceImpl implements TopicService {
     public Result addTopicComment(CommentQueryJson commentQueryJson, Integer userId){
         //需要评论的主题
         Integer topicId = commentQueryJson.getTopicId();
+        if(isTopic(topicId))
+            return ResultTool.error("给予的topicId错误");
         //评论的内容
         String content = commentQueryJson.getContent();
 
@@ -394,14 +394,14 @@ public class TopicServiceImpl implements TopicService {
         reply.setTopicId(topicId);
         reply.setUserId(userId);
         reply.setContent(content);
-
+        reply.setReplyLikeNum(0);
         int res = replyMapper.insert(reply);
         if(res > 0){
-            if(!addTopicCommentNum(topicId)) return ResultTool.error();
-            if(!addTopicMsgComment(topicId, userId)) return ResultTool.error();
+            if(addTopicCommentNum(topicId).equals(false)) return ResultTool.error("修改topic评论数有误");
+            if(addTopicMsgComment(topicId, userId).equals(false)) return ResultTool.error("修改topicMsg有误");
             return ResultTool.success();
         }
-        else return ResultTool.error();
+        else return ResultTool.error("评论失败");
 
     }
 
