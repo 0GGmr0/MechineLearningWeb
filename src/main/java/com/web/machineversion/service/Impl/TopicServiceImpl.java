@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -162,6 +163,7 @@ public class TopicServiceImpl implements TopicService {
         if(topicList.isEmpty()){
             return ResultTool.error("目前没有话题");
         }
+        Collections.reverse(topicList);
         for(Topic topic : topicList){
             TopicInfo topicInfo = new TopicInfo();
             topicInfo.setTopicAuthor(getAuthor(topic.getUserId()));
@@ -217,6 +219,7 @@ public class TopicServiceImpl implements TopicService {
 
         if(replyList.isEmpty())
             return ResultTool.error("id错误或此Id没有评论");
+        Collections.reverse(replyList);
         for(Reply reply : replyList){
             CommentInfo commentInfo = new CommentInfo();
             commentInfo.setCommentId(reply.getReplyId());
@@ -236,11 +239,18 @@ public class TopicServiceImpl implements TopicService {
     public Result addTopic(TopicQueryJson topicQueryJason, Integer userId){
         //话题的标题
         String title = topicQueryJason.getTitle();
+        if(title.isEmpty())
+            return ResultTool.error("标题不能为空");
         //话题的主题
         String type = topicQueryJason.getType();
+        if(type.isEmpty())
+            return ResultTool.error("种类不能为空");
         //话题的内容
         String content = topicQueryJason.getContent();
-
+        if(content.isEmpty())
+            return ResultTool.error("内容不能为空");
+        if(content.length() < 50)
+            return ResultTool.error("内容不能小于50");
         Topic topic = new Topic();
 
         topic.setUserId(userId);

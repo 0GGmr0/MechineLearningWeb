@@ -109,7 +109,10 @@ public class NewsServiceImpl implements NewsService {
         News news = newsList.get(0);
         //把news数据拼接成stringArticleInfoMap
         ArticleInfo articleInfo = new ArticleInfo();
-        articleInfo.setEnwsAuthor(newsAuthor(news));
+        AuthorInfo authorInfo = new AuthorInfo();
+        authorInfo.setAuthorUid(news.getUserId());
+        authorInfo.setAuthorName(newsAuthor(news));
+        articleInfo.setEnwsAuthor(authorInfo);
         articleInfo.setNewsContent(news.getContent());
         articleInfo.setNewsCreateTime(changeTimeFormat(news));
         articleInfo.setNewsTitle(news.getTitle());
@@ -132,6 +135,7 @@ public class NewsServiceImpl implements NewsService {
         if(newsList.isEmpty()) {
             return ResultTool.error("请求格式有误");
         }
+        Collections.reverse(newsList);
         for(News news : newsList) {
             NewsInfo newsInfo = new NewsInfo();
             AuthorInfo authorInfo = new AuthorInfo();
@@ -193,16 +197,31 @@ public class NewsServiceImpl implements NewsService {
 
         //添加新闻的标题
         String title = newsQueryJson.getTitle();
+        if(title.isEmpty())
+            return ResultTool.error("标题不能为空");
         //添加新闻的种类
-        Integer type = newsTypeStringToInteger(newsQueryJson.getType());
+        String oldType = newsQueryJson.getType();
+        if(oldType.isEmpty())
+            return ResultTool.error("种类不能为空");
+        Integer type = newsTypeStringToInteger(oldType);
         //添加新闻的内容
         String content = newsQueryJson.getContent();
+        if(content.isEmpty())
+            return ResultTool.error("内容不能为空");
+        if(content.length() < 50)
+            return ResultTool.error("字数不能小于50");
         //默认新闻都是非重要的
         Integer status = 2;
         //这个是殷子良要求的 天知道是啥意思
         String iconClass = "el-icon-document";
 
+        String overview;
+        if(content.length() > 200)
+            overview = content.substring(0,200);
+        else
+            overview = content;
         News news = new News();
+        news.setOverview(overview);
         news.setUserId(userId);
         news.setTitle(title);
         news.setType(type);

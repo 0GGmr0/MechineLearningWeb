@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -77,6 +78,7 @@ public class NoticeServiceImpl implements NoticeService {
         if(noticeList.isEmpty()) {
             return ResultTool.error("请求格式有误");
         }
+        Collections.reverse(noticeList);
         for(Notice notice : noticeList) {
             NoticeInfo noticeInfo = new NoticeInfo();
             noticeInfo.setNoticeType(notice.getType());
