@@ -7,6 +7,8 @@ public class ReplyMsg {
 
     private Integer likeUserId;
 
+    private Integer likeed;
+
     public Integer getReplyMsgId() {
         return replyMsgId;
     }
@@ -29,5 +31,13 @@ public class ReplyMsg {
 
     public void setLikeUserId(Integer likeUserId) {
         this.likeUserId = likeUserId;
+    }
+
+    public Integer getLikeed() {
+        return likeed;
+    }
+
+    public void setLikeed(Integer likeed) {
+        this.likeed = likeed;
     }
 }

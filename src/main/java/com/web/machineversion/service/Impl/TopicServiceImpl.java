@@ -313,30 +313,72 @@ public class TopicServiceImpl implements TopicService {
         }
     }
 
+
+    //true表示 topicId不对，false表示是对的
+    private boolean isTopic(Integer topicId) {
+        TopicExample topicExample = new TopicExample();
+        topicExample.createCriteria()
+                .andTopicIdEqualTo(topicId);
+        List<Topic> topicList= topicMapper.selectByExample(topicExample);
+        return topicList.isEmpty();
+    }
+    //true表示没有commentId
+    private boolean isComment(Integer commentId) {
+        ReplyExample replyExample = new ReplyExample();
+        replyExample.createCriteria()
+                .andReplyIdEqualTo(commentId);
+        List<Reply> replyList= replyMapper.selectByExample(replyExample);
+        return replyList.isEmpty();
+    }
+
     //为某个评论点赞
     @Override
     public Result setCommentLiked(CommentLikedQueryJson commentLIkeQueryJason, Integer userId){
-//        Integer commentId = commentLIkeQueryJason.getCommentId();
-//        //查找replyMsg表中与用户Id和话题Id相对应的记录的liked数据元素内容
-//        ReplyMsgExample replyMsgExample = null;
-//        replyMsgExample.createCriteria().andLikeUserIdEqualTo(userId).andReplyIdEqualTo(commentId);
-//        List<replyMsg> replyMsgList = replyMsgMapper.selectByExample(replyMsgExample);
-//        //若已点赞，则删除这条记录；若未点赞，则插入记录
-//        if(replyMsgList == null) {
-//            replyMsg replyMsg = new ReplyMsg();
-//            replyMsg.setReplyId(commentId);
-//            replyMsg.setLikeUserId(userId);
-//            int res = replyMsgMapper.insert(replyMsg);
-//            if(res > 0) return ResultTool.success();
-//            else return ResultTool.error();
-//        }
-//        else{
-//            replyMsg replyMsg = replyMsgList.get(0);
-//            int res = replyMsgMapper.deleteByPrimaryKey(replyMsg.getReplyMegId());
-//            if(res > 0) return ResultTool.success();
-//            else return ResultTool.error();
-//        }
-        return null;
+        Integer topicId = commentLIkeQueryJason.getTopicId();
+        if(isTopic(topicId))
+            return ResultTool.error("给予的topicId有误");
+        Integer commentId = commentLIkeQueryJason.getCommentId();
+        if(isComment(commentId))
+            return ResultTool.error("给予的commentId有误");
+        //查找replyMsg表中与用户Id和话题Id相对应的记录的liked数据元素内容
+        ReplyMsgExample replyMsgExample = new ReplyMsgExample();
+        replyMsgExample.createCriteria()
+                .andLikeUserIdEqualTo(userId)
+                .andReplyIdEqualTo(commentId);
+        List<ReplyMsg> replyMsgList = replyMsgMapper.selectByExample(replyMsgExample);
+        ReplyExample replyExample = new ReplyExample();
+        replyExample.createCriteria()
+                .andReplyIdEqualTo(commentId);
+        Reply reply = replyMapper.selectByExample(replyExample).get(0);
+
+        //若已点赞，则删除这条记录；若未点赞，则插入记录
+        if(replyMsgList.isEmpty()) {
+            ReplyMsg replyMsg = new ReplyMsg();
+            replyMsg.setReplyId(commentId);
+            replyMsg.setLikeUserId(userId);
+            replyMsg.setLikeed(1);
+            Reply newReply = new Reply();
+            newReply.setReplyId(commentId);
+            newReply.setReplyLikeNum(1);
+            int res = replyMsgMapper.insert(replyMsg);
+            int res1 = replyMapper.updateByPrimaryKeySelective(newReply);
+            if(res > 0 && res1 > 0) return ResultTool.success();
+            else return ResultTool.error("点赞失败");
+        }
+        else{
+            ReplyMsg replyMsg = replyMsgList.get(0);
+            if(replyMsg.getLikeed().equals(1)) {
+                reply.setReplyLikeNum(reply.getReplyLikeNum() - 1);
+                replyMsg.setLikeed(2);
+            } else {
+                reply.setReplyLikeNum(reply.getReplyLikeNum() + 1);
+                replyMsg.setLikeed(1);
+            }
+            int res = replyMsgMapper.updateByPrimaryKeySelective(replyMsg);
+            int res1 = replyMapper.updateByPrimaryKeySelective(reply);
+            if(res > 0 && res1 > 0) return ResultTool.success();
+            else return ResultTool.error();
+        }
     }
 
     //添加某个话题的评论

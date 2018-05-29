@@ -84,15 +84,15 @@
             <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
         <!--</table>-->
 
-        <table tableName="topic" domainObjectName="Topic"
-            enableCountByExample="true"
-            enableUpdateByExample="true"
-            enableDeleteByExample="true"
-            enableSelectByExample="true"
-            selectByExampleQueryId="true"
-        >
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
-        </table>
+        <!--<table tableName="topic" domainObjectName="Topic"-->
+            <!--enableCountByExample="true"-->
+            <!--enableUpdateByExample="true"-->
+            <!--enableDeleteByExample="true"-->
+            <!--enableSelectByExample="true"-->
+            <!--selectByExampleQueryId="true"-->
+        <!--&gt;-->
+            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</table>-->
 
         <!--<table tableName="user" domainObjectName="User"-->
             <!--enableCountByExample="true"-->
@@ -108,12 +108,12 @@
                <!--enableSelectByExample="true"-->
                <!--selectByExampleQueryId="true"/>-->
 
-        <!--<table tableName="reply_msg" domainObjectName="ReplyMsg"-->
-               <!--enableCountByExample="true"-->
-               <!--enableUpdateByExample="true"-->
-               <!--enableDeleteByExample="true"-->
-               <!--enableSelectByExample="true"-->
-               <!--selectByExampleQueryId="true"/>-->
+        <table tableName="reply_msg" domainObjectName="ReplyMsg"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
 
     </context>
 </generatorConfiguration>
