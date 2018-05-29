@@ -113,9 +113,13 @@ create table reply_msg
 (
   reply_msg_id int auto_increment
     primary key,
-  reply_id     int not null,
-  like_user_id int null
+  reply_id     int             not null,
+  like_user_id int             null,
+  likeed       int default '2' null
+  comment '1喜欢 2不喜欢 默认是2'
 );
+
+
 
 -- auto-generated definition
 create table topic
