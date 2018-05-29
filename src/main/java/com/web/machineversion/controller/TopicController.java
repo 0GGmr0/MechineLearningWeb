@@ -48,8 +48,8 @@ public class TopicController {
     @RequestMapping(value = "/setTopicLiked", method = RequestMethod.POST)
     public Result serTopicLiked(@RequestBody CommentLikedQueryJson commentLikedQueryJson,
                                 @RequestHeader(value = "Authorization") String token){
-//        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
-        Integer userId = 16122131;
+        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
+//        Integer userId = 16122131;
         return topicService.setTopicLiked(commentLikedQueryJson, userId);
     }
 
