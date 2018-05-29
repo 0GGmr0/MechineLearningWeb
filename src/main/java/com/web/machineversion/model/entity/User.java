@@ -27,6 +27,8 @@ public class User {
 
     private Integer background;
 
+    private Integer admin;
+
     private String introduction;
 
     public Integer getUserId() {
@@ -123,6 +125,14 @@ public class User {
 
     public void setBackground(Integer background) {
         this.background = background;
+    }
+
+    public Integer getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Integer admin) {
+        this.admin = admin;
     }
 
     public String getIntroduction() {

@@ -20,4 +20,7 @@ public interface UserService {
 //    boolean IsQueryJsonNotContainUserId(Integer userId);
     //判断是否有资格删除公告
     boolean IsAbleToDeleteNotice(Integer userId, NoticeQueryJson deleteNoticeQueryJson);
+
+    //获取所有的成员信息，返回Result格式
+    Result getAllMember();
 }

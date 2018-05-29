@@ -34,34 +34,41 @@ create table navigation
   charset = utf8;
 
 -- auto-generated definition
-create table news
+create table user
 (
-  news_id     int auto_increment
-  comment '新闻的id'
+  user_id         int                                 not null
+  comment '工号'
     primary key,
-  user_id     int                                 null
-  comment '发布者id，对应user',
-  title       varchar(128)                        null
-  comment '新闻标题',
-  content     longtext                            null
-  comment '新闻内容',
-  status      int                                 null
-  comment '1是特别重要 2是非特别重要',
-  create_time timestamp default CURRENT_TIMESTAMP not null
-  comment '创建时间',
-  update_time timestamp default CURRENT_TIMESTAMP not null
-  comment '更新时间',
-  type        int                                 null
-  comment '新闻类型 1是实验室新闻， 2是学术新闻， 3是其他',
-  icon_class  varchar(64)                         null
-  comment '代表icon的类别是什么',
-  image_url   varchar(128)                        null
-  comment '图片链接',
-  overview    text                                null
-  comment '新闻的简介'
+  user_name       varchar(32)                         null
+  comment '用户名',
+  pass_word       varchar(128)                        null
+  comment '密码',
+  rool            int                                 null
+  comment '用户的身份 1学生 2老师',
+  phone           varchar(16)                         null
+  comment '用户电话',
+  avatar          varchar(256)                        null
+  comment '用户头像',
+  department      varchar(32)                         null
+  comment '所属学院',
+  introduction    text                                null
+  comment '用户简介',
+  register_time   timestamp default CURRENT_TIMESTAMP not null
+  comment '用户注册时间',
+  last_login_time timestamp default CURRENT_TIMESTAMP not null
+  comment '上次登录时间',
+  login_times     int default '0'                     null
+  comment '登录次数',
+  school          varchar(16)                         null
+  comment '学校',
+  background      int                                 null
+  comment '1 本科生， 2 硕士生， 3 博士生',
+  admin           int default '2'                     null
+  comment '1是管理员 2不是管理员 默认是2'
 )
-  comment '新闻，按照时间顺序出现，可人为设置顺序置顶'
+  comment '用户表'
   charset = utf8;
+
 
 -- auto-generated definition
 -- auto-generated definition

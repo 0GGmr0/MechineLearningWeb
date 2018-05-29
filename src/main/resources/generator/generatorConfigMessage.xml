@@ -1,3 +1,6 @@
+
+<!--此表为自动生成mybatis的数据配置表，需要使用时请另外创建一个generatorConfig.xml并复制到里面-->
+
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
@@ -15,7 +18,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://m.mzz.pub:3306/machineversion?characterEncoding=utf-8&amp;useSSL=true"
                         userId="root"
-                        password="miaoxiaojie">
+                        password="">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>

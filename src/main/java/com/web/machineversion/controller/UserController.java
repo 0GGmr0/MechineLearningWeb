@@ -1,5 +1,6 @@
 package com.web.machineversion.controller;
 
+import com.web.machineversion.model.OV.Result;
 import com.web.machineversion.model.jsonrequestbody.UserQueryJson;
 import com.web.machineversion.model.OV.UserMessageResult;
 import com.web.machineversion.service.UserService;
@@ -22,4 +23,7 @@ public class UserController {
             return userService.getUserMessage(Integer.parseInt(JwtUtil.parseJwt(token)));
         return userService.getUserMessage(userId);
     }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public Result getAllMember() { return userService.getAllMember(); }
 }
