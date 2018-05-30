@@ -173,11 +173,14 @@ public class TopicServiceImpl implements TopicService {
             topicInfo.setTopicId(String.valueOf(topic.getTopicId()));
             topicInfo.setTopicLike(topic.getTopicLikeNum());
             topicInfo.setTopicCommentNum(topic.getTopicCommentNum());
-            if(userId != null)
+            if(userId != null) {
                 topicInfo.setTopicLiked(isTopicLiked(topic, userId));
-            else
+                topicInfo.setTopicCommented(isCommented(topic, userId));
+            } else {
                 topicInfo.setTopicLiked(false);
-            topicInfo.setTopicCommented(isCommented(topic, topic.getUserId()));
+                topicInfo.setTopicCommented(false);
+            }
+
             topicInfoList.add(topicInfo);
         }
         return ResultTool.success(topicInfoList);
