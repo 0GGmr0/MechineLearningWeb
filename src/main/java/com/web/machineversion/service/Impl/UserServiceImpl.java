@@ -183,7 +183,10 @@ public class UserServiceImpl implements UserService {
         List<Member> teacherInfoList = new ArrayList<>();
         for(User user : userList){
             Member member = new Member();
-            member.setName(user.getUserName());
+            AuthorInfo authorInfo = new AuthorInfo();
+            authorInfo.setAuthorUid(user.getUserId());
+            authorInfo.setAuthorName(user.getUserName());
+            member.setAuthorInfo(authorInfo);
             member.setHeadshoturl(user.getAvatar());
             member.setContaction(user.getPhone());
             String[] position = new String[2];
@@ -209,7 +212,10 @@ public class UserServiceImpl implements UserService {
         List<Member> memberInfoList = new ArrayList<>();
         for(User user : userList){
             Member member = new Member();
-            member.setName(user.getUserName());
+            AuthorInfo authorInfo = new AuthorInfo();
+            authorInfo.setAuthorUid(user.getUserId());
+            authorInfo.setAuthorName(user.getUserName());
+            member.setAuthorInfo(authorInfo);
             member.setHeadshoturl(user.getAvatar());
             member.setContaction(user.getPhone());
             List<String> stringList = new ArrayList<>();

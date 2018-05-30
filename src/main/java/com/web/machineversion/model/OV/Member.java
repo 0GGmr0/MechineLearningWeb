@@ -8,8 +8,8 @@ import java.util.List;
 @Data
 public class Member {
     //用户名
-    @JsonProperty("username")
-    private String name;
+    @JsonProperty("author")
+    private AuthorInfo authorInfo;
     //头像
     @JsonProperty("avatar")
     private String headshoturl;
