@@ -11,7 +11,8 @@ create table day_task
   comment '事件内容',
   create_time timestamp default CURRENT_TIMESTAMP not null
   comment '每个小任务创建的时间'
-);
+)
+  charset = utf8, engine = innodb;
 
 -- auto-generated definition
 create table navigation
@@ -31,7 +32,8 @@ create table navigation
   comment '更新时间'
 )
   comment '导航，按照时间顺序出现，可人为设置顺序置顶'
-  charset = utf8;
+  charset = utf8
+  engine = innodb;
 
 -- auto-generated definition
 create table user
@@ -67,8 +69,8 @@ create table user
   comment '1是管理员 2不是管理员 默认是2'
 )
   comment '用户表'
-  charset = utf8;
-
+  charset = utf8
+  engine = innodb;
 
 -- auto-generated definition
 -- auto-generated definition
@@ -90,8 +92,8 @@ create table notice
   comment '通知标题'
 )
   comment '通知，出现按照时间顺序'
-  charset = utf8;
-
+  charset = utf8
+  engine = innodb;
 
 -- auto-generated definition
 create table reply
@@ -113,7 +115,9 @@ create table reply
   comment '每条回复被点赞的次数'
 )
   comment '话题回复，按照时间顺序出现'
-  charset = utf8;
+  charset = utf8
+  engine = innodb;
+;
 
 -- auto-generated definition
 create table reply_msg
@@ -124,9 +128,8 @@ create table reply_msg
   like_user_id int             null,
   likeed       int default '2' null
   comment '1喜欢 2不喜欢 默认是2'
-);
-
-
+)
+  charset = urf8, engine = innodb;
 
 -- auto-generated definition
 create table topic
@@ -168,7 +171,9 @@ create table topic_msg
   comment '回复者是否给话题点赞 1点赞 2没有 默认是2',
   commented     int default '2' null
   comment '回复者是否给话题评论 1评论 2没有评论'
-);
+)
+  charset = utf8
+  engine = innodb;
 
 -- auto-generated definition
 create table user
@@ -202,5 +207,6 @@ create table user
   comment '1 本科生， 2 硕士生， 3 博士生'
 )
   comment '用户表'
-  charset = utf8;
+  charset = utf8
+  engine = innodb;
 

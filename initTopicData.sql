@@ -1,5 +1,5 @@
 -- 话题若干
-INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES (16121666,'Swift 语言的设计错误','<div class="inner">
+INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES (16122697,'Swift 语言的设计错误','<div class="inner">
             <p>在『<a href="http://www.yinwang.org/blog-cn/2015/11/21/programming-philosophy">编程的智慧</a>』一文中，我分析和肯定了 Swift 语言的 optional type 设计，但这并不等于 Swift 语言的整体设计是完美没有问题的。其实 Swift 1.0 刚出来的时候，我就发现它的 array 可变性设计存在严重的错误。Swift 2.0 修正了这个问题，然而他们的修正方法却没有击中要害，所以导致了其它的问题。这个错误一直延续到今天。</p>
 
 <p>Swift 1.0 试图利用 var 和 let 的区别来指定 array 成员的可变性，然而其实 var 和 let 只能指定 array reference 的可变性，而不能指定 array 成员的可变性。举个例子，Swift 1.0 试图实现这样的语义：</p>
@@ -119,7 +119,7 @@ INSERT INTO topic (user_id, title, content, theme, create_time, update_time, top
 
         </div>','机器学习','2016-02-12 10:03:02','2016-02-12 10:03:02',0,0);
 
-INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES(16121666,'经验和洞察力','<div class="inner">
+INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES(16122697,'经验和洞察力','<div class="inner">
             <p>很多人很在乎“经验”，比如号称自己在某领域有 30 年的经验，会用这样那样的技术。我觉得经验是有价值的，我也有经验，各个领域的都有点。然而我并不把经验放在很重要的位置，因为我拥有大部分人都缺乏而且忽视的一种东西：洞察力（insight）。</p>
 
 <p>每进入一个新的公司，我进入的几乎都是不同的领域。所以最开头的时候，我有可能对那个领域所知甚少。甚至有人觉得我没有经验，所以可以“教育”我。然而每一次他们都没有想到的是，我很快就掌握了他们的经验，并且经过提炼，抛弃其中的垃圾，很快的超越了他们，完成他们根本无法达到的目标。这就是洞察力的威力。</p>
@@ -135,7 +135,7 @@ INSERT INTO topic (user_id, title, content, theme, create_time, update_time, top
 
         </div>','人生经验','2018-04-14 10:13:02','2018-04-14 10:13:02',0,0);
 
-        INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES(16121663,'谈程序的正确性','<div class="inner">
+        INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES(16122847,'谈程序的正确性','<div class="inner">
             <p>不管在学术圈还是在工业界，总有很多人过度的关心所谓“程序的正确性”，有些甚至到了战战兢兢，舍本逐末的地步。下面举几个例子：</p>
 
 <ul>
@@ -219,7 +219,7 @@ INSERT INTO topic (user_id, title, content, theme, create_time, update_time, top
 
         </div>','编程经验','2018-05-20 21:13:02','2018-05-20 21:13:02',0,0);
 
-        INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES(16121663,'如何掌握所有的程序语言','<div class="inner">
+        INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES(16122847,'如何掌握所有的程序语言','<div class="inner">
             <p>对的，我这里要讲的不是如何掌握一种程序语言，而是所有的……</p>
 
 <p>很多编程初学者至今还在给我写信请教，问我该学习什么程序语言，怎么学习。由于我知道如何掌握“所有”的程序语言，总是感觉这种该学“一种”什么语言的问题比较低级，所以一直没来得及回复他们 :P 可是逐渐的，我发现原来不只是小白们有这个问题，就连美国大公司的很多资深工程师，其实也没搞明白。</p>
@@ -469,7 +469,7 @@ INSERT INTO topic (user_id, title, content, theme, create_time, update_time, top
 
         </div>','编程经验','2018-05-30 23:13:02','2018-05-30 23:13:02',0,0);
 
-        INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES(16121663,'谈 Linux，Windows 和 Mac','<div class="inner">
+        INSERT INTO topic (user_id, title, content, theme, create_time, update_time, topic_comment_num, topic_like_num) VALUES(16122620,'谈 Linux，Windows 和 Mac','<div class="inner">
             <p>这段时间受到很多人的来信。他们看了我很早以前写的推崇 Linux 的文章，想知道如何“抛弃 Windows，学习 Linux”。天知道他们在哪里找到那么老的文章，真是好事不出门…… 我觉得我有责任消除我以前的文章对人的误导，洗清我这个“Linux 狂热分子”的恶名。我觉得我已经写过一些澄清的文章了，可是怎么还是有人来信问 Linux 的问题。也许因为感觉到“舆论压力”，我把文章都删了。</p>
 
 <p>简言之，我想对那些觉得 Linux 永远也学不会的“菜鸟”们说：</p>
