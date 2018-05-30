@@ -2,11 +2,13 @@ package com.web.machineversion.controller;
 
 
 import com.web.machineversion.model.OV.Result;
+import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.jsonrequestbody.CommentLikedQueryJson;
 import com.web.machineversion.model.jsonrequestbody.CommentQueryJson;
 import com.web.machineversion.model.jsonrequestbody.TopicQueryJson;
 import com.web.machineversion.service.TopicService;
 import com.web.machineversion.tools.JwtUtil;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -39,7 +41,10 @@ public class TopicController {
     //发布话题
     @RequestMapping(value = "/addTopic", method = RequestMethod.POST)
     public Result addTopic(@RequestBody TopicQueryJson topicQueryJson,
-                           @RequestHeader(value = "Authorization") String token){
+                           HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token.isEmpty())
+            return ResultTool.error("请您登录");
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return topicService.addTopic(topicQueryJson, userId);
     }
@@ -47,7 +52,10 @@ public class TopicController {
     //给话题点赞
     @RequestMapping(value = "/setTopicLiked", method = RequestMethod.POST)
     public Result serTopicLiked(@RequestBody CommentLikedQueryJson commentLikedQueryJson,
-                                @RequestHeader(value = "Authorization") String token){
+                                HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token.isEmpty())
+            return ResultTool.error("请您登录");
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return topicService.setTopicLiked(commentLikedQueryJson, userId);
     }
@@ -55,7 +63,10 @@ public class TopicController {
     //给话题的某个评论（回复）点赞
     @RequestMapping(value = "/setCommentLiked", method = RequestMethod.POST)
     public Result setCommentLiked(@RequestBody CommentLikedQueryJson commentLikedQueryJson,
-                                  @RequestHeader(value = "Authorization") String token){
+                                  HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token.isEmpty())
+            return ResultTool.error("请您登录");
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return topicService.setCommentLiked(commentLikedQueryJson, userId);
     }
@@ -63,7 +74,10 @@ public class TopicController {
     //给某个话题进行评论（回复）
     @RequestMapping(value = "/addTopicComment", method = RequestMethod.POST)
     public Result addTopicComment(@RequestBody CommentQueryJson commentQueryJason,
-                                  @RequestHeader(value = "Authorization") String token){
+                                  HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token.isEmpty())
+            return ResultTool.error("请您登录");
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return topicService.addTopicComment(commentQueryJason, userId);
     }
