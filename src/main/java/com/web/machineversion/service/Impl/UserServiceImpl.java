@@ -67,23 +67,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserMessageResult getUserMessage(Integer userId) {
+    public Result getUserMessage(Integer userId) {
         UserExample userExample = new UserExample();
         userExample.createCriteria()
                 .andUserIdEqualTo(userId);
-        User user = userMapper.selectByExampleWithBLOBs(userExample).get(0);
-        if(user != null) {
-            UserMessageResult userMessageResult = new UserMessageResult();
-            userMessageResult.setAvatar(user.getAvatar());
-            userMessageResult.setDepartment(user.getDepartment());
-            userMessageResult.setLastLoginDatetime(changeLoginTimeFormat(user));
-            userMessageResult.setPhoneNumber(user.getPhone());
-            userMessageResult.setRegisterDatetime(changeRegisterTimeFormat(user));
-            userMessageResult.setUserIntroduction(user.getIntroduction());
-            userMessageResult.setUserName(user.getUserName());
-            return userMessageResult;
-        }
-        return null;
+        List<User> userList = userMapper.selectByExampleWithBLOBs(userExample);
+        if(userList.isEmpty())
+            return ResultTool.error("没有此用户");
+        User user = userList.get(0);
+        UserMessageResult userMessageResult = new UserMessageResult();
+        userMessageResult.setAvatar(user.getAvatar());
+        userMessageResult.setDepartment(user.getDepartment());
+        userMessageResult.setLastLoginDatetime(changeLoginTimeFormat(user));
+        userMessageResult.setPhoneNumber(user.getPhone());
+        userMessageResult.setRegisterDatetime(changeRegisterTimeFormat(user));
+        userMessageResult.setUserIntroduction(user.getIntroduction());
+        userMessageResult.setUserName(user.getUserName());
+        return ResultTool.success(userMessageResult);
     }
 
     @Transactional(rollbackForClassName = {"Exception"}, transactionManager = "mysqlTransactionManager")

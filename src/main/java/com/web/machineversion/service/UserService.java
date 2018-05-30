@@ -13,7 +13,7 @@ public interface UserService {
     //判断是否为管理员
     boolean IsAdmin(Integer userId);
     //返回用户信息
-    UserMessageResult getUserMessage(Integer userId);
+    Result getUserMessage(Integer userId);
     //登录
     Result login(LoginUser user);
     //判断UserQueryJson是否包含userId，如果包含返回true，不包含返回false

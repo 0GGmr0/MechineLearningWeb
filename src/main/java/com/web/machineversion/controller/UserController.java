@@ -1,8 +1,6 @@
 package com.web.machineversion.controller;
 
 import com.web.machineversion.model.OV.Result;
-import com.web.machineversion.model.jsonrequestbody.UserQueryJson;
-import com.web.machineversion.model.OV.UserMessageResult;
 import com.web.machineversion.service.UserService;
 import com.web.machineversion.tools.JwtUtil;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -18,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/userMessage", method = RequestMethod.GET)
-    public UserMessageResult QueryUserMessage(HttpServletRequest httpServletRequest, Integer userId) {
+    public Result QueryUserMessage(HttpServletRequest httpServletRequest, Integer userId) {
         String token = httpServletRequest.getHeader("Authorization");
         if(userId == null)
             return userService.getUserMessage(Integer.parseInt(JwtUtil.parseJwt(token)));
