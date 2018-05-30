@@ -22,8 +22,14 @@ public class TopicController {
 
     //获取当前存在的所有topic
     @RequestMapping(value = "/allTopicInfo", method = RequestMethod.GET)
-    public Result getAllTopicInfo() {
-        return topicService.getAllTopicInfo();
+    public Result getAllTopicInfo(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Integer userId;
+        if(token.isEmpty())
+            userId = null;
+        else
+            userId = Integer.parseInt(JwtUtil.parseJwt(token));
+        return topicService.getAllTopicInfo(userId);
     }
 
     //获取某篇话题的详细内容
@@ -34,8 +40,15 @@ public class TopicController {
 
     //获取某篇话题的comment详情
     @RequestMapping(value = "/commentDetail", method = RequestMethod.GET)
-    public Result getCommentDetail(@RequestParam(value = "topicId") Integer topicId) {
-        return topicService.getCommentDetail(topicId);
+    public Result getCommentDetail(@RequestParam(value = "topicId") Integer topicId,
+                                   HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        Integer userId;
+        if(token.isEmpty())
+            userId = null;
+        else
+            userId = Integer.parseInt(JwtUtil.parseJwt(token));
+        return topicService.getCommentDetail(topicId,userId);
     }
 
     //发布话题

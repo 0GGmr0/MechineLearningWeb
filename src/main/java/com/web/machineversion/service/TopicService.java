@@ -7,13 +7,13 @@ import com.web.machineversion.model.jsonrequestbody.TopicQueryJson;
 
 public interface TopicService {
     //获取所有的话题信息
-    Result getAllTopicInfo();
+    Result getAllTopicInfo(Integer userId);
 
     //获取某篇话题的详细内容,需要传入访问话题的Id
     Result getTopicDetail(Integer topicId);
 
     //获取某篇话题的comment详情
-    Result getCommentDetail(Integer topicId);
+    Result getCommentDetail(Integer topicId, Integer userId);
 
     //发布话题
     Result addTopic(TopicQueryJson topicQueryJason, Integer userId);

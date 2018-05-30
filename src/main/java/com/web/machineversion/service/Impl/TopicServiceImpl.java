@@ -151,7 +151,7 @@ public class TopicServiceImpl implements TopicService {
 
     //获取所有的话题信息
     @Override
-    public Result getAllTopicInfo() {
+    public Result getAllTopicInfo(Integer userId) {
         TopicExample topicExample = new TopicExample();
         topicExample.createCriteria()
                 .andTopicIdIsNotNull();
@@ -173,7 +173,10 @@ public class TopicServiceImpl implements TopicService {
             topicInfo.setTopicId(String.valueOf(topic.getTopicId()));
             topicInfo.setTopicLike(topic.getTopicLikeNum());
             topicInfo.setTopicCommentNum(topic.getTopicCommentNum());
-            topicInfo.setTopicLiked(isTopicLiked(topic, topic.getUserId()));
+            if(userId != null)
+                topicInfo.setTopicLiked(isTopicLiked(topic, userId));
+            else
+                topicInfo.setTopicLiked(false);
             topicInfo.setTopicCommented(isCommented(topic, topic.getUserId()));
             topicInfoList.add(topicInfo);
         }
@@ -209,7 +212,7 @@ public class TopicServiceImpl implements TopicService {
 
     //获取某篇话题的comment详情
     @Override
-    public Result getCommentDetail(Integer topicId){
+    public Result getCommentDetail(Integer topicId, Integer userId){
         ReplyExample replyExample = new ReplyExample();
         //通过Example获取到的所有评论存到List中
         replyExample.createCriteria()
@@ -228,7 +231,10 @@ public class TopicServiceImpl implements TopicService {
             commentInfo.setContent(reply.getContent());
             commentInfo.setTime(changeTimeFormat(reply.getCreateTime()));
             commentInfo.setLike(reply.getReplyLikeNum());
-            commentInfo.setLiked(isReplyLiked(reply, reply.getUserId()));
+            if(userId != null)
+                commentInfo.setLiked(isReplyLiked(reply, userId));
+            else
+                commentInfo.setLiked(false);
             commentInfoList.add(commentInfo);
         }
         return ResultTool.success(commentInfoList);
