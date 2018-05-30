@@ -25,7 +25,7 @@ public class TopicController {
     public Result getAllTopicInfo(HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
         Integer userId;
-        if(token.isEmpty())
+        if(token == null)
             userId = null;
         else
             userId = Integer.parseInt(JwtUtil.parseJwt(token));
@@ -44,7 +44,7 @@ public class TopicController {
                                    HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
         Integer userId;
-        if(token.isEmpty())
+        if(token == null)
             userId = null;
         else
             userId = Integer.parseInt(JwtUtil.parseJwt(token));
@@ -56,7 +56,7 @@ public class TopicController {
     public Result addTopic(@RequestBody TopicQueryJson topicQueryJson,
                            HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
-        if(token.isEmpty())
+        if(token == null)
             return ResultTool.error("请您登录");
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return topicService.addTopic(topicQueryJson, userId);
@@ -67,7 +67,7 @@ public class TopicController {
     public Result serTopicLiked(@RequestBody CommentLikedQueryJson commentLikedQueryJson,
                                 HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
-        if(token.isEmpty())
+        if(token==null)
             return ResultTool.error("请您登录");
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return topicService.setTopicLiked(commentLikedQueryJson, userId);
@@ -78,7 +78,7 @@ public class TopicController {
     public Result setCommentLiked(@RequestBody CommentLikedQueryJson commentLikedQueryJson,
                                   HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
-        if(token.isEmpty())
+        if(token==null)
             return ResultTool.error("请您登录");
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return topicService.setCommentLiked(commentLikedQueryJson, userId);
@@ -89,7 +89,7 @@ public class TopicController {
     public Result addTopicComment(@RequestBody CommentQueryJson commentQueryJason,
                                   HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
-        if(token.isEmpty())
+        if(token==null)
             return ResultTool.error("请您登录");
         Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
         return topicService.addTopicComment(commentQueryJason, userId);
