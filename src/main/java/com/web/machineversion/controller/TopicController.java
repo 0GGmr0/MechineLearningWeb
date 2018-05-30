@@ -95,4 +95,16 @@ public class TopicController {
         return topicService.addTopicComment(commentQueryJason, userId);
     }
 
+    //给某个话题进行评论（回复）
+    @RequestMapping(value = "/editTopic", method = RequestMethod.POST)
+    public Result editTopic(@RequestBody TopicQueryJson topicQueryJason,
+                                  HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token==null)
+            return ResultTool.error("请您登录");
+        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
+        return topicService.editTopic(userId,topicQueryJason);
+    }
+
+
 }

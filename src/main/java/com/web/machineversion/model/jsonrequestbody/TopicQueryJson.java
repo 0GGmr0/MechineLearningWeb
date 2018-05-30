@@ -12,4 +12,6 @@ public class TopicQueryJson {
 
     //话题内容
     private String content;
+
+    private Integer topicId;
 }

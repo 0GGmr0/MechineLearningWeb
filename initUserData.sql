@@ -8,7 +8,7 @@ VALUES (16121663,'殷子良','12345',2,'110','https://avatars2.githubusercontent
 INSERT INTO user (user_id, user_name, pass_word, rool, phone, avatar, department, introduction, register_time,
 last_login_time, login_times, school, background, admin)
 VALUES (16122131,'郭孟然','12345',1,'120','https://avatars2.githubusercontent.com/u/30433559?s=460&v=4','光华管理学院',
-'朱文浩老师项目组后端得力选手，温顺而负责，体贴而暖男，认真而负责，厉害而牛逼，很有女生缘。',CURRENT_TIMESTAMP ,CURRENT_TIMESTAMP ,0,'清华大学',2,1);
+'朱文浩老师项目组后端选手。',CURRENT_TIMESTAMP ,CURRENT_TIMESTAMP ,0,'上海大学',2,1);
 
 INSERT INTO user (user_id, user_name, pass_word, rool, phone, avatar, department, introduction, register_time,
 last_login_time, login_times, school, background, admin)

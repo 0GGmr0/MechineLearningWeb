@@ -8,6 +8,7 @@ import com.web.machineversion.model.jsonrequestbody.CommentLikedQueryJson;
 import com.web.machineversion.model.jsonrequestbody.CommentQueryJson;
 import com.web.machineversion.model.jsonrequestbody.TopicQueryJson;
 import com.web.machineversion.service.TopicService;
+import com.web.machineversion.service.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,6 +35,9 @@ public class TopicServiceImpl implements TopicService {
 
     @Resource
     private ReplyMsgMapper replyMsgMapper;
+
+    @Resource
+    private UserService userService;
 
     //获取当前话题的作者信息（主要是用户的id和name）
     private AuthorInfo getAuthor(Integer userId){
@@ -426,5 +430,30 @@ public class TopicServiceImpl implements TopicService {
     }
 
 
+
+    @Override
+    public Result editTopic(Integer userId, TopicQueryJson topicQueryJson) {
+        if(userService.IsAbleToEditTopic(userId, topicQueryJson)) {
+            Integer topicId = topicQueryJson.getTopicId();
+            String topicTitle = topicQueryJson.getTitle();
+            String originTopicType = topicQueryJson.getType();
+            String topicContent = topicQueryJson.getContent();
+            Topic upDatePart = new Topic();
+            if (originTopicType != null)
+                upDatePart.setTheme(originTopicType);
+            if (topicId  != null)
+                upDatePart.setTopicId(topicId);
+            if (topicTitle != null)
+                upDatePart.setTitle(topicTitle);
+            if (topicContent != null)
+                upDatePart.setContent(topicContent);
+
+            int res = topicMapper.updateByPrimaryKeySelective(upDatePart);
+            if (res > 0) {
+                return ResultTool.success();
+            }
+        }
+        return  ResultTool.error("您没有权限修改新闻");
+    }
 
 }

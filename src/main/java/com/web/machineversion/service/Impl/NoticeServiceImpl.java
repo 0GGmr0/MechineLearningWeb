@@ -55,7 +55,7 @@ public class NoticeServiceImpl implements NoticeService {
     private Date changeStringToDate(String stringDate) {
         Date date = new Date();
         //注意format的格式要与日期String的格式相匹配
-        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             return sdf.parse(stringDate);
         } catch (ParseException e) {

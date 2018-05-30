@@ -3,6 +3,7 @@ package com.web.machineversion.service;
 import com.web.machineversion.model.OV.Result;
 import com.web.machineversion.model.jsonrequestbody.CommentLikedQueryJson;
 import com.web.machineversion.model.jsonrequestbody.CommentQueryJson;
+import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.jsonrequestbody.TopicQueryJson;
 
 public interface TopicService {
@@ -26,4 +27,6 @@ public interface TopicService {
 
     //添加某个话题的评论
     Result addTopicComment(CommentQueryJson commentQueryJson, Integer userId);
+
+    Result editTopic(Integer userId, TopicQueryJson topicQueryJson);
 }

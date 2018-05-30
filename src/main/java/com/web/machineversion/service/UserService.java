@@ -1,11 +1,8 @@
 package com.web.machineversion.service;
 
 import com.web.machineversion.model.OV.Result;
-import com.web.machineversion.model.jsonrequestbody.LoginUser;
-import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
+import com.web.machineversion.model.jsonrequestbody.*;
 import com.web.machineversion.model.OV.UserMessageResult;
-import com.web.machineversion.model.jsonrequestbody.NoticeQueryJson;
-import com.web.machineversion.model.jsonrequestbody.UserQueryJson;
 
 public interface UserService {
     //判断是否有资格编辑新闻
@@ -21,6 +18,7 @@ public interface UserService {
     //判断是否有资格删除公告
     boolean IsAbleToDeleteNotice(Integer userId, NoticeQueryJson deleteNoticeQueryJson);
 
+    boolean IsAbleToEditTopic(Integer userId, TopicQueryJson topicQueryJson);
     //获取所有的成员信息，返回Result格式
     Result getAllMember();
 }

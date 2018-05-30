@@ -2,6 +2,7 @@ package com.web.machineversion.service.Impl;
 
 import com.web.machineversion.dao.NewsMapper;
 import com.web.machineversion.dao.NoticeMapper;
+import com.web.machineversion.dao.TopicMapper;
 import com.web.machineversion.dao.UserMapper;
 import com.web.machineversion.model.OV.*;
 import com.web.machineversion.model.ResultTool;
@@ -9,6 +10,7 @@ import com.web.machineversion.model.entity.*;
 import com.web.machineversion.model.jsonrequestbody.LoginUser;
 import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.jsonrequestbody.NoticeQueryJson;
+import com.web.machineversion.model.jsonrequestbody.TopicQueryJson;
 import com.web.machineversion.service.UserService;
 import com.web.machineversion.tools.JwtUtil;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService {
     private NewsMapper newsMapper;
 
     @Resource
+    private TopicMapper topicMapper;
+
+    @Resource
     private UserMapper userMapper;
 
     @Resource
@@ -42,6 +47,21 @@ public class UserServiceImpl implements UserService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         return dateFormat.format(user.getLastLoginTime());
     }
+
+    @Override
+    public boolean IsAbleToEditTopic(Integer userId, TopicQueryJson topicQueryJson) {
+        Integer topicId = topicQueryJson.getTopicId();
+        TopicExample topicExample = new TopicExample();
+        topicExample.createCriteria()
+                .andTopicIdEqualTo(topicId);
+        Topic topic = topicMapper.selectByExample(topicExample).get(0);
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andUserIdEqualTo(topic.getUserId());
+        User user = userMapper.selectByExample(userExample).get(0);
+        return user.getUserId().equals(userId) || IsAdmin(userId);
+    }
+
 
     @Override
     public boolean IsAbleToEditNews(Integer userId, NewsQueryJson newsQueryJson) {
