@@ -218,7 +218,7 @@ public class TopicServiceImpl implements TopicService {
         List<CommentInfo> commentInfoList = new ArrayList<>();
 
         if(replyList.isEmpty())
-            return ResultTool.error("id错误或此Id没有评论");
+            return ResultTool.error("id错误或此id没有评论");
         Collections.reverse(replyList);
         for(Reply reply : replyList){
             CommentInfo commentInfo = new CommentInfo();
@@ -367,7 +367,7 @@ public class TopicServiceImpl implements TopicService {
             replyMsg.setLikeed(1);
             Reply newReply = new Reply();
             newReply.setReplyId(commentId);
-            newReply.setReplyLikeNum(1);
+            newReply.setReplyLikeNum(reply.getReplyLikeNum() + 1);
             int res = replyMsgMapper.insert(replyMsg);
             int res1 = replyMapper.updateByPrimaryKeySelective(newReply);
             if(res > 0 && res1 > 0) return ResultTool.success();
@@ -394,11 +394,12 @@ public class TopicServiceImpl implements TopicService {
     public Result addTopicComment(CommentQueryJson commentQueryJson, Integer userId){
         //需要评论的主题
         Integer topicId = commentQueryJson.getTopicId();
-        if(isTopic(topicId))
+        if(!isTopic(topicId))
             return ResultTool.error("给予的topicId错误");
         //评论的内容
         String content = commentQueryJson.getContent();
-
+        if(content.isEmpty())
+            return ResultTool.error("评论内容不能为空");
         Reply reply = new Reply();
 
         reply.setTopicId(topicId);
