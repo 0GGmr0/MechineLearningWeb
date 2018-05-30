@@ -25,6 +25,8 @@ public class LoginResultInfo {
     private Integer userId;
     @JsonProperty("identity")
     private Integer userRool;
+    @JsonProperty("admin")
+    private boolean admin;
     @JsonProperty("loginTimes")
     private Integer loginTimes;
 }

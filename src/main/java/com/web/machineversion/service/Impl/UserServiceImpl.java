@@ -102,6 +102,7 @@ public class UserServiceImpl implements UserService {
                 loginResultInfo.setUserName(existedUser.getUserName());
                 loginResultInfo.setUserId(existedUser.getUserId());
                 loginResultInfo.setUserRool(existedUser.getRool());
+                loginResultInfo.setAdmin(existedUser.getAdmin().equals(1));
                 //每一次登录都要把数据库的登录次数加一并且更新到数据库中
                 Integer loginTimes = existedUser.getLoginTimes() + 1;
                 User upDatePart = new User();
