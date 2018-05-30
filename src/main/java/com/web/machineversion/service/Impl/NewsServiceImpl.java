@@ -11,6 +11,7 @@ import com.web.machineversion.model.OV.*;
 import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.service.NewsService;
 import com.web.machineversion.service.UserService;
+import com.web.machineversion.tools.Html2Text;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -214,12 +215,12 @@ public class NewsServiceImpl implements NewsService {
         Integer status = 2;
         //这个是殷子良要求的 天知道是啥意思
         String iconClass = "el-icon-document";
-
+        String trueContent = Html2Text.getContent(content);
         String overview;
-        if(content.length() > 200)
-            overview = content.substring(0,200);
+        if(trueContent.length() > 200)
+            overview = trueContent.substring(0,200);
         else
-            overview = content;
+            overview = trueContent;
         News news = new News();
         news.setOverview(overview);
         news.setUserId(userId);
