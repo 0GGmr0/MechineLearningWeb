@@ -3,6 +3,10 @@ package com.web.machineversion.model.jsonrequestbody;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.web.machineversion.model.entity.User;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 import java.util.Date;
 
 public class LoginUser extends User {

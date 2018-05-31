@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.web.machineversion.dao.NoticeMapper" >
   <resultMap id="BaseResultMap" type="com.web.machineversion.model.entity.Notice" >
+<<<<<<< HEAD
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -10,6 +11,15 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.Notice" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
+=======
+    <id column="notice_id" property="noticeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="event_time" property="eventTime" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+>>>>>>> master
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,10 +80,14 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
+<<<<<<< HEAD
     id, title, create_time, type, event_time
   </sql>
   <sql id="Blob_Column_List" >
     content
+=======
+    notice_id, user_id, content, create_time, type, event_time, title
+>>>>>>> master
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.web.machineversion.model.entity.NoticeExample" >
     select
@@ -107,6 +121,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from notice
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.web.machineversion.model.entity.NoticeExample" >
     delete from notice
     <if test="_parameter != null" >
@@ -114,21 +138,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.web.machineversion.model.entity.Notice" >
+<<<<<<< HEAD
     insert into notice (id, title, create_time, 
       type, event_time, content
       )
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{type,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
       )
+=======
+    insert into notice (notice_id, user_id, content, 
+      create_time, type, event_time, 
+      title)
+    values (#{noticeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{eventTime,jdbcType=TIMESTAMP}, 
+      #{title,jdbcType=VARCHAR})
+>>>>>>> master
   </insert>
   <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.Notice" >
     insert into notice
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
+      <if test="noticeId != null" >
+        notice_id,
       </if>
-      <if test="title != null" >
-        title,
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -139,16 +172,21 @@
       <if test="eventTime != null" >
         event_time,
       </if>
+<<<<<<< HEAD
       <if test="content != null" >
         content,
+=======
+      <if test="title != null" >
+        title,
+>>>>>>> master
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
+      <if test="noticeId != null" >
+        #{noticeId,jdbcType=INTEGER},
       </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -159,8 +197,13 @@
       <if test="eventTime != null" >
         #{eventTime,jdbcType=TIMESTAMP},
       </if>
+<<<<<<< HEAD
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
+=======
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+>>>>>>> master
       </if>
     </trim>
   </insert>
@@ -173,11 +216,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update notice
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.noticeId != null" >
+        notice_id = #{record.noticeId,jdbcType=INTEGER},
       </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -188,8 +231,13 @@
       <if test="record.eventTime != null" >
         event_time = #{record.eventTime,jdbcType=TIMESTAMP},
       </if>
+<<<<<<< HEAD
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
+=======
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+>>>>>>> master
       </if>
     </set>
     <if test="_parameter != null" >
@@ -210,13 +258,57 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update notice
+<<<<<<< HEAD
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       type = #{record.type,jdbcType=VARCHAR},
       event_time = #{record.eventTime,jdbcType=TIMESTAMP}
+=======
+    set notice_id = #{record.noticeId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=VARCHAR},
+      event_time = #{record.eventTime,jdbcType=TIMESTAMP},
+      title = #{record.title,jdbcType=VARCHAR}
+>>>>>>> master
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.machineversion.model.entity.Notice" >
+    update notice
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null" >
+        event_time = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.machineversion.model.entity.Notice" >
+    update notice
+    set user_id = #{userId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      event_time = #{eventTime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR}
+    where notice_id = #{noticeId,jdbcType=INTEGER}
   </update>
 </mapper>

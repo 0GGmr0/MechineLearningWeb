@@ -344,6 +344,126 @@ public class ReplyExample {
             addCriterion("update_time not between", value1, value2, "updateTime");
             return (Criteria) this;
         }
+
+        public Criteria andTopicIdIsNull() {
+            addCriterion("topic_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdIsNotNull() {
+            addCriterion("topic_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdEqualTo(Integer value) {
+            addCriterion("topic_id =", value, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdNotEqualTo(Integer value) {
+            addCriterion("topic_id <>", value, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdGreaterThan(Integer value) {
+            addCriterion("topic_id >", value, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("topic_id >=", value, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdLessThan(Integer value) {
+            addCriterion("topic_id <", value, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdLessThanOrEqualTo(Integer value) {
+            addCriterion("topic_id <=", value, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdIn(List<Integer> values) {
+            addCriterion("topic_id in", values, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdNotIn(List<Integer> values) {
+            addCriterion("topic_id not in", values, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdBetween(Integer value1, Integer value2) {
+            addCriterion("topic_id between", value1, value2, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTopicIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("topic_id not between", value1, value2, "topicId");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumIsNull() {
+            addCriterion("reply_like_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumIsNotNull() {
+            addCriterion("reply_like_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumEqualTo(Integer value) {
+            addCriterion("reply_like_num =", value, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumNotEqualTo(Integer value) {
+            addCriterion("reply_like_num <>", value, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumGreaterThan(Integer value) {
+            addCriterion("reply_like_num >", value, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumGreaterThanOrEqualTo(Integer value) {
+            addCriterion("reply_like_num >=", value, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumLessThan(Integer value) {
+            addCriterion("reply_like_num <", value, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumLessThanOrEqualTo(Integer value) {
+            addCriterion("reply_like_num <=", value, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumIn(List<Integer> values) {
+            addCriterion("reply_like_num in", values, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumNotIn(List<Integer> values) {
+            addCriterion("reply_like_num not in", values, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumBetween(Integer value1, Integer value2) {
+            addCriterion("reply_like_num between", value1, value2, "replyLikeNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyLikeNumNotBetween(Integer value1, Integer value2) {
+            addCriterion("reply_like_num not between", value1, value2, "replyLikeNum");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

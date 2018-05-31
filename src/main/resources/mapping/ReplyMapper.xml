@@ -6,6 +6,11 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="topic_id" property="topicId" jdbcType="INTEGER" />
+    <result column="reply_like_num" property="replyLikeNum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.Reply" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.web.machineversion.model.entity.Reply" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -69,7 +74,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
+<<<<<<< HEAD
     reply_id, user_id, create_time, update_time
+=======
+    reply_id, user_id, create_time, update_time, topic_id, reply_like_num
+>>>>>>> master
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -126,9 +135,17 @@
   </delete>
   <insert id="insert" parameterType="com.web.machineversion.model.entity.Reply" >
     insert into reply (reply_id, user_id, create_time, 
+<<<<<<< HEAD
       update_time, content)
     values (#{replyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+=======
+      update_time, topic_id, reply_like_num, 
+      content)
+    values (#{replyId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{topicId,jdbcType=INTEGER}, #{replyLikeNum,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+>>>>>>> master
   </insert>
   <insert id="insertSelective" parameterType="com.web.machineversion.model.entity.Reply" >
     insert into reply
@@ -145,6 +162,15 @@
       <if test="updateTime != null" >
         update_time,
       </if>
+<<<<<<< HEAD
+=======
+      <if test="topicId != null" >
+        topic_id,
+      </if>
+      <if test="replyLikeNum != null" >
+        reply_like_num,
+      </if>
+>>>>>>> master
       <if test="content != null" >
         content,
       </if>
@@ -162,6 +188,15 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+<<<<<<< HEAD
+=======
+      <if test="topicId != null" >
+        #{topicId,jdbcType=INTEGER},
+      </if>
+      <if test="replyLikeNum != null" >
+        #{replyLikeNum,jdbcType=INTEGER},
+      </if>
+>>>>>>> master
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -188,6 +223,15 @@
       <if test="record.updateTime != null" >
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+<<<<<<< HEAD
+=======
+      <if test="record.topicId != null" >
+        topic_id = #{record.topicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyLikeNum != null" >
+        reply_like_num = #{record.replyLikeNum,jdbcType=INTEGER},
+      </if>
+>>>>>>> master
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
@@ -202,6 +246,11 @@
       user_id = #{record.userId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+<<<<<<< HEAD
+=======
+      topic_id = #{record.topicId,jdbcType=INTEGER},
+      reply_like_num = #{record.replyLikeNum,jdbcType=INTEGER},
+>>>>>>> master
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +261,9 @@
     set reply_id = #{record.replyId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      topic_id = #{record.topicId,jdbcType=INTEGER},
+      reply_like_num = #{record.replyLikeNum,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -229,6 +280,15 @@
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+<<<<<<< HEAD
+=======
+      <if test="topicId != null" >
+        topic_id = #{topicId,jdbcType=INTEGER},
+      </if>
+      <if test="replyLikeNum != null" >
+        reply_like_num = #{replyLikeNum,jdbcType=INTEGER},
+      </if>
+>>>>>>> master
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -240,6 +300,11 @@
     set user_id = #{userId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
+<<<<<<< HEAD
+=======
+      topic_id = #{topicId,jdbcType=INTEGER},
+      reply_like_num = #{replyLikeNum,jdbcType=INTEGER},
+>>>>>>> master
       content = #{content,jdbcType=LONGVARCHAR}
     where reply_id = #{replyId,jdbcType=INTEGER}
   </update>
@@ -247,7 +312,9 @@
     update reply
     set user_id = #{userId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      topic_id = #{topicId,jdbcType=INTEGER},
+      reply_like_num = #{replyLikeNum,jdbcType=INTEGER}
     where reply_id = #{replyId,jdbcType=INTEGER}
   </update>
 </mapper>

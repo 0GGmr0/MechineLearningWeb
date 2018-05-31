@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping(value = "/news")
-@CrossOrigin("localhost")
+@CrossOrigin
 public class NewsController {
 
     @Resource
@@ -27,13 +27,13 @@ public class NewsController {
 
     //获取指定种类的新闻
     @RequestMapping(value = "/assignationNews", method = RequestMethod.GET)
-    public Result getNews(@RequestHeader(value = "type") String newsType) {
+    public Result getNews(@RequestParam(value = "type") String newsType) {
         return newsService.getNewsInfoList(newsType);
     }
 
     //获取指定新闻Id的新闻
     @RequestMapping(value = "/assignationArticle", method = RequestMethod.GET)
-    public Result getArticle(@RequestHeader(value = "newsId") Integer newsId) {
+    public Result getArticle(@RequestParam(value = "newsId") Integer newsId) {
         return newsService.getArticleInfo(newsId);
     }
 

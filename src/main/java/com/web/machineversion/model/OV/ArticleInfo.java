@@ -10,7 +10,7 @@ public class ArticleInfo {
     @JsonProperty("type")
     private String newsType;
     @JsonProperty("author")
-    private String enwsAuthor;
+    private AuthorInfo enwsAuthor;
     @JsonProperty("datetime")
     private String newsCreateTime;
     @JsonProperty("content")

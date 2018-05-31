@@ -1,4 +1,5 @@
 package com.web.machineversion.model.jsonrequestbody;
+<<<<<<< HEAD
 //{
 //        type:'meeting',
 //        title:'关于XXX议会',
@@ -9,10 +10,20 @@ package com.web.machineversion.model.jsonrequestbody;
 import lombok.Data;
 
 import java.util.Date;
+=======
+
+import lombok.Data;
+
+
+>>>>>>> master
 @Data
 public class NoticeQueryJson {
     private String type;
     private String title;
     private String content;
+<<<<<<< HEAD
     private Date time;
+=======
+    private String time;
+>>>>>>> master
 }

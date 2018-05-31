@@ -1,0 +1,122 @@
+
+<!--此表为自动生成mybatis的数据配置表，需要使用时请另外创建一个generatorConfig.xml并复制到里面-->
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry
+            location="/home/gmr/.m2/repository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar"/>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://m.mzz.pub:3306/machineversion?characterEncoding=utf-8&amp;useSSL=true"
+                        userId="root"
+                        password="">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.web.machineversion.model.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mapping" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.web.machineversion.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <!--<table tableName="day_task" domainObjectName="DayTask"-->
+               <!--enableCountByExample="true"-->
+               <!--enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true"-->
+               <!--enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true"-->
+        <!--&gt;-->
+            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="navigation" domainObjectName="Navigation"-->
+            <!--enableCountByExample="true"-->
+            <!--enableUpdateByExample="true"-->
+            <!--enableDeleteByExample="true"-->
+            <!--enableSelectByExample="true"-->
+            <!--selectByExampleQueryId="true"-->
+        <!--&gt;-->
+            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
+        <!--</table>-->
+        <!--<table tableName="news" domainObjectName="News"-->
+            <!--enableCountByExample="true"-->
+            <!--enableUpdateByExample="true"-->
+            <!--enableDeleteByExample="true"-->
+            <!--enableSelectByExample="true"-->
+            <!--selectByExampleQueryId="true"-->
+        <!--&gt;-->
+            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</table>-->
+
+        <!--<table tableName="notice" domainObjectName="Notice"-->
+            <!--enableCountByExample="true"-->
+            <!--enableUpdateByExample="true"-->
+            <!--enableDeleteByExample="true"-->
+            <!--enableSelectByExample="true"-->
+            <!--selectByExampleQueryId="true">-->
+            <!--<columnOverride column="title" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</table>-->
+
+
+        <!--<table tableName="reply" domainObjectName="Reply"-->
+            <!--enableCountByExample="true"-->
+            <!--enableUpdateByExample="true"-->
+            <!--enableDeleteByExample="true"-->
+            <!--enableSelectByExample="true"-->
+            <!--selectByExampleQueryId="true"-->
+        <!--&gt;-->
+            <!--&lt;!&ndash;<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<table tableName="topic" domainObjectName="Topic"-->
+            <!--enableCountByExample="true"-->
+            <!--enableUpdateByExample="true"-->
+            <!--enableDeleteByExample="true"-->
+            <!--enableSelectByExample="true"-->
+            <!--selectByExampleQueryId="true"-->
+        <!--&gt;-->
+            <!--<columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+        <!--</table>-->
+
+        <table tableName="user" domainObjectName="User"
+            enableCountByExample="true"
+            enableUpdateByExample="true"
+            enableDeleteByExample="true"
+            enableSelectByExample="true"
+            selectByExampleQueryId="true"/>
+
+        <!--<table tableName="topic_msg" domainObjectName="TopicMsg"-->
+               <!--enableCountByExample="true"-->
+               <!--enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true"-->
+               <!--enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true"/>-->
+
+        <!--<table tableName="reply_msg" domainObjectName="ReplyMsg"-->
+               <!--enableCountByExample="true"-->
+               <!--enableUpdateByExample="true"-->
+               <!--enableDeleteByExample="true"-->
+               <!--enableSelectByExample="true"-->
+               <!--selectByExampleQueryId="true"/>-->
+
+    </context>
+</generatorConfiguration>

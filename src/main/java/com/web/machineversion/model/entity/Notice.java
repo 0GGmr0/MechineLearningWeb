@@ -3,32 +3,37 @@ package com.web.machineversion.model.entity;
 import java.util.Date;
 
 public class Notice {
-    private Integer id;
+    private Integer noticeId;
 
-    private String title;
+    private Integer userId;
 
     private Date createTime;
 
     private String type;
 
     private Date eventTime;
+<<<<<<< HEAD
 
     private String content;
+=======
+>>>>>>> master
 
-    public Integer getId() {
-        return id;
+    private String title;
+
+    public Integer getNoticeId() {
+        return noticeId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNoticeId(Integer noticeId) {
+        this.noticeId = noticeId;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Date getCreateTime() {
@@ -41,12 +46,21 @@ public class Notice {
 
     public String getType() {
         return type;
+<<<<<<< HEAD
     }
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
     }
 
+=======
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
+>>>>>>> master
     public Date getEventTime() {
         return eventTime;
     }
@@ -55,11 +69,20 @@ public class Notice {
         this.eventTime = eventTime;
     }
 
+<<<<<<< HEAD
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+=======
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
+>>>>>>> master
     }
 }
