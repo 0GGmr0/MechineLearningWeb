@@ -5,6 +5,7 @@ import com.web.machineversion.model.OV.Result;
 import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.jsonrequestbody.CommentLikedQueryJson;
 import com.web.machineversion.model.jsonrequestbody.CommentQueryJson;
+import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.jsonrequestbody.TopicQueryJson;
 import com.web.machineversion.service.TopicService;
 import com.web.machineversion.tools.JwtUtil;
@@ -106,5 +107,15 @@ public class TopicController {
         return topicService.editTopic(userId,topicQueryJason);
     }
 
+    @RequestMapping(value = "/deleteTopic", method = RequestMethod.POST)
+    public Result QueryDeleteTopic(HttpServletRequest httpServletRequest,
+                                  @RequestBody TopicQueryJson topicQueryJason) {
+        String token = httpServletRequest.getHeader("Authorization");
+        if(token==null)
+            return ResultTool.error("请您登录");
+        Integer userId = Integer.parseInt(JwtUtil.parseJwt(token));
+        return topicService.DeleteTopic(userId, topicQueryJason);
+
+    }
 
 }

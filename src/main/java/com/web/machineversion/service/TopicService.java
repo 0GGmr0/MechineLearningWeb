@@ -29,4 +29,6 @@ public interface TopicService {
     Result addTopicComment(CommentQueryJson commentQueryJson, Integer userId);
 
     Result editTopic(Integer userId, TopicQueryJson topicQueryJson);
+
+    Result DeleteTopic(Integer userId,TopicQueryJson topicQueryJason);
 }

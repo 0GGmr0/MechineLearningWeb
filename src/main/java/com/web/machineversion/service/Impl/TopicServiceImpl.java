@@ -6,6 +6,7 @@ import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.model.entity.*;
 import com.web.machineversion.model.jsonrequestbody.CommentLikedQueryJson;
 import com.web.machineversion.model.jsonrequestbody.CommentQueryJson;
+import com.web.machineversion.model.jsonrequestbody.NewsQueryJson;
 import com.web.machineversion.model.jsonrequestbody.TopicQueryJson;
 import com.web.machineversion.service.TopicService;
 import com.web.machineversion.service.UserService;
@@ -407,7 +408,7 @@ public class TopicServiceImpl implements TopicService {
     public Result addTopicComment(CommentQueryJson commentQueryJson, Integer userId){
         //需要评论的主题
         Integer topicId = commentQueryJson.getTopicId();
-        if(!isTopic(topicId))
+        if(isTopic(topicId))
             return ResultTool.error("给予的topicId错误");
         //评论的内容
         String content = commentQueryJson.getContent();
@@ -454,6 +455,48 @@ public class TopicServiceImpl implements TopicService {
             }
         }
         return  ResultTool.error("您没有权限修改新闻");
+    }
+
+    @Override
+    public Result DeleteTopic(Integer userId, TopicQueryJson topicQueryJason) {
+
+        if(userService.IsAbleToEditTopic(userId, topicQueryJason)) {
+            Integer topicId = topicQueryJason.getTopicId();
+
+            //删除topicmsg信息
+            TopicMsgExample topicMsgExample = new TopicMsgExample();
+            topicMsgExample.createCriteria()
+                    .andTopicIdEqualTo(topicId);
+            List<TopicMsg> topicMsgList = topicMsgMapper.selectByExample(topicMsgExample);
+            if(topicMsgList.isEmpty() == false)
+                for(TopicMsg topicmsg : topicMsgList) {
+                    topicMsgMapper.deleteByPrimaryKey(topicmsg.getTopicMsgId());
+                }
+            //删除reply信息
+            ReplyExample replyExample = new ReplyExample();
+            replyExample.createCriteria()
+                    .andTopicIdEqualTo(topicId);
+            List<Reply> replyList = replyMapper.selectByExample(replyExample);
+            if(replyList.isEmpty() == false)
+                for(Reply reply : replyList) {
+                    //删除replymsg信息
+                    ReplyMsgExample replyMsgExample = new ReplyMsgExample();
+                    replyMsgExample.createCriteria()
+                            .andReplyIdEqualTo(reply.getReplyId());
+                    List<ReplyMsg> replyMsgList = replyMsgMapper.selectByExample(replyMsgExample);
+                    if(replyMsgList.isEmpty() == false)
+                        for(ReplyMsg replyMsg : replyMsgList) {
+                            replyMapper.deleteByPrimaryKey(replyMsg.getReplyMsgId());
+                        }
+                    replyMapper.deleteByPrimaryKey(reply.getReplyId());
+                }
+
+            int res = topicMapper.deleteByPrimaryKey(topicId);
+            if (res > 0) {
+                return ResultTool.success();
+            }
+        }
+        return  ResultTool.PermissionsError();
     }
 
 }
