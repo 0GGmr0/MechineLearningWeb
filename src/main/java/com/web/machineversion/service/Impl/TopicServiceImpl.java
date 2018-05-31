@@ -408,7 +408,7 @@ public class TopicServiceImpl implements TopicService {
     public Result addTopicComment(CommentQueryJson commentQueryJson, Integer userId){
         //需要评论的主题
         Integer topicId = commentQueryJson.getTopicId();
-        if(!isTopic(topicId))
+        if(isTopic(topicId))
             return ResultTool.error("给予的topicId错误");
         //评论的内容
         String content = commentQueryJson.getContent();
