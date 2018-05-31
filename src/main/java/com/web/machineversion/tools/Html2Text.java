@@ -7,7 +7,6 @@ import java.io.*;
 public class Html2Text extends HTMLEditorKit.ParserCallback {
 
     private static Html2Text html2Text = new Html2Text();
-
     StringBuffer s;
 
     public Html2Text() {

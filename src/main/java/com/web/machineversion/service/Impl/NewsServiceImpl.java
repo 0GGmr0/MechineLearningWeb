@@ -12,9 +12,13 @@ import com.web.machineversion.model.ResultTool;
 import com.web.machineversion.service.NewsService;
 import com.web.machineversion.service.UserService;
 import com.web.machineversion.tools.Html2Text;
+import com.web.machineversion.tools.HtmlToText;
+//import org.jsoup.Jsoup;
+//import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.lang.annotation.Documented;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,8 +34,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Resource
     private UserMapper userMapper;
+
     /**
-     *获取新闻type对应的名称
+     * 获取新闻type对应的名称
      * 1是实验室新闻
      * 2是学术新闻
      * 3是其他
@@ -39,17 +44,20 @@ public class NewsServiceImpl implements NewsService {
     private String newsTypeIntegerToString(News news) {
         Integer typeInt = news.getType();
         switch (typeInt) {
-            case 1 : return "labnews";
-            case 2 : return "academic";
-            case 3 : return "others";
+            case 1:
+                return "labnews";
+            case 2:
+                return "academic";
+            case 3:
+                return "others";
         }
         return null;
     }
 
     private Integer newsTypeStringToInter(String newsType) {
-        if(newsType.equals("labnews")) return 1;
-        if(newsType.equals("academic")) return 2;
-        if(newsType.equals("others")) return 3;
+        if (newsType.equals("labnews")) return 1;
+        if (newsType.equals("academic")) return 2;
+        if (newsType.equals("others")) return 3;
         return -1;
     }
 
@@ -59,7 +67,7 @@ public class NewsServiceImpl implements NewsService {
         UserExample userExample = new UserExample();
         userExample.createCriteria()
                 .andUserIdEqualTo(news.getUserId());
-        List<User> userList =  userMapper.selectByExample(userExample);
+        List<User> userList = userMapper.selectByExample(userExample);
         return userList.get(0).getUserName();
     }
 
@@ -80,8 +88,8 @@ public class NewsServiceImpl implements NewsService {
         List<News> newsList = newsMapper.selectByExample(newsExample);
         List<MatterInfo> matterInfoList = new ArrayList<>();
         //把news数据拼接成matterInfoList
-        if(newsList != null) {
-            for(News news : newsList) {
+        if (newsList != null) {
+            for (News news : newsList) {
                 MatterInfo matterInfo = new MatterInfo();
                 matterInfo.setMatterIconClass(news.getIconClass());
                 matterInfo.setMatterNewsId(news.getNewsId().toString());
@@ -105,7 +113,7 @@ public class NewsServiceImpl implements NewsService {
                 .andNewsIdEqualTo(newsId);
         //把通过Example获取得到matter新闻存到list里面
         List<News> newsList = newsMapper.selectByExampleWithBLOBs(newsExample);
-        if(newsList.isEmpty())
+        if (newsList.isEmpty())
             return ResultTool.error("请求数据有误");
         News news = newsList.get(0);
         //把news数据拼接成stringArticleInfoMap
@@ -133,11 +141,11 @@ public class NewsServiceImpl implements NewsService {
         List<NewsInfo> newsInfoList = new ArrayList<>();
 
         //把news数据拼接成matterInfoList
-        if(newsList.isEmpty()) {
+        if (newsList.isEmpty()) {
             return ResultTool.error("请求格式有误");
         }
         Collections.reverse(newsList);
-        for(News news : newsList) {
+        for (News news : newsList) {
             NewsInfo newsInfo = new NewsInfo();
             AuthorInfo authorInfo = new AuthorInfo();
             authorInfo.setAuthorUid(news.getUserId());
@@ -159,18 +167,18 @@ public class NewsServiceImpl implements NewsService {
         Result<NewsTypeResult> result = new Result<>();
         NewsTypeResult newsTypeResult = new NewsTypeResult();
         List<NewsExplanation> newsExplanationList = new ArrayList<>();
-        for(int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 3; i++) {
             NewsExplanation newsExplanation = new NewsExplanation();
             switch (i) {
-                case 1 :
+                case 1:
                     newsExplanation.setNewsChineseLabel("实验室动态");
                     newsExplanation.setNewsValue("labnews");
                     break;
-                case 2 :
+                case 2:
                     newsExplanation.setNewsChineseLabel("学界重要新闻");
                     newsExplanation.setNewsValue("academic");
                     break;
-                case 3 :
+                case 3:
                     newsExplanation.setNewsChineseLabel("其他新闻");
                     newsExplanation.setNewsValue("others");
                     break;
@@ -184,10 +192,13 @@ public class NewsServiceImpl implements NewsService {
 
     //将新闻种类从String转换成对应数据库中的int类型
     private Integer newsTypeStringToInteger(String typeString) {
-        switch (typeString){
-            case "labnews" : return 1;
-            case "academic" : return 2;
-            case "others" : return 3;
+        switch (typeString) {
+            case "labnews":
+                return 1;
+            case "academic":
+                return 2;
+            case "others":
+                return 3;
         }
         return null;
     }
@@ -198,27 +209,30 @@ public class NewsServiceImpl implements NewsService {
 
         //添加新闻的标题
         String title = newsQueryJson.getTitle();
-        if(title.isEmpty())
+        if (title.isEmpty())
             return ResultTool.error("标题不能为空");
         //添加新闻的种类
         String oldType = newsQueryJson.getType();
-        if(oldType.isEmpty())
+        if (oldType.isEmpty())
             return ResultTool.error("种类不能为空");
         Integer type = newsTypeStringToInteger(oldType);
         //添加新闻的内容
         String content = newsQueryJson.getContent();
-        if(content.isEmpty())
+        if (content.isEmpty())
             return ResultTool.error("内容不能为空");
-        if(content.length() < 50)
+        if (content.length() < 50)
             return ResultTool.error("字数不能小于50");
         //默认新闻都是非重要的
         Integer status = 2;
         //这个是殷子良要求的 天知道是啥意思
         String iconClass = "el-icon-document";
-        String trueContent = Html2Text.getContent(content);
+//        String trueContent = Html2Text.getContent(content);
+//        Document doc=Jsoup.parse(content);
+//        String trueContent = doc.outerHtml();
+        String trueContent = HtmlToText.StripHT(content);
         String overview;
-        if(trueContent.length() > 200)
-            overview = trueContent.substring(0,200);
+        if (trueContent.length() > 200)
+            overview = trueContent.substring(0, 200);
         else
             overview = trueContent;
         News news = new News();
@@ -231,15 +245,16 @@ public class NewsServiceImpl implements NewsService {
         news.setIconClass(iconClass);
 
         int res = newsMapper.insert(news);
-        if(res > 0) {
-            return  ResultTool.success();
+        if (res > 0) {
+            return ResultTool.success();
         } else {
-            return  ResultTool.error("写入新闻失败");
+            return ResultTool.error("写入新闻失败");
         }
     }
+
     @Override
     public Result ModifyNews(Integer userId, NewsQueryJson newsQueryJson) {
-        if(userService.IsAbleToEditNews(userId, newsQueryJson)) {
+        if (userService.IsAbleToEditNews(userId, newsQueryJson)) {
             Integer newsId = newsQueryJson.getNewsId();
             String newsTitle = newsQueryJson.getTitle();
             String originNewsType = newsQueryJson.getType();
@@ -261,19 +276,19 @@ public class NewsServiceImpl implements NewsService {
                 return ResultTool.success();
             }
         }
-        return  ResultTool.error("您没有权限修改新闻");
+        return ResultTool.error("您没有权限修改新闻");
     }
 
     @Override
     public Result DeleteNews(Integer userId, NewsQueryJson newsQueryJson) {
-        if(userService.IsAbleToEditNews(userId, newsQueryJson)) {
+        if (userService.IsAbleToEditNews(userId, newsQueryJson)) {
             Integer newsId = newsQueryJson.getNewsId();
             int res = newsMapper.deleteByPrimaryKey(newsId);
             if (res > 0) {
                 return ResultTool.success();
             }
         }
-        return  ResultTool.PermissionsError();
+        return ResultTool.PermissionsError();
     }
 
 }
