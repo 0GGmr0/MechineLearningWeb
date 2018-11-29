@@ -106,7 +106,6 @@ public class UserServiceImpl implements UserService {
         return ResultTool.success(userMessageResult);
     }
 
-    @Transactional(rollbackForClassName = {"Exception"}, transactionManager = "mysqlTransactionManager")
     public Result login(LoginUser user) {
         //账号密码有一个是空的就无法登录
         if (user == null || user.getUserId() == null || user.getPassWord() == null || "".equals(user.getPassWord())) {

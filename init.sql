@@ -129,7 +129,7 @@ create table reply_msg
   likeed       int default '2' null
   comment '1喜欢 2不喜欢 默认是2'
 )
-  charset = urf8, engine = innodb;
+  charset = utf8, engine = innodb;
 
 -- auto-generated definition
 create table topic

@@ -132,10 +132,10 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public Result getNewsInfoList(String newsType) {
         //获取指定种类的新闻
-//        String newsType = newsQueryJson.getType();
         NewsExample newsExample = new NewsExample();
+        int reallyType = newsTypeStringToInter(newsType);
         newsExample.createCriteria()
-                .andTypeEqualTo(newsTypeStringToInter(newsType));
+                .andTypeEqualTo(reallyType);
         //把通过Example获取得到matter新闻存到list里面
         List<News> newsList = newsMapper.selectByExampleWithBLOBs(newsExample);
         List<NewsInfo> newsInfoList = new ArrayList<>();
