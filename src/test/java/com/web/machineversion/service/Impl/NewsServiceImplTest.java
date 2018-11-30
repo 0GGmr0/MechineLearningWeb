@@ -28,6 +28,8 @@ public class NewsServiceImplTest {
 
     @Test
     public void getNewsInfoList() {
+        Result result = newsService.getNewsInfoList("academic");
+        System.out.print(result);
     }
 
     @Test

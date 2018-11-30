@@ -137,7 +137,7 @@ public class NewsServiceImpl implements NewsService {
         newsExample.createCriteria()
                 .andTypeEqualTo(reallyType);
         //把通过Example获取得到matter新闻存到list里面
-        List<News> newsList = newsMapper.selectByExampleWithBLOBs(newsExample);
+        List<News> newsList = newsMapper.selectByExample(newsExample);
         List<NewsInfo> newsInfoList = new ArrayList<>();
 
         //把news数据拼接成matterInfoList

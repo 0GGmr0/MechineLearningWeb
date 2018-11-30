@@ -21,27 +21,57 @@ public class NewsController {
     @Resource
     private UserService userService;
 
-    //获取重要新闻
+    /**
+     * @Description: 获取重要新闻
+     * @Param: []
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/matterNews", method = RequestMethod.GET)
     public Result getMatterList() { return newsService.getMatterInfoList(); }
 
-    //获取指定种类的新闻
+    /**
+     * @Description: 获取指定种类的新闻
+     * @Param: [newsType]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/assignationNews", method = RequestMethod.GET)
     public Result getNews(@RequestParam(value = "type") String newsType) {
         return newsService.getNewsInfoList(newsType);
     }
 
-    //获取指定新闻Id的新闻
+    /**
+     * @Description: 获取指定新闻Id的新闻
+     * @Param: [newsId]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/assignationArticle", method = RequestMethod.GET)
     public Result getArticle(@RequestParam(value = "newsId") Integer newsId) {
         return newsService.getArticleInfo(newsId);
     }
 
-    //获取新闻所有的种类，英文名字和对应的中文解释
+    /**
+     * @Description: 获取新闻所有的种类，英文名字和对应的中文解释
+     * @Param: []
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/newsType", method = RequestMethod.GET)
     public Result getNewsType() { return newsService.getNewsType(); }
 
-    //添加一条新的新闻
+    /**
+     * @Description: 添加一条新的新闻
+     * @Param: [token, newsQueryJson]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
     public Result QueryAddNews(@RequestHeader(value = "Authorization") String token,
                                @RequestBody NewsQueryJson newsQueryJson) {
@@ -50,7 +80,13 @@ public class NewsController {
         return newsService.AddNewNews(userId, newsQueryJson);
     }
 
-    //修改一条新闻
+    /**
+     * @Description: 修改一条新闻
+     * @Param: [token, newsQueryJson]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/modifyNews", method = RequestMethod.POST)
     public Result QueryModifyNews(@RequestHeader(value = "Authorization") String token,
                                   @RequestBody NewsQueryJson newsQueryJson) {
@@ -59,7 +95,13 @@ public class NewsController {
 
     }
 
-    //删除一条新闻
+    /**
+     * @Description: 删除一条新闻
+     * @Param: [token, newsQueryJson]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/deleteNews", method = RequestMethod.POST)
     public Result QueryDeleteNews(@RequestHeader(value = "Authorization") String token,
                                   @RequestBody NewsQueryJson newsQueryJson) {

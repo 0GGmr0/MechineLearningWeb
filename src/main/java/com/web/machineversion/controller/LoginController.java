@@ -14,6 +14,13 @@ public class LoginController {
     @Resource
     private UserService userService;
 
+    /**
+     * @Description: 登录接口
+     * @Param: [loginUser]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Result login(@RequestBody LoginUser loginUser) {
         return userService.login(loginUser);

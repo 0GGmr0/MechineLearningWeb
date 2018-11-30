@@ -21,7 +21,13 @@ public class TopicController {
     @Resource
     private TopicService topicService;
 
-    //获取当前存在的所有topic
+    /**
+     * @Description: 获取当前存在的所有topic
+     * @Param: [httpServletRequest]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/allTopicInfo", method = RequestMethod.GET)
     public Result getAllTopicInfo(HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
@@ -33,13 +39,25 @@ public class TopicController {
         return topicService.getAllTopicInfo(userId);
     }
 
-    //获取某篇话题的详细内容
+    /**
+     * @Description: 获取某篇话题的详细内容
+     * @Param: [topicId]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/topicDetail", method = RequestMethod.GET)
     public Result getTopicDetail(@RequestParam(value = "topicId") Integer topicId) {
         return topicService.getTopicDetail(topicId);
     }
 
-    //获取某篇话题的comment详情
+    /**
+     * @Description: 获取某篇话题的comment详情
+     * @Param: [topicId, httpServletRequest]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/commentDetail", method = RequestMethod.GET)
     public Result getCommentDetail(@RequestParam(value = "topicId") Integer topicId,
                                    HttpServletRequest httpServletRequest) {
@@ -52,7 +70,13 @@ public class TopicController {
         return topicService.getCommentDetail(topicId,userId);
     }
 
-    //发布话题
+    /**
+     * @Description: 发布话题
+     * @Param: [topicQueryJson, httpServletRequest]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/addTopic", method = RequestMethod.POST)
     public Result addTopic(@RequestBody TopicQueryJson topicQueryJson,
                            HttpServletRequest httpServletRequest) {
@@ -63,7 +87,13 @@ public class TopicController {
         return topicService.addTopic(topicQueryJson, userId);
     }
 
-    //给话题点赞
+    /**
+     * @Description: 给话题点赞
+     * @Param: [commentLikedQueryJson, httpServletRequest]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/setTopicLiked", method = RequestMethod.POST)
     public Result serTopicLiked(@RequestBody CommentLikedQueryJson commentLikedQueryJson,
                                 HttpServletRequest httpServletRequest) {
@@ -74,7 +104,13 @@ public class TopicController {
         return topicService.setTopicLiked(commentLikedQueryJson, userId);
     }
 
-    //给话题的某个评论（回复）点赞
+    /**
+     * @Description: 给话题的某个评论（回复）点赞
+     * @Param: [commentLikedQueryJson, httpServletRequest]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/setCommentLiked", method = RequestMethod.POST)
     public Result setCommentLiked(@RequestBody CommentLikedQueryJson commentLikedQueryJson,
                                   HttpServletRequest httpServletRequest) {
@@ -85,7 +121,13 @@ public class TopicController {
         return topicService.setCommentLiked(commentLikedQueryJson, userId);
     }
 
-    //给某个话题进行评论（回复）
+    /**
+     * @Description: 给某个话题进行评论（回复）
+     * @Param:
+     * @Return:
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/addTopicComment", method = RequestMethod.POST)
     public Result addTopicComment(@RequestBody CommentQueryJson commentQueryJason,
                                   HttpServletRequest httpServletRequest) {
@@ -96,7 +138,13 @@ public class TopicController {
         return topicService.addTopicComment(commentQueryJason, userId);
     }
 
-    //给某个话题进行评论（回复）
+    /**
+     * @Description: 给某个话题进行评论（回复）
+     * @Param: [topicQueryJason, httpServletRequest]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/editTopic", method = RequestMethod.POST)
     public Result editTopic(@RequestBody TopicQueryJson topicQueryJason,
                                   HttpServletRequest httpServletRequest) {
@@ -107,6 +155,13 @@ public class TopicController {
         return topicService.editTopic(userId,topicQueryJason);
     }
 
+    /**
+     * @Description: 删除一个话题
+     * @Param: [httpServletRequest, topicQueryJason]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/deleteTopic", method = RequestMethod.POST)
     public Result QueryDeleteTopic(HttpServletRequest httpServletRequest,
                                   @RequestBody TopicQueryJson topicQueryJason) {

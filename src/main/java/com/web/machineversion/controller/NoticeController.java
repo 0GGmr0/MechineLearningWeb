@@ -15,7 +15,13 @@ public class NoticeController {
     @Resource
     private NoticeService noticeService;
 
-    //添加一条新的公告
+    /**
+     * @Description: 添加一条新的公告
+     * @Param: [token, noticeQueryJson]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/addNotice", method = RequestMethod.POST)
     public Result QueryAddNews(@RequestHeader(value = "Authorization") String token,
                                @RequestBody NoticeQueryJson noticeQueryJson) {
@@ -24,7 +30,13 @@ public class NoticeController {
         return noticeService.AddNotice(userId, noticeQueryJson);
     }
 
-    //手动删除一条公告
+    /**
+     * @Description: 手动删除一条公告
+     * @Param: [token, noticeQueryJson]
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/deleteNotice", method = RequestMethod.POST)
     public Result QueryDeleteNotice(@RequestHeader(value = "Authorization") String token,
                                     @RequestBody NoticeQueryJson noticeQueryJson) {
@@ -32,7 +44,13 @@ public class NoticeController {
         return noticeService.deleteByTitle(userId, noticeQueryJson);
     }
 
-    //获取所有有效公告
+    /**
+     * @Description: 获取所有有效公告
+     * @Param: []
+     * @Return: com.web.machineversion.model.OV.Result
+     * @Author: ggmr
+     * @Date: 2018/11/30
+     */
     @RequestMapping(value = "/allNotice", method = RequestMethod.GET)
     public Result getNotice() {
         return noticeService.findAll();
